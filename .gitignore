@@ -1,0 +1,7 @@
+node_modules
+dist
+example/dist
+.vanilla-extract
+.DS_Store
+vite-profile-*.cpuprofile
+
