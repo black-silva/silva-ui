@@ -1,5 +1,10 @@
 # silva-ui Component Library
 
+[![Bundle size](https://badgen.net/bundlephobia/min/silva-ui)](https://bundlephobia.com/package/silva-ui)
+[![Minified + gzipped size](https://badgen.net/bundlephobia/minzip/silva-ui)](https://bundlephobia.com/package/silva-ui)
+[![TypeScript](https://badgen.net/badge/built%20with/TypeScript/blue)](https://www.typescriptlang.org/)
+[![License](https://badgen.net/badge/license/MIT/green)](./LICENSE)
+
 A Hono JSX UI component library with framework-neutral styling and Tamagui-inspired theming, built on `@vanilla-extract/css` and `@vanilla-extract/sprinkles`.
 
 ---
