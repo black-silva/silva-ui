@@ -1,0 +1,66 @@
+---
+title: Theming
+description: Apply built-in themes, semantic colours and custom theme definitions.
+---
+
+# Theming
+
+silva-ui includes `light`, `dark`, `emerald`, `emeraldDark` and `midnight` themes. A `Theme` scope adds the chosen class to its rendered element, so nested scopes can override the parent without runtime style injection.
+
+## Apply a built-in theme
+
+```tsx
+import { Box, Text, Theme } from 'silva-ui'
+
+<Theme name="dark">
+  <Box bg="card" color="primary" p="large" borderRadius="large">
+    <Text>Semantic tokens follow the active theme.</Text>
+  </Box>
+</Theme>
+```
+
+## Nest theme scopes
+
+```tsx
+<Theme name="dark">
+  <Box bg="background" p="large">
+    <Theme name="emerald">
+      <Box bg="primary" color="primary" p="medium" borderRadius="medium">
+        This nested section uses emerald tokens.
+      </Box>
+    </Theme>
+  </Box>
+</Theme>
+```
+
+## Colour tokens
+
+Use semantic names for application UI and numbered Radix-style ramps when precise colour control matters.
+
+| Use case | Example |
+| --- | --- |
+| Page surface | `bg="background"` |
+| Raised surface | `bg="card"` |
+| Muted text | `color="muted"` |
+| Accent ramp | `bg="teal6" color="teal12"` |
+| Translucent layer | `backgroundColor="blackA4"` |
+
+`colorScales`, `darkColorScales`, `colorTokens`, and `darkColorTokens` are exported for programmatic use.
+
+## Build custom theme data
+
+`createThemes` turns palettes and templates into theme value records. `applyThemeTemplate` resolves a template against a palette, and `buildThemeSet` can produce renderer-specific classes from definitions.
+
+```tsx
+import { createThemes } from 'silva-ui'
+
+const themes = createThemes({
+  palettes: { brand: ['#ecfdf5', '#059669', '#022c22'] },
+  templates: { base: { background: 1, primary: 2, muted: 3 } },
+  base: { palette: 'brand', template: 'base' },
+})
+```
+
+<Warning>
+The theme-builder helpers create value records. To render a custom theme, register the resulting values through your renderer or theme-class workflow.
+</Warning>
