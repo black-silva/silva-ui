@@ -1,0 +1,60 @@
+---
+title: Display and media
+description: Cards, avatars, images, list items and loading indicators.
+---
+
+# Display and media
+
+## Card
+
+`Card` creates a reusable surface. Add `bordered` for an explicit border and `elevated` for a raised treatment. `CardHeader` and `CardFooter` provide structured regions.
+
+```tsx
+<Card bordered elevated p="large">
+  <CardHeader>
+    <Heading level={3}>Storage</Heading>
+    <Paragraph size="sm" color="muted">18 GB of 50 GB used</Paragraph>
+  </CardHeader>
+  <Progress value={36} max={100} aria-label="Storage used" />
+  <CardFooter>
+    <Button variant="outline">Manage storage</Button>
+  </CardFooter>
+</Card>
+```
+
+## Avatar and image
+
+Compose `Avatar` with `AvatarImage` and `AvatarFallback`. `Image` supports `src`, `alt`, `width`, `height`, `loading`, and all common sprinkles props.
+
+```tsx
+<Avatar size="lg">
+  <AvatarImage src="/avatars/silva.png" alt="Silva profile" />
+  <AvatarFallback>S</AvatarFallback>
+</Avatar>
+
+<Image src="/banner.png" alt="Product banner" width={1200} height={630} loading="lazy" w="full" />
+```
+
+## ListItem
+
+`ListItem` accepts `title`, `subTitle`, an `icon`, `pressable`, `size`, and `onClick`.
+
+```tsx
+<ListItem
+  icon={<AvatarFallback>KM</AvatarFallback>}
+  title="Kgothatso Mokobodi"
+  subTitle="Owner"
+  pressable
+/>
+```
+
+## Loading states
+
+Use `Spinner` for a compact progress indicator or `Loader` for a horizontal indeterminate indicator. Both expose `size` and an optional `label` and render with `role="status"`.
+
+```tsx
+<YStack gap="medium">
+  <Spinner size="md" label="Loading profile" />
+  <Loader size="lg" label="Saving your changes" />
+</YStack>
+```
