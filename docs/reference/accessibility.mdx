@@ -1,0 +1,38 @@
+---
+title: Accessibility notes
+description: Responsibilities shared between silva-ui and your application.
+---
+
+# Accessibility notes
+
+silva-ui uses semantic native controls where practical and exposes ARIA attributes on several components. Your application still owns the behaviour that needs runtime state.
+
+## Built into components
+
+- `Label` accepts `htmlFor`; form controls accept `id`.
+- `Progress` renders a progressbar role and accepts `aria-label`.
+- `Spinner` and `Loader` render with `role="status"`.
+- `DialogContent` renders `role="dialog"` and `aria-modal="true"`.
+- `TabList` accepts `aria-label`; tabs and panels expose linking props such as `aria-controls` and `aria-labelledby`.
+- `Anchor` has visible focus styling and a disabled state.
+
+## Your application must provide
+
+- Controlled state and event handlers for toggles, tabs, accordion sections and overlays.
+- Keyboard navigation patterns for tabs, menus and composite widgets.
+- Focus movement, focus trapping and focus restoration for dialogs and sheets.
+- A portal and stacking strategy for overlays.
+- Clear accessible names for controls that do not have visible text.
+- Colour contrast validation for custom themes and custom class overrides.
+
+## Practical checklist
+
+- [ ] Connect every visible label to its input using `htmlFor` and `id`.
+- [ ] Use a semantic heading hierarchy.
+- [ ] Keep native buttons as buttons and provide a `type` inside forms.
+- [ ] Make focus handling explicit when an overlay opens or closes.
+- [ ] Test keyboard-only navigation and a screen reader before shipping.
+
+<Info>
+The library intentionally stays stateless. This keeps it lean for Hono JSX, but interactive accessibility belongs in the application layer.
+</Info>
