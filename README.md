@@ -7,6 +7,9 @@
 
 A Hono JSX UI component library with framework-neutral styling and Tamagui-inspired theming, built on `@vanilla-extract/css` and `@vanilla-extract/sprinkles`.
 
+Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for
+development setup, validation commands, and pull request expectations.
+
 ---
 
 ## Component Inventory
