@@ -1,0 +1,56 @@
+---
+title: Layout
+description: Arrange content with Box, stacks, groups and separators.
+---
+
+# Layout primitives
+
+All layout components accept shared sprinkles props such as `p`, `gap`, `bg`, `borderRadius`, `width` and `alignItems`.
+
+## Box
+
+`Box` is the foundation primitive. It renders a `div` by default and supports `as` for a different element.
+
+```tsx
+<Box as="section" p="large" bg="card" borderRadius="large">
+  Content
+</Box>
+```
+
+## Stacks
+
+`YStack` is a vertical flex container and `XStack` is a horizontal flex container.
+
+```tsx
+<YStack gap="large" p="large">
+  <Heading level={2}>Account settings</Heading>
+  <XStack gap="small" alignItems="center" justifyContent="space-between">
+    <Text>Email alerts</Text>
+    <Switch defaultChecked />
+  </XStack>
+</YStack>
+```
+
+## XGroup
+
+Use `XGroup` for connected horizontal controls. Its children share borders and outer corner radii.
+
+```tsx
+<XGroup>
+  <Button variant="outline">Day</Button>
+  <Button variant="outline">Week</Button>
+  <Button variant="outline">Month</Button>
+</XGroup>
+```
+
+## Separator
+
+`Separator` renders a horizontal rule by default. Set `orientation="vertical"` for an inline divider. Use `decorative` when it is purely visual.
+
+```tsx
+<XStack gap="medium" alignItems="center">
+  <Text>Overview</Text>
+  <Separator orientation="vertical" decorative height="full" />
+  <Text color="muted">Last updated today</Text>
+</XStack>
+```
