@@ -1,0 +1,59 @@
+---
+title: Recipes
+description: Practical composition patterns for common screens.
+---
+
+# Recipes
+
+## Settings row
+
+Use layout primitives and a `Switch` to create a compact, readable preference row.
+
+```tsx
+<XStack p="medium" alignItems="center" justifyContent="space-between" bg="card" borderRadius="medium">
+  <YStack gap="xs">
+    <Text fontWeight="medium">Email notifications</Text>
+    <Text fontSize="sm" color="muted">Receive a summary of account activity.</Text>
+  </YStack>
+  <Switch name="email-notifications" defaultChecked />
+</XStack>
+```
+
+## Empty state
+
+```tsx
+<YStack p="2xl" gap="medium" alignItems="center" textAlign="center" bg="card" borderRadius="large">
+  <Heading level={2}>No projects yet</Heading>
+  <Paragraph color="muted">Create your first project to get started.</Paragraph>
+  <Button>Create project</Button>
+</YStack>
+```
+
+## Controlled toast region
+
+```tsx
+<ToastProvider position="top-right">
+  {saved && (
+    <Toast variant="success">
+      <ToastTitle>Changes saved</ToastTitle>
+      <ToastDescription>Your profile is up to date.</ToastDescription>
+      <ToastClose onClick={() => setSaved(false)}>Close</ToastClose>
+    </Toast>
+  )}
+</ToastProvider>
+```
+
+## Theme preview
+
+```tsx
+<XStack gap="medium" flexWrap="wrap">
+  {['light', 'dark', 'emerald', 'midnight'].map((name) => (
+    <Theme name={name}>
+      <Card p="medium" minWidth="48" bg="card">
+        <Text color="primary" fontWeight="semibold">{name}</Text>
+        <Text color="muted" fontSize="sm">Theme-aware token preview</Text>
+      </Card>
+    </Theme>
+  ))}
+</XStack>
+```
