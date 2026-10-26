@@ -1,0 +1,41 @@
+---
+title: Typography
+description: Semantic headings, readable body text and accessible links.
+---
+
+# Typography
+
+## Text primitives
+
+`Text` renders a `span` by default and can render common inline or block tags with `as`. `SizableText` adds a coordinated `fontSize` and `lineHeight` size scale: `xs`, `sm`, `md`, `lg` and `xl`.
+
+```tsx
+<Text as="strong" fontWeight="semibold">Strong emphasis</Text>
+<SizableText size="lg" color="muted">Supporting copy</SizableText>
+```
+
+## Headings
+
+`Heading` uses the appropriate `h1`–`h6` tag based on `level`. Shorthand exports `H1` through `H6` are also available.
+
+```tsx
+import { H1, Heading, Paragraph } from 'silva-ui'
+
+<H1>Project overview</H1>
+<Heading level={2}>Recent activity</Heading>
+<Paragraph size="md">A short, readable description.</Paragraph>
+```
+
+## Paragraph and Anchor
+
+`Paragraph` is a `SizableText` configured as a paragraph with a default `md` size. `Anchor` renders an accessible, styled link and accepts `href`, `target`, `rel`, and `disabled`.
+
+```tsx
+<Paragraph color="muted">
+  Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.
+</Paragraph>
+```
+
+<Info>
+Use semantic heading levels in order. Visual sizing can be controlled separately with sprinkles props.
+</Info>
