@@ -1,0 +1,42 @@
+---
+title: Public exports
+description: Complete map of components, types and theme utilities.
+---
+
+# Public exports
+
+Import components from `silva-ui`. Types are exported from the same root entry point.
+
+## Core
+
+`Theme`, `tokens`, `sprinkles`, `cls`, `splitSprinklesProps`, `toSprinklesClass`, `colorScales`, `darkColorScales`, `colorTokens`, `darkColorTokens`.
+
+Theme data and helpers: `themeColors`, `lightTheme`, `darkTheme`, `emeraldTheme`, `emeraldDarkTheme`, `midnightTheme`, `themes`, `themeDefinitions`, `addTheme`, `getTheme`, `getThemes`, `replaceTheme`, `updateTheme`, `applyThemeTemplate`, `buildThemeSet`, `createThemes`.
+
+## Layout and typography
+
+| Area | Exports |
+| --- | --- |
+| Layout | `Box`, `XStack`, `YStack`, `XGroup`, `Separator` |
+| Typography | `Text`, `SizableText`, `Paragraph`, `Heading`, `H1`–`H6`, `Anchor` |
+
+## Forms and display
+
+| Area | Exports |
+| --- | --- |
+| Forms | `Button`, `Input`, `TextArea`, `Label`, `Form`, `Field`, `FieldError`, `FieldHelper` |
+| Selection | `Checkbox`, `RadioGroup`, `RadioGroupItem`, `Select`, `Slider`, `Switch`, `ToggleGroup`, `ToggleGroupItem`, `Progress` |
+| Display | `Avatar`, `AvatarImage`, `AvatarFallback`, `Card`, `CardHeader`, `CardFooter`, `Image`, `ListItem`, `Spinner`, `Loader` |
+
+## Overlay families
+
+| Family | Exports |
+| --- | --- |
+| Tabs | `Tabs`, `TabList`, `Tab`, `TabPanel` |
+| Dialog | `Dialog`, `DialogOverlay`, `DialogContent`, `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose` |
+| Alert dialog | `AlertDialog`, `AlertDialogOverlay`, `AlertDialogContent`, `AlertDialogHeader`, `AlertDialogFooter`, `AlertDialogTitle`, `AlertDialogDescription`, `AlertDialogAction`, `AlertDialogCancel` |
+| Popover | `Popover`, `PopoverTrigger`, `PopoverContent`, `PopoverClose` |
+| Sheet | `Sheet`, `SheetOverlay`, `SheetContent`, `SheetHeader`, `SheetFooter`, `SheetTitle`, `SheetDescription`, `SheetClose` |
+| Other | `Tooltip`, `TooltipTrigger`, `TooltipContent`, `ToastProvider`, `Toast`, `ToastTitle`, `ToastDescription`, `ToastClose`, `Menu`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuSeparator`, `MenuLabel`, `MenuGroup`, `ContextMenu`, `ContextMenuTrigger`, `ContextMenuContent`, `ContextMenuItem`, `ContextMenuSeparator`, `ContextMenuLabel`, `ContextMenuGroup`, `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent` |
+
+For component prop types, import the matching `*Props` type, for example `ButtonProps`, `ThemeProps`, `DialogContentProps` or `CreateThemesOptions`.

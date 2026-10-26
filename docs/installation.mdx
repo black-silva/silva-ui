@@ -1,0 +1,55 @@
+---
+title: Installation
+description: Add silva-ui to a Hono JSX application.
+---
+
+# Installation
+
+Install the package alongside Hono, then import its stylesheet once at your application entry point.
+
+```bash
+npm install silva-ui hono
+```
+
+## Import the CSS
+
+```tsx
+import 'silva-ui/style.css'
+```
+
+The package exposes this stylesheet as the `silva-ui/style.css` subpath. Component imports come from the root package.
+
+## Create a route
+
+```tsx
+import { Hono } from 'hono'
+import 'silva-ui/style.css'
+import { Button, Heading, Paragraph, Theme, YStack } from 'silva-ui'
+
+const app = new Hono()
+
+app.get('/', (c) => c.html(
+  <Theme name="emerald" p="large">
+    <YStack gap="medium" maxWidth={400}>
+      <Heading level={1}>Hello, Silva</Heading>
+      <Paragraph color="muted">Your UI is ready to grow.</Paragraph>
+      <Button type="button">Get started</Button>
+    </YStack>
+  </Theme>,
+))
+
+export default app
+```
+
+<Info>
+`Theme` renders a `div` by default. Set `as` when a different HTML element is needed.
+</Info>
+
+## Package entry points
+
+| Import | Purpose |
+| --- | --- |
+| `silva-ui` | Components, tokens, types and theme utilities |
+| `silva-ui/style.css` | Prebuilt CSS required by the components |
+
+Next: [apply a theme](/docs/theming).

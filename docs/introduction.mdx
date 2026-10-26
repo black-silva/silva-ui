@@ -1,0 +1,51 @@
+---
+title: Introduction
+description: A zero-runtime component library for Hono JSX.
+---
+
+# Build Hono UIs with composable primitives
+
+**silva-ui** is a TypeScript component library for Hono JSX. It ships prebuilt CSS generated with Vanilla Extract, a token-driven styling API, and components that remain framework-neutral at render time.
+
+<Note>
+The package has a peer dependency on `hono@^4.13.13`. Components and the stylesheet are imported from the package root and `silva-ui/style.css` respectively.
+</Note>
+
+## What you get
+
+- **Zero runtime styles**: CSS is generated at build time.
+- **Theme scopes**: apply one of the included themes to a subtree with `Theme`.
+- **Sprinkles props**: use typed spacing, colour, layout, sizing and state props on every primitive.
+- **Hono-first JSX**: lean components designed for Hono, while keeping framework-specific types out of the public API.
+
+<CardGroup cols={2}>
+  <Card title="Start building" icon="rocket" href="/docs/installation">Install the package and CSS.</Card>
+  <Card title="Use tokens" icon="palette" href="/docs/theming">Explore built-in themes and colours.</Card>
+  <Card title="Browse components" icon="blocks" href="/docs/components/forms">Build forms, layouts and overlays.</Card>
+  <Card title="See every export" icon="book-open" href="/docs/reference/exports">Use the public API as a reference.</Card>
+</CardGroup>
+
+## A small profile card
+
+```tsx
+import 'silva-ui/style.css'
+import { Avatar, AvatarFallback, Card, Heading, Paragraph, YStack } from 'silva-ui'
+
+export function ProfileCard() {
+  return (
+    <Card elevated p="large" maxWidth={400}>
+      <YStack gap="medium" alignItems="center">
+        <Avatar size="xl">
+          <AvatarFallback>KM</AvatarFallback>
+        </Avatar>
+        <YStack gap="xs" alignItems="center">
+          <Heading level={2}>Kgothatso Mokobodi</Heading>
+          <Paragraph size="sm" color="muted">Building with Hono JSX.</Paragraph>
+        </YStack>
+      </YStack>
+    </Card>
+  )
+}
+```
+
+Next: [install silva-ui](/docs/installation).

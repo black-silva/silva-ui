@@ -1,0 +1,63 @@
+---
+title: Overlays and compound components
+description: Build stateless dialogs, tabs, menus, sheets and feedback surfaces.
+---
+
+# Overlays and compound components
+
+These components provide structure, styling, ARIA roles and state data attributes. They are deliberately **stateless**: your application owns interaction, focus management, keyboard handling and portal behaviour.
+
+<Warning>
+For production modal behaviour, add your own focus trap, Escape handling, background inertness and portal strategy around the visual primitives.
+</Warning>
+
+## Dialog and AlertDialog
+
+`Dialog` and `AlertDialog` accept `open`. Overlay and content components receive `data-state="open" | "closed"`; content defaults to `open` for standalone composition.
+
+```tsx
+<Dialog open={isOpen}>
+  <DialogOverlay />
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Delete project?</DialogTitle>
+      <DialogDescription>This cannot be undone.</DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <DialogClose>Cancel</DialogClose>
+      <Button onClick={removeProject}>Delete</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+`AlertDialog` offers the parallel `AlertDialogAction` and `AlertDialogCancel` primitives for explicit confirmation flows.
+
+## Tabs and accordion
+
+Set active tabs in application state using `data-active`; match `Tab` and `TabPanel` values, then hide inactive panels yourself.
+
+```tsx
+<Tabs value={activeTab}>
+  <TabList aria-label="Account settings">
+    <Tab value="profile" data-active={activeTab === 'profile'} onClick={() => setActiveTab('profile')}>Profile</Tab>
+    <Tab value="security" data-active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Security</Tab>
+  </TabList>
+  <TabPanel value="profile" hidden={activeTab !== 'profile'}>Profile content</TabPanel>
+  <TabPanel value="security" hidden={activeTab !== 'security'}>Security content</TabPanel>
+</Tabs>
+```
+
+The `Accordion` family uses `Accordion`, `AccordionItem`, `AccordionTrigger`, and `AccordionContent`. Control visual state through `data-state` on trigger and content.
+
+## Popover, Sheet and Tooltip
+
+- `PopoverContent`, `SheetContent`, and `TooltipContent` accept `side="top" | "bottom" | "left" | "right"`.
+- `Sheet` accepts `open` and includes header, footer, title, description and close elements.
+- `Popover`, `Tooltip`, `Menu`, and `ContextMenu` include trigger/content pairs.
+
+## Toast, Menu and ContextMenu
+
+Wrap notifications in `ToastProvider`; choose a `position` such as `top-right` or `bottom-center`. `Toast` supports `default`, `success`, `error`, and `warning` variants.
+
+`Menu` and `ContextMenu` export `Trigger`, `Content`, `Item`, `Separator`, `Label`, and `Group` components. Menu items support `disabled` and `onClick`.
