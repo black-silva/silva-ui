@@ -1506,9 +1506,6 @@ function DocsPage({ item, theme }: { item: DocItem; theme: string }) {
               <Text fontSize="sm" color="muted">Theme-aware CSS</Text>
             </Box>
             <Box bg="subtle" borderRadius="small" px="small" py="xs">
-              <Text fontSize="sm" color="muted">Framework agnostic</Text>
-            </Box>
-            <Box bg="subtle" borderRadius="small" px="small" py="xs">
               <Text fontSize="sm" color="muted">State owned by your app</Text>
             </Box>
           </XStack>
@@ -1597,7 +1594,7 @@ function QuickStartPage() {
         <Text fontSize="sm" color="primary" fontWeight="semibold">GET STARTED</Text>
         <H1 fontSize="4xl">Quick start</H1>
         <Paragraph color="muted" size="lg">
-          Install silva-ui, configure the CSS extraction plugin, then compose your first themed component.
+          Install silva-ui, import its prebuilt stylesheet, then compose your first themed component.
         </Paragraph>
       </YStack>
 
@@ -1605,9 +1602,9 @@ function QuickStartPage() {
         <YStack gap="medium">
           <H2 fontSize="2xl">1. Install</H2>
           <Paragraph color="muted">
-            In a project using the published package, add silva-ui and its peer build dependencies:
+            In a project using the published package, install silva-ui and its Hono peer dependency:
           </Paragraph>
-          <CodeBlock value="npm install silva-ui @vanilla-extract/css @vanilla-extract/sprinkles" />
+          <CodeBlock value="npm install silva-ui hono" />
           <Paragraph color="muted">
             To run this repository instead, install the dependencies from its package manifest:
           </Paragraph>
@@ -1617,15 +1614,11 @@ function QuickStartPage() {
 
       <Card bordered elevated p="large" bg="card">
         <YStack gap="medium">
-          <H2 fontSize="2xl">2. Configure Vite</H2>
+          <H2 fontSize="2xl">2. Import the published styles</H2>
           <Paragraph color="muted">
-            Add Vanilla Extract’s Vite plugin so component styles and theme variables are extracted at build time.
+            The published package includes prebuilt Vanilla Extract CSS. Import it once in your application entry point.
           </Paragraph>
-          <CodeBlock value={`import { defineConfig } from 'vite';\nimport { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';\n\nexport default defineConfig({\n  plugins: [vanillaExtractPlugin()],\n});`} />
-          <Paragraph color="muted">
-            For Hono JSX, configure the JSX runtime in your TypeScript or Vite setup:
-          </Paragraph>
-          <CodeBlock value={`// tsconfig.json\n{\n  "compilerOptions": {\n    "jsx": "react-jsx",\n    "jsxImportSource": "hono/jsx"\n  }\n}`} />
+          <CodeBlock value={`// main.tsx\nimport 'silva-ui/style.css';\nimport { render } from 'hono/jsx/dom';`} />
         </YStack>
       </Card>
 
@@ -1635,13 +1628,24 @@ function QuickStartPage() {
           <Paragraph color="muted">
             Wrap your application with Theme and use semantic tokens such as background, card, primary, and muted.
           </Paragraph>
-          <CodeBlock value={`import { render } from 'hono/jsx/dom';\nimport { Button, Card, H1, Theme, YStack } from 'silva-ui';\n\nfunction App() {\n  return (\n    <Theme name="light">\n      <YStack minHeight="screenH" bg="background" p="large">\n        <Card bg="card" p="large">\n          <H1>Welcome</H1>\n          <Button>Get started</Button>\n        </Card>\n      </YStack>\n    </Theme>\n  );\n}\n\nrender(<App />, document.getElementById('root')!);`} />
+          <CodeBlock value={`import 'silva-ui/style.css';\nimport { render } from 'hono/jsx/dom';\nimport { Button, Card, H1, Theme, YStack } from 'silva-ui';\n\nfunction App() {\n  return (\n    <Theme name="light">\n      <YStack minHeight="screenH" bg="background" p="large">\n        <Card bg="card" p="large">\n          <H1>Welcome</H1>\n          <Button>Get started</Button>\n        </Card>\n      </YStack>\n    </Theme>\n  );\n}\n\nrender(<App />, document.getElementById('root')!);`} />
         </YStack>
       </Card>
 
       <Card bordered elevated p="large" bg="card">
         <YStack gap="medium">
-          <H2 fontSize="2xl">4. Switch themes and use colors</H2>
+          <H2 fontSize="2xl">4. Develop silva-ui from source</H2>
+          <Paragraph color="muted">
+            The Vite and Vanilla Extract plugin configuration is only needed when working on this repository, not when consuming the published package.
+          </Paragraph>
+          <CodeBlock value={`import { defineConfig } from 'vite';\nimport { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';\n\nexport default defineConfig({\n  plugins: [vanillaExtractPlugin()],\n});`} />
+          <CodeBlock value={`// tsconfig.json\n{\n  "compilerOptions": {\n    "jsx": "react-jsx",\n    "jsxImportSource": "hono/jsx"\n  }\n}`} />
+        </YStack>
+      </Card>
+
+      <Card bordered elevated p="large" bg="card">
+        <YStack gap="medium">
+          <H2 fontSize="2xl">5. Switch themes and use colors</H2>
           <Paragraph color="muted">
             Choose a built-in theme or nest Theme for a local color context.             Color tokens follow the Tamagui/Radix convention: the same token name
             receives a light-palette or dark-palette value from the active theme.

@@ -66,24 +66,13 @@ development setup, validation commands, and pull request expectations.
 - [`ContextMenu`](./src/overlays/ContextMenu.tsx) family — Fixed positioning at coordinates via CSS custom properties
 - [`Accordion`](./src/overlays/Accordion.tsx) family (`Item`, `Trigger` with rotating chevron, `Content`)
 
-## Profiling the library
-
-The library can be profiled without including the documentation example app:
-
-```bash
-npm run profile:library
-```
-
-This builds from `src/index.ts` using `vite.library.config.ts`, excludes the
-`example/` entry point, writes the library output to `dist/library`, and
-generates `vite-profile-0.cpuprofile`. Open the `.cpuprofile` file in Chrome
-DevTools under **Performance** to inspect build-time CPU usage.
 
 ---
 
 ## Quick Example in Hono JSX
 
 ```tsx
+import 'silva-ui/style.css';
 import {
   YStack,
   XStack,
@@ -130,6 +119,9 @@ export function SignupCard() {
   );
 }
 ```
+
+The published package includes prebuilt CSS. Import `silva-ui/style.css` once
+from your application entry point.
 
 ## Colors and themes
 
@@ -179,8 +171,7 @@ variables are emitted at build time.
 `themeColors.background` or `themeColors.blue6`; Vanilla Extract can then keep
 the variable names consistent through production builds.
 
-Silva UI follows Tamagui's palette/template model while remaining framework
-agnostic. The exported `createThemes` helper composes named palettes and
+Silva UI follows Tamagui's palette/template model. The exported `createThemes` helper composes named palettes and
 templates into theme records, and built-in themes include generated surface
 variants such as `dark_surface1` and `light_surface2`:
 
@@ -214,17 +205,3 @@ to that `Theme` subtree. Built-in names such as `dark`, `emerald`, and
 `midnight` continue to use their precompiled theme classes. Supported palette
 names are the exported color scales, including `red`, `blue`, `green`,
 `purple`, and the other Radix scales.
-
-Theme values are extracted into CSS classes at build time. For framework-neutral
-runtime tooling, `addTheme`, `updateTheme`, `replaceTheme`, `getTheme`, and
-`getThemes` provide an in-memory theme registry; applications can use the
-returned records with their own CSS or rendering integration.
-
-## Interactive documentation
-
-The `example` app is the interactive component documentation. Start it with
-`npm run dev`, then use the sidebar or home page to browse live examples for
-each exported component, color tokens, and themes. The theme selector in the
-header lets you preview the documentation in every built-in theme. The
-installation and project setup walkthrough is available from its **Get started**
-page in the documentation sidebar.

@@ -1,4 +1,4 @@
-// silva-ui — framework-agnostic zero-runtime CSS component library
+// silva-ui — zero-runtime CSS component library
 // Built on @vanilla-extract/css + @vanilla-extract/sprinkles
 
 // ============================================================================
