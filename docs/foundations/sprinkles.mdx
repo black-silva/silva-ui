@@ -1,0 +1,52 @@
+---
+title: Sprinkles
+description: Use token-based style props on every silva-ui primitive.
+---
+
+# Sprinkles props
+
+Every component extends `BaseProps`, which includes the generated `Sprinkles` type. The library separates supported styling props from regular HTML attributes, then merges their generated class with any `class` you provide.
+
+## Common properties
+
+| Category | Props |
+| --- | --- |
+| Spacing | `p`, `px`, `py`, `m`, `mx`, `my`, `gap` |
+| Layout | `display`, `flexDirection`, `alignItems`, `justifyContent`, `flexWrap` |
+| Size | `width`, `height`, `minWidth`, `maxWidth`, `w`, `h` |
+| Colour | `bg`, `backgroundColor`, `color`, `borderColor` |
+| Typography | `fontSize`, `fontWeight`, `lineHeight`, `textAlign` |
+| Borders | `borderRadius`, `borderWidth`, `borderStyle` |
+| Position | `position`, `top`, `right`, `bottom`, `left`, `zIndex` |
+
+## Token values
+
+Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
+
+```tsx
+<Card p="large" borderRadius="xl" maxWidth="24" bg="card">
+  <YStack gap="small">
+    <Text fontWeight="semibold">Token-powered styles</Text>
+    <Text color="muted" fontSize="sm">No handwritten CSS needed here.</Text>
+  </YStack>
+</Card>
+```
+
+## Interaction conditions
+
+A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values.
+
+```tsx
+<Box
+  bg={{ default: 'card', hover: 'teal3' }}
+  color={{ default: 'primary', hover: 'teal12' }}
+  p="medium"
+  borderRadius="medium"
+>
+  Hover me
+</Box>
+```
+
+## Utilities
+
+For custom component wrappers, import `sprinkles`, `splitSprinklesProps`, `toSprinklesClass`, or `cls` from `silva-ui`.
