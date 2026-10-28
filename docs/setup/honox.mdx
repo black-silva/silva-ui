@@ -1,0 +1,95 @@
+---
+title: HonoX
+description: Use silva-ui with HonoX server rendering and islands.
+---
+
+# HonoX setup
+
+HonoX renders routes on the server and hydrates only island components that need browser behaviour.
+
+## Install
+
+```bash
+npm create hono@latest my-app
+# Select the HonoX template
+cd my-app
+npm install silva-ui
+```
+
+## Load the stylesheet
+
+```tsx
+// app/client.ts
+import "silva-ui/style.css"
+
+export default function Client() {
+  return <></>
+}
+```
+
+The client entry makes the component CSS available on every page.
+
+## Render a route
+
+```tsx
+// app/routes/index.tsx
+import { Button, Card, Heading, Paragraph, Theme, YStack } from "silva-ui"
+
+export default function Home() {
+  return (
+    <Theme name="light">
+      <YStack p="large" gap="large">
+        <Heading>Welcome</Heading>
+        <Card bg="card" borderColor="border" p="large">
+          <Paragraph color="muted">Rendered by HonoX.</Paragraph>
+          <Button>Get started</Button>
+        </Card>
+      </YStack>
+    </Theme>
+  )
+}
+```
+
+## Add an interactive island
+
+Keep routes server-rendered and put stateful UI in `app/islands`. HonoX hydrates the island automatically.
+
+```tsx
+// app/islands/counter.tsx
+import { useState } from "hono/jsx"
+import { Button, Text, XStack } from "silva-ui"
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <XStack gap="small" alignItems="center">
+      <Button onClick={() => setCount(count + 1)}>Add</Button>
+      <Text>{count}</Text>
+    </XStack>
+  )
+}
+```
+
+```tsx
+// app/routes/index.tsx
+import Counter from "../islands/counter"
+
+export default function Home() {
+  return <Counter />
+}
+```
+
+Use islands for state, event handlers, browser APIs, or client-only libraries. Static Silva UI components do not need hydration.
+
+## TypeScript setup
+
+```json tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
+For manual mounting, see [Client hydration](/docs/setup/hydration).

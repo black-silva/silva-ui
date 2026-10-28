@@ -1,0 +1,78 @@
+---
+title: Client hydration
+description: Add browser-side interaction to silva-ui with Hono JSX or HonoX.
+---
+
+# Client hydration
+
+Silva UI renders on the server by default. Hydrate only the part of a page that needs browser state, handlers, or browser APIs.
+
+## Option 1: Hydrate a Hono JSX root
+
+Render the same component on the server and mount it in the browser with `hono/jsx/dom`.
+
+```tsx
+// src/client.tsx
+import { hydrate } from "hono/jsx/dom"
+import { useState } from "hono/jsx"
+import { Button, Text, XStack } from "silva-ui"
+import "silva-ui/style.css"
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <XStack gap="small">
+      <Button onClick={() => setCount(count + 1)}>Add</Button>
+      <Text>{count}</Text>
+    </XStack>
+  )
+}
+
+hydrate(<Counter />, document.getElementById("counter")!)
+```
+
+Render `<div id="counter">` around the server output and load the bundled `client.tsx` script after it. The server markup and first client render must match.
+
+## Option 2: Render only in the browser
+
+Use `render` instead of `hydrate` when there is no matching server markup.
+
+```tsx
+import { render } from "hono/jsx/dom"
+import { Button } from "silva-ui"
+import "silva-ui/style.css"
+
+render(<Button>Open menu</Button>, document.getElementById("widget")!)
+```
+
+This is suitable for an optional widget, not the primary page UI.
+
+## Option 3: Use HonoX islands
+
+For HonoX applications, put an interactive component in `app/islands`. HonoX handles its client entry and hydration automatically.
+
+```tsx
+// app/islands/theme-toggle.tsx
+import { useState } from "hono/jsx"
+import { Button, Theme } from "silva-ui"
+
+export default function ThemeToggle() {
+  const [dark, setDark] = useState(false)
+  return (
+    <Theme name={dark ? "dark" : "light"}>
+      <Button onClick={() => setDark(!dark)}>Toggle theme</Button>
+    </Theme>
+  )
+}
+```
+
+See the full [HonoX setup](/docs/setup/honox).
+
+## Practical choice
+
+- **Server only:** static pages, navigation, and form markup.
+- **`hydrate`:** an interactive server-rendered area.
+- **`render`:** a client-only widget.
+- **HonoX island:** isolated interaction in a HonoX app.
+
+Always import `silva-ui/style.css` into the browser bundle that mounts the component.
