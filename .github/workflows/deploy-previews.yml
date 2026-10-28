@@ -1,5 +1,6 @@
 name: Deploy documentation previews
 
+# Publishes the static preview gallery used in the Mintlify examples.
 on:
   push:
     branches: [main]
