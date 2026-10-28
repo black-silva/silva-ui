@@ -11,6 +11,9 @@ Form components render native elements, then layer the Silva visual system on to
 
 `Form` is a vertical form wrapper. `Field` groups a control with `error` or `helperText`; its `FieldError` and `FieldHelper` exports are available for custom layouts.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Form action="/subscribe" method="post" gap="medium">
   <Field helperText="We will only send product updates.">
@@ -21,9 +24,22 @@ Form components render native elements, then layer the Silva visual system on to
 </Form>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/lz4en7ofou4ng35yvc56cnhdaq" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Inputs
 
 `Input`, `TextArea`, `Select`, and `Label` support `sm`, `md` and `lg` sizes. Inputs expose the standard native fields such as `name`, `value`, `defaultValue`, `disabled`, `required`, and `onChange`.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Field>
@@ -31,6 +47,16 @@ Form components render native elements, then layer the Silva visual system on to
   <TextArea id="message" rows={5} placeholder="Tell us what you need." />
 </Field>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/lr63bigjq5bq3463lkbyvh4pl4" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 ## Choice controls
 
@@ -42,6 +68,9 @@ Form components render native elements, then layer the Silva visual system on to
 | `ToggleGroup` / `ToggleGroupItem` | group `type="single" | "multiple"`; item `value`, `data-active` |
 | `Slider` | `min`, `max`, `step`, `value`, `defaultValue` |
 | `Progress` | `value`, `max`, `aria-label` |
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <YStack gap="medium">
@@ -55,9 +84,22 @@ Form components render native elements, then layer the Silva visual system on to
 </YStack>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/jfq7ixbco26hkr2pbqqid36hze" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Buttons
 
 `Button` supports `xs` through `xl` sizes and `solid`, `outline`, `ghost`, and `link` variants.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <XStack gap="small">
@@ -66,3 +108,13 @@ Form components render native elements, then layer the Silva visual system on to
   <Button variant="ghost">Cancel</Button>
 </XStack>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/nylwegbta7jp7x55n6ogg6lkaa" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>

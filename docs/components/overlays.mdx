@@ -15,6 +15,9 @@ For production modal behaviour, add your own focus trap, Escape handling, backgr
 
 `Dialog` and `AlertDialog` accept `open`. Overlay and content components receive `data-state="open" | "closed"`; content defaults to `open` for standalone composition.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Dialog open={isOpen}>
   <DialogOverlay />
@@ -31,22 +34,45 @@ For production modal behaviour, add your own focus trap, Escape handling, backgr
 </Dialog>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/qnia3auvbk2qkfdffw557cfmmy" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 `AlertDialog` offers the parallel `AlertDialogAction` and `AlertDialogCancel` primitives for explicit confirmation flows.
 
 ## Tabs and accordion
 
 Set active tabs in application state using `data-active`; match `Tab` and `TabPanel` values, then hide inactive panels yourself.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Tabs value={activeTab}>
   <TabList aria-label="Account settings">
-    <Tab value="profile" data-active={activeTab === 'profile'} onClick={() => setActiveTab('profile')}>Profile</Tab>
-    <Tab value="security" data-active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Security</Tab>
+    <Tab value="profile" data-active={activeTab === profile} onClick={() => setActiveTab(profile)}>Profile</Tab>
+    <Tab value="security" data-active={activeTab === security} onClick={() => setActiveTab(security)}>Security</Tab>
   </TabList>
-  <TabPanel value="profile" hidden={activeTab !== 'profile'}>Profile content</TabPanel>
-  <TabPanel value="security" hidden={activeTab !== 'security'}>Security content</TabPanel>
+  <TabPanel value="profile" hidden={activeTab !== profile}>Profile content</TabPanel>
+  <TabPanel value="security" hidden={activeTab !== security}>Security content</TabPanel>
 </Tabs>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/ornzyaysxhzvgaio4kpr7aekdi" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 The `Accordion` family uses `Accordion`, `AccordionItem`, `AccordionTrigger`, and `AccordionContent`. Control visual state through `data-state` on trigger and content.
 

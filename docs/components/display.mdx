@@ -9,6 +9,9 @@ description: Cards, avatars, images, list items and loading indicators.
 
 `Card` creates a reusable surface. Add `bordered` for an explicit border and `elevated` for a raised treatment. `CardHeader` and `CardFooter` provide structured regions.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Card bordered elevated p="large">
   <CardHeader>
@@ -22,9 +25,22 @@ description: Cards, avatars, images, list items and loading indicators.
 </Card>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/t75je35cxt4xzceepqi35x55ca" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Avatar and image
 
 Compose `Avatar` with `AvatarImage` and `AvatarFallback`. `Image` supports `src`, `alt`, `width`, `height`, `loading`, and all common sprinkles props.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Avatar size="lg">
@@ -35,22 +51,48 @@ Compose `Avatar` with `AvatarImage` and `AvatarFallback`. `Image` supports `src`
 <Image src="/banner.png" alt="Product banner" width={1200} height={630} loading="lazy" w="full" />
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/bdodo5ipq7w2uoz2y64j6jdune" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## ListItem
 
 `ListItem` accepts `title`, `subTitle`, an `icon`, `pressable`, `size`, and `onClick`.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <ListItem
   icon={<AvatarFallback>BS</AvatarFallback>}
-  title="BlackSilva"
+  title="Account avatar"
   subTitle="Owner"
   pressable
 />
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/n3vkr6gl2qokqjobwnjrnjrtpm" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Loading states
 
 Use `Spinner` for a compact progress indicator or `Loader` for a horizontal indeterminate indicator. Both expose `size` and an optional `label` and render with `role="status"`.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <YStack gap="medium">
@@ -58,3 +100,13 @@ Use `Spinner` for a compact progress indicator or `Loader` for a horizontal inde
   <Loader size="lg" label="Saving your changes" />
 </YStack>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/4mah3bksytbre3n6m2kcanxepm" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
