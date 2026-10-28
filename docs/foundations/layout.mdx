@@ -11,15 +11,31 @@ All layout components accept shared sprinkles props such as `p`, `gap`, `bg`, `b
 
 `Box` is the foundation primitive. It renders a `div` by default and supports `as` for a different element.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Box as="section" p="large" bg="card" borderRadius="large">
   Content
 </Box>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/65twdpxcgc4lbwafef5a6ol3xy" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Stacks
 
 `YStack` is a vertical flex container and `XStack` is a horizontal flex container.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <YStack gap="large" p="large">
@@ -31,9 +47,22 @@ All layout components accept shared sprinkles props such as `p`, `gap`, `bg`, `b
 </YStack>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/zv4uli3t5znantvlouwvmye6ya" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## XGroup
 
 Use `XGroup` for connected horizontal controls. Its children share borders and outer corner radii.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <XGroup>
@@ -43,9 +72,22 @@ Use `XGroup` for connected horizontal controls. Its children share borders and o
 </XGroup>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/ivppmp4u3yb5gphcayuosl7rbe" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Separator
 
 `Separator` renders a horizontal rule by default. Set `orientation="vertical"` for an inline divider. Use `decorative` when it is purely visual.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <XStack gap="medium" alignItems="center">
@@ -54,3 +96,13 @@ Use `XGroup` for connected horizontal controls. Its children share borders and o
   <Text color="muted">Last updated today</Text>
 </XStack>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/2z6qvu4ge4kwtsxdea63ik22sa" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
