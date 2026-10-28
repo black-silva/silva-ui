@@ -1,0 +1,88 @@
+---
+title: Hono JSX
+description: Set up silva-ui with Hono server-rendered JSX.
+---
+
+# Hono JSX setup
+
+Use this setup for server-rendered Hono pages. Silva UI components render on the server with `hono/jsx`.
+
+## Install
+
+```bash
+npm install hono silva-ui
+```
+
+## Load styles once
+
+```tsx
+// src/app.tsx
+import { Hono } from "hono"
+import { jsxRenderer } from "hono/jsx-renderer"
+import "silva-ui/style.css"
+
+const app = new Hono()
+
+app.use(
+  "*",
+  jsxRenderer(({ children }) => (
+    <html>
+      <head><meta charSet="UTF-8" /><title>My app</title></head>
+      <body>{children}</body>
+    </html>
+  )),
+)
+
+export default app
+```
+
+Import `silva-ui/style.css` in the module shared by every route. It includes component styles and the built-in theme classes.
+
+## Render a route
+
+```tsx
+// src/routes/index.tsx
+import { Hono } from "hono"
+import { Button, Card, Heading, Paragraph, Theme, YStack } from "silva-ui"
+
+const app = new Hono()
+
+app.get("/", (c) => c.render(
+  <Theme name="light">
+    <YStack gap="large" p="large">
+      <Heading>Welcome</Heading>
+      <Card bg="card" borderColor="border" p="large">
+        <Paragraph color="muted">Server-rendered with Hono JSX.</Paragraph>
+        <Button>Get started</Button>
+      </Card>
+    </YStack>
+  </Theme>,
+))
+
+export default app
+```
+
+## Add client interaction
+
+Hono JSX can stay server-only. For controls with browser state or event handlers, add a small hydration entry. See [Client hydration](/docs/setup/hydration) for `hono/jsx/dom`, or use [HonoX](/docs/setup/honox) when islands fit the app better.
+
+## TypeScript setup
+
+```json tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
+For Vite, use the equivalent transform:
+
+```ts vite.config.ts
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  esbuild: { jsxImportSource: "hono/jsx" },
+})
+```
