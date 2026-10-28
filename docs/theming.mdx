@@ -9,8 +9,11 @@ silva-ui includes `light`, `dark`, `emerald`, `emeraldDark` and `midnight` theme
 
 ## Apply a built-in theme
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
-import { Box, Text, Theme } from 'silva-ui'
+import { Box, Text, Theme } from silva-ui
 
 <Theme name="dark">
   <Box bg="card" color="primary" p="large" borderRadius="large">
@@ -19,7 +22,20 @@ import { Box, Text, Theme } from 'silva-ui'
 </Theme>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/zyi5przgwuoycsltxz4hfziuwy" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Nest theme scopes
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Theme name="dark">
@@ -32,6 +48,16 @@ import { Box, Text, Theme } from 'silva-ui'
   </Box>
 </Theme>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/46s4rpgndjqofa3gf7ke7stccq" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 ## Colour tokens
 
@@ -51,15 +77,28 @@ Use semantic names for application UI and numbered Radix-style ramps when precis
 
 `createThemes` turns palettes and templates into theme value records. `applyThemeTemplate` resolves a template against a palette, and `buildThemeSet` can produce renderer-specific classes from definitions.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
-import { createThemes } from 'silva-ui'
+import { createThemes } from silva-ui
 
 const themes = createThemes({
-  palettes: { brand: ['#ecfdf5', '#059669', '#022c22'] },
+  palettes: { brand: [#ecfdf5, #059669, #022c22] },
   templates: { base: { background: 1, primary: 2, muted: 3 } },
-  base: { palette: 'brand', template: 'base' },
+  base: { palette: brand, template: base },
 })
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/2e23p3nizro4bh6dpbmbolioom" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 <Warning>
 The theme-builder helpers create value records. To render a custom theme, register the resulting values through your renderer or theme-class workflow.

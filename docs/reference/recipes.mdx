@@ -9,6 +9,9 @@ description: Practical composition patterns for common screens.
 
 Use layout primitives and a `Switch` to create a compact, readable preference row.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <XStack p="medium" alignItems="center" justifyContent="space-between" bg="card" borderRadius="medium">
   <YStack gap="xs">
@@ -19,7 +22,20 @@ Use layout primitives and a `Switch` to create a compact, readable preference ro
 </XStack>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/yvlap6knmq4il25kshxdhzq3hq" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Empty state
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <YStack p="2xl" gap="medium" alignItems="center" textAlign="center" bg="card" borderRadius="large">
@@ -29,7 +45,20 @@ Use layout primitives and a `Switch` to create a compact, readable preference ro
 </YStack>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/h33m7u5bcqud5gsyfsgpdwejie" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Controlled toast region
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <ToastProvider position="top-right">
@@ -43,11 +72,24 @@ Use layout primitives and a `Switch` to create a compact, readable preference ro
 </ToastProvider>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/ef6j4e6oxzq5wlbiw4uv3jspma" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Theme preview
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <XStack gap="medium" flexWrap="wrap">
-  {['light', 'dark', 'emerald', 'midnight'].map((name) => (
+  {[light, dark, emerald, midnight].map((name) => (
     <Theme name={name}>
       <Card p="medium" minWidth="48" bg="card">
         <Text color="primary" fontWeight="semibold">{name}</Text>
@@ -57,3 +99,13 @@ Use layout primitives and a `Switch` to create a compact, readable preference ro
   ))}
 </XStack>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/w76ljgasucte7s2b574qcno5pe" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
