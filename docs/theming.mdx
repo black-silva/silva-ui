@@ -1,105 +1,121 @@
 ---
 title: Theming
-description: Apply built-in themes, semantic colours and custom theme definitions.
+description: Apply built-in themes, semantic colours, and custom themes.
 ---
 
 # Theming
 
-silva-ui includes `light`, `dark`, `emerald`, `emeraldDark` and `midnight` themes. A `Theme` scope adds the chosen class to its rendered element, so nested scopes can override the parent without runtime style injection.
+Silva UI components read CSS variables from the nearest theme scope. Use a built-in `Theme`, or compile a custom variable class with Vanilla Extract.
 
-## Apply a built-in theme
-
-<Tabs sync={false}>
-  <Tab title="Code">
+## Built-in themes
 
 ```tsx
-import { Box, Text, Theme } from silva-ui
+import { Box, Text, Theme } from "silva-ui"
 
 <Theme name="dark">
   <Box bg="card" color="primary" p="large" borderRadius="large">
-    <Text>Semantic tokens follow the active theme.</Text>
+    <Text>Dark themed content</Text>
   </Box>
 </Theme>
 ```
 
-  </Tab>
-  <Tab title="Preview">
+Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. Theme scopes can nest.
 
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
+## Token names
 
-  </Tab>
-</Tabs>
+Use semantic values in component props: `background`, `card`, `subtle`, `primary`, `primaryHover`, `primaryActive`, `primaryContrast`, `muted`, `border`, and `ring`. Silva UI also exports `colorTokens`, `darkColorTokens`, `lightColors`, `darkColors`, and `themeColors` for custom themes.
 
-## Nest theme scopes
+## Custom themes with `createTheme`
 
-<Tabs sync={false}>
-  <Tab title="Code">
+`createTheme` is Vanilla Extract’s build-time API. It creates a CSS class with the same variable contract as Silva UI. Add that class to a normal wrapper around components. They inherit its token values automatically.
 
-```tsx
-<Theme name="dark">
-  <Box bg="background" p="large">
-    <Theme name="emerald">
-      <Box bg="primary" color="primary" p="medium" borderRadius="medium">
-        This nested section uses emerald tokens.
-      </Box>
-    </Theme>
-  </Box>
-</Theme>
+### 1. Add Vanilla Extract
+
+```bash
+npm install @vanilla-extract/css
+npm install -D @vanilla-extract/vite-plugin
 ```
 
-  </Tab>
-  <Tab title="Preview">
+```ts vite.config.ts
+import { defineConfig } from "vite"
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin"
 
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
-</Tabs>
-
-## Colour tokens
-
-Use semantic names for application UI and numbered Radix-style ramps when precise colour control matters.
-
-| Use case | Example |
-| --- | --- |
-| Page surface | `bg="background"` |
-| Raised surface | `bg="card"` |
-| Muted text | `color="muted"` |
-| Accent ramp | `bg="teal6" color="teal12"` |
-| Translucent layer | `backgroundColor="blackA4"` |
-
-`colorScales`, `darkColorScales`, `colorTokens`, and `darkColorTokens` are exported for programmatic use.
-
-## Build custom theme data
-
-`createThemes` turns palettes and templates into theme value records. `applyThemeTemplate` resolves a template against a palette, and `buildThemeSet` can produce renderer-specific classes from definitions.
-
-<Tabs sync={false}>
-  <Tab title="Code">
-
-```tsx
-import { createThemes } from silva-ui
-
-const themes = createThemes({
-  palettes: { brand: [#ecfdf5, #059669, #022c22] },
-  templates: { base: { background: 1, primary: 2, muted: 3 } },
-  base: { palette: brand, template: base },
+export default defineConfig({
+  plugins: [vanillaExtractPlugin()],
 })
 ```
 
-  </Tab>
-  <Tab title="Preview">
+### 2. Create the theme in a CSS module
 
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-3" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
+Use a `*.css.ts` file so Vanilla Extract can compile it. Spreading the Silva UI exports fills the complete token contract, then your semantic overrides define the brand.
 
-  </Tab>
-</Tabs>
+```ts src/brand-theme.css.ts
+import { createTheme } from "@vanilla-extract/css"
+import { colorTokens, lightColors, themeColors } from "silva-ui"
 
-<Warning>
-The theme-builder helpers create value records. To render a custom theme, register the resulting values through your renderer or theme-class workflow.
-</Warning>
+export const brandTheme = createTheme(themeColors, {
+  ...colorTokens,
+  ...lightColors,
+  primary: "#7c3aed",
+  primaryHover: "#6d28d9",
+  primaryActive: "#5b21b6",
+  primaryContrast: "#ffffff",
+  background: "#fbfaff",
+  card: "#ffffff",
+  subtle: "#f3f0ff",
+  muted: "#6b6580",
+  border: "#ded7f5",
+  ring: "#7c3aed",
+})
+```
+
+### 3. Use it with Silva UI components
+
+```tsx
+import "silva-ui/style.css"
+import { Button, Card, Paragraph, YStack } from "silva-ui"
+import { brandTheme } from "./brand-theme.css"
+
+export function PricingCard() {
+  return (
+    <div class={brandTheme}>
+      <Card bg="card" borderColor="border" bordered p="large">
+        <YStack gap="medium">
+          <Paragraph color="muted">A custom semantic palette.</Paragraph>
+          <Button>Choose plan</Button>
+        </YStack>
+      </Card>
+    </div>
+  )
+}
+```
+
+The wrapper class provides `primary`, `card`, `border`, and the other variables. Any nested Silva UI component resolves them from that wrapper. You can put the wrapper inside a built-in `Theme` or make it the outer application scope.
+
+### Dark custom theme
+
+Start a dark version from the dark defaults.
+
+```ts src/brand-dark-theme.css.ts
+import { createTheme } from "@vanilla-extract/css"
+import { darkColorTokens, darkColors, themeColors } from "silva-ui"
+
+export const brandDarkTheme = createTheme(themeColors, {
+  ...darkColorTokens,
+  ...darkColors,
+  primary: "#a78bfa",
+  primaryHover: "#c4b5fd",
+  primaryActive: "#8b5cf6",
+  primaryContrast: "#1b102e",
+  background: "#120b20",
+  card: "#1d122d",
+  subtle: "#291a3d",
+  muted: "#c7bbd9",
+  border: "#45315f",
+  ring: "#a78bfa",
+})
+```
+
+## `createThemes` versus `createTheme`
+
+`createThemes` generates plain palette/template value records. It does not emit a CSS class. Use it when generating values, then pass the final record through `createTheme` before applying it to a wrapper. For most apps, start with `themeColors` so custom and built-in themes use the same variable names.
