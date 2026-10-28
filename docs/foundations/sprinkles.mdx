@@ -23,6 +23,9 @@ Every component extends `BaseProps`, which includes the generated `Sprinkles` ty
 
 Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Card p="large" borderRadius="xl" maxWidth="24" bg="card">
   <YStack gap="small">
@@ -32,20 +35,43 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 </Card>
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/nfj7vyqymkbjzvv77vqsqmxji4" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Interaction conditions
 
 A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values.
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
 <Box
-  bg={{ default: 'card', hover: 'teal3' }}
-  color={{ default: 'primary', hover: 'teal12' }}
+  bg={{ default: card, hover: teal3 }}
+  color={{ default: primary, hover: teal12 }}
   p="medium"
   borderRadius="medium"
 >
   Hover me
 </Box>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/cusdsrjjmoh3yxjtngjwkquedu" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 ## Utilities
 

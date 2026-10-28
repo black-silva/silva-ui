@@ -13,22 +13,38 @@ npm install silva-ui hono
 
 ## Import the CSS
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
-import 'silva-ui/style.css'
+import silva-ui/style.css
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/ra56k573ygchavcezwoonqwnda" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 The package exposes this stylesheet as the `silva-ui/style.css` subpath. Component imports come from the root package.
 
 ## Create a route
 
+<Tabs sync={false}>
+  <Tab title="Code">
+
 ```tsx
-import { Hono } from 'hono'
-import 'silva-ui/style.css'
-import { Button, Heading, Paragraph, Theme, YStack } from 'silva-ui'
+import { Hono } from hono
+import silva-ui/style.css
+import { Button, Heading, Paragraph, Theme, YStack } from silva-ui
 
 const app = new Hono()
 
-app.get('/', (c) => c.html(
+app.get(/, (c) => c.html(
   <Theme name="emerald" p="large">
     <YStack gap="medium" maxWidth={400}>
       <Heading level={1}>Hello, Silva</Heading>
@@ -40,6 +56,16 @@ app.get('/', (c) => c.html(
 
 export default app
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://pages.toqi.life/p/pnisdpern5khzxa5gtacdw557y" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 <Info>
 `Theme` renders a `div` by default. Set `as` when a different HTML element is needed.
