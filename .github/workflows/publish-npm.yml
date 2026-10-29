@@ -1,1 +1,41 @@
-name: Publish to npm\n\non:\n  push:\n    branches:\n      - main\n\npermissions:\n  contents: read\n  id-token: write\n\nconcurrency:\n  group: npm-publish\n  cancel-in-progress: false\n\njobs:\n  publish:\n    name: Build and publish\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out source\n        uses: actions/checkout@v4\n\n      - name: Set up Node.js\n        uses: actions/setup-node@v4\n        with:\n          node-version: 22\n          cache: npm\n          registry-url: https://registry.npmjs.org\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Type-check\n        run: npm run typecheck\n\n      - name: Build package\n        run: npm run build:package\n\n      - name: Publish to npm\n        run: npm publish --access public --provenance\n
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build package
+        run: npm run build:package
+
+      - name: Publish to npm
+        run: npm publish --access public --provenance
