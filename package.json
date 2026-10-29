@@ -58,5 +58,9 @@
     "hono": "^4.13.13",
     "typescript": "^7.0.2",
     "vite": "^8.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/black-silva/silva-ui.git"
   }
 }
