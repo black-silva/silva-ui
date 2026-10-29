@@ -1,5 +1,7 @@
 # silva-ui Component Library
 
+[![Publish to npm](https://github.com/black-silva/silva-ui/actions/workflows/publish-npm.yml/badge.svg)](https://github.com/black-silva/silva-ui/actions/workflows/publish-npm.yml)
+
 [![Bundle size](https://badgen.net/bundlephobia/min/silva-ui)](https://bundlephobia.com/package/silva-ui)
 [![Minified + gzipped size](https://badgen.net/bundlephobia/minzip/silva-ui)](https://bundlephobia.com/package/silva-ui)
 [![TypeScript](https://badgen.net/badge/built%20with/TypeScript/blue)](https://www.typescriptlang.org/)
