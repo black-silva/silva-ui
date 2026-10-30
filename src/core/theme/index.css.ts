@@ -1,4 +1,4 @@
-import { createGlobalTheme, createThemeContract } from '@vanilla-extract/css';
+import { createGlobalTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
 import { colorTokenContract, colorTokens, darkColorTokens } from '../colors';
 import { buildThemeSet } from '../theme-builder';
 import {
@@ -40,6 +40,10 @@ const defaultThemeValues: { [Key in keyof typeof themeContract]: string } = {
 };
 
 createGlobalTheme(':root', themeColors, defaultThemeValues);
+globalStyle('html, body', {
+  margin: 0,
+  minHeight: '100%',
+});
 
 const themedValues = Object.fromEntries(
   Object.entries(allThemeDefinitions).map(([name, values]) => [
