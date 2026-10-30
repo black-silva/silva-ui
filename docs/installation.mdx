@@ -17,7 +17,7 @@ npm install silva-ui hono
   <Tab title="Code">
 
 ```tsx
-import silva-ui/style.css
+import "silva-ui/style.css"
 ```
 
   </Tab>
@@ -38,9 +38,9 @@ The package exposes this stylesheet as the `silva-ui/style.css` subpath. Compone
   <Tab title="Code">
 
 ```tsx
-import { Hono } from hono
-import silva-ui/style.css
-import { Button, Heading, Paragraph, Theme, YStack } from silva-ui
+import { Hono } from 'hono'
+import 'silva-ui/style.css'
+import { Button, Heading, Paragraph, Theme, YStack } from 'silva-ui'
 
 const app = new Hono()
 
