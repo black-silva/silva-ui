@@ -1,5 +1,5 @@
-import type { Child } from hono/jsx;
-import { Box, H2, Text, Theme, XStack, YStack, Anchor } from silva-ui;
+import type { Child } from "hono/jsx";
+import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "silva-ui";
 
 interface LayoutProps {
   children: Child;
