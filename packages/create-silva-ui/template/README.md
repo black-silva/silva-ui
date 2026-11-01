@@ -1,42 +1,30 @@
-# Silva UI hydration template
+# Silva UI starter
 
-A multi-page Hono + TypeScript app that demonstrates **server-rendered Silva UI**, with tiny browser controllers layered on afterwards.
+A small Vite + TypeScript starter for Silva UI.
 
-## What it proves
+## Pages
 
-- Two server-rendered routes: `/` and `/components`
-- Shared layout and navigation using Silva UI components
-- Accessible tabs enhanced in-place with keyboard support
-- A sheet navigation menu enhanced in-place and closable with Escape
-- No application-authored CSS. All styling comes from Silva UI props and its stylesheet.
-- Gradients through `backgroundColor="aurora"` and `color="ocean"`
-- Animation through `animation="fadeIn"`, `animation="slideUp"`, and `animation="pulse"`
+- `src/pages/Home.tsx` renders `/`
+- `src/pages/About.tsx` renders `/about`
+- `src/components/Layout.tsx` holds the shared navigation and page layout
+- `src/app.tsx` maps paths to pages
+- `src/client.tsx` mounts the app in the browser
 
 ## Run it
 
 ```bash
 npm install
-npm run build
-npm start
-```
-
-Open `http://localhost:3000`.
-
-For development:
-
-```bash
 npm run dev
 ```
 
-## Architecture
+Open the local address Vite prints. Visit `/about` to see the second page.
 
-The server renders complete, accessible HTML. The controller in `src/controllers.ts` does not import or re-render a component tree. It locates existing elements and only updates the attributes that make the interactions work:
+## Build it
 
-- tabs: `data-active`, `aria-selected`, `hidden`, and focus
-- sheet: `data-state`, `aria-hidden`, `aria-expanded`, and focus
+```bash
+npm run typecheck
+npm run build
+npm run preview
+```
 
-That keeps the initial response usable if JavaScript never loads, while adding a small progressive-enhancement layer where it helps.
-
-## Template status
-
-This is intended as the practical starting point for `create-silva-ui` once the source-first package workflow is settled. It currently consumes the packed Silva UI build so it is a real consumer-level integration test.
+To add a page, make a file in `src/pages`, add a navigation link in `Layout.tsx`, then map its path in `app.tsx`.
