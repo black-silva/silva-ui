@@ -1,0 +1,68 @@
+---
+title: Gradients
+description: Create theme-aware background gradients with the Box primitive.
+---
+
+# Gradients
+
+Use `gradient` on `Box` for a small, typed API that works with every built-in and nested Silva UI theme. Gradient stops accept semantic theme tokens, Radix colour tokens, or any valid CSS colour string.
+
+```tsx
+import { Box, Text, Theme } from "silva-ui"
+
+<Theme name="midnight">
+  <Box
+    gradient={{ from: "primary", via: "violet9", to: "cyan9", deg: 135 }}
+    borderRadius="large"
+    p="large"
+  >
+    <Text color="primaryContrast">Theme-aware gradient</Text>
+  </Box>
+</Theme>
+```
+
+`from` and `to` are required. `via`, `type`, and `deg` are optional.
+
+| Property | Values | Default |
+| --- | --- | --- |
+| `from` | theme token or CSS colour | required |
+| `to` | theme token or CSS colour | required |
+| `via` | theme token or CSS colour | none |
+| `type` | `linear`, `radial`, `conic` | `linear` |
+| `deg` | number of degrees | `90` |
+
+## Theme-aware stops
+
+Token stops compile to Silva UI CSS variables. They respond to the nearest `Theme`, including custom Vanilla Extract themes.
+
+```tsx
+<Box gradient={{ from: "primary", to: "primaryHover" }} />
+
+<Box gradient={{ from: "violet9", to: "cyan9", deg: 135 }} />
+```
+
+Use a semantic token when the gradient has a UI role, and hue tokens when it is a decorative accent.
+
+## Gradient types
+
+```tsx
+<Box gradient={{ type: "radial", from: "primary", to: "background" }} />
+
+<Box gradient={{ type: "conic", from: "violet9", to: "cyan9", deg: 45 }} />
+```
+
+## Exact CSS when needed
+
+For CSS features outside the compact API, retain the existing escape hatch:
+
+```tsx
+<Box style={{ backgroundImage: "repeating-linear-gradient(45deg, #fff 0 10px, #f1f5f9 10px 20px)" }} />
+```
+
+You can also generate a CSS `background-image` value yourself:
+
+```ts
+import { gradientToCss } from "silva-ui"
+
+const backgroundImage = gradientToCss({ from: "primary", to: "cyan9", deg: 135 })
+```
