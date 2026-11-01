@@ -1,5 +1,5 @@
-import { Card, H1, Text, YStack } from silva-ui;
-import { Layout } from ../components/Layout;
+import { Card, H1, Text, YStack } from "silva-ui";
+import { Layout } from "../components/Layout";
 
 export function About() {
   return (
