@@ -1,0 +1,29 @@
+{
+  "name": "my-silva-ui-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client": "vite build --watch",
+    "dev:server": "tsx watch src/server.tsx",
+    "build": "npm run build:client && npm run copy:styles && npm run build:server",
+    "build:client": "vite build",
+    "copy:styles": "cp node_modules/silva-ui/dist/library/silva-ui.css dist-client/silva-ui.css",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start": "node dist-server/server.js",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.7",
+    "hono": "^4.13.13",
+    "silva-ui": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "tsx": "^4.21.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}
