@@ -8,6 +8,8 @@ export { sprinkles, tokens } from './core/sprinkles.css';
 export type { Sprinkles } from './core/sprinkles.css';
 export { cls, splitSprinklesProps, toSprinklesClass } from './core/utils';
 export type { BaseProps, ComponentSize } from './core/types';
+export { gradients, animations } from './core/visuals.css';
+export type { GradientName, AnimationName } from './core/visuals.css';
 export { colorScales, darkColorScales, colorTokens, darkColorTokens } from './core/colors';
 export type { ColorTokenName } from './core/colors';
 
