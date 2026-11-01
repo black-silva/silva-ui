@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@w3cj/ruta": "^1.1.2",
     "hono": "^4.13.13",
     "silva-ui": "^1.1.0"
   },
