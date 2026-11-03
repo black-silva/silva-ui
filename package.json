@@ -1,6 +1,6 @@
 {
   "name": "silva-ui",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A Hono JSX UI component library with framework-neutral styling and Tamagui-inspired theming.",
   "main": "./dist/library/silva-ui.js",
   "module": "./dist/library/silva-ui.js",
@@ -12,11 +12,18 @@
       "import": "./dist/library/silva-ui.js",
       "default": "./dist/library/silva-ui.js"
     },
-    "./style.css": "./dist/library/silva-ui.css"
+    "./style.css": {
+      "types": "./style.css.d.ts",
+      "default": "./dist/library/silva-ui.css"
+    }
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist/library",
     "dist/types",
+    "style.css.d.ts",
     "README.md",
     "LICENSE"
   ],

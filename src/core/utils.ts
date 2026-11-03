@@ -1,4 +1,5 @@
 import { sprinkles, type Sprinkles } from './sprinkles.css';
+import { animationClass, animations, gradientBackground, gradients, gradientText } from './visuals.css';
 
 /**
  * All valid sprinkles property keys (including shorthands).
@@ -68,6 +69,8 @@ const SPRINKLES_KEYS = new Set<string>([
   'userSelect',
   // Media
   'objectFit',
+  // Visual effects
+  'animation',
   // Shorthands
   'p',
   'px',
@@ -119,9 +122,35 @@ export function cls(...classes: (string | undefined | false | null)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-/** Generate a sprinkles class string from sprinkles props. */
+/** Generate CSS classes from sprinkle tokens plus visual shorthand props. */
 export function toSprinklesClass(sprinklesProps: Sprinkles): string {
-  const keys = Object.keys(sprinklesProps);
-  if (keys.length === 0) return '';
-  return sprinkles(sprinklesProps);
+  const props = { ...(sprinklesProps as Record<string, unknown>) };
+  const classes: string[] = [];
+
+  // Gradients cannot be applied directly to CSS color properties, so named
+  // gradient values turn familiar `backgroundColor` and `color` props into
+  // the right background/background-clip declarations.
+  const backgroundColor = props.backgroundColor;
+  if (typeof backgroundColor === 'string' && backgroundColor in gradients) {
+    classes.push(gradientBackground[backgroundColor as keyof typeof gradients]);
+    delete props.backgroundColor;
+  }
+
+  const color = props.color;
+  if (typeof color === 'string' && color in gradients) {
+    classes.push(gradientText[color as keyof typeof gradients]);
+    delete props.color;
+  }
+
+  const animation = props.animation;
+  if (typeof animation === 'string' && animation in animations) {
+    classes.push(animationClass[animation as keyof typeof animations]);
+    delete props.animation;
+  }
+
+  if (Object.keys(props).length > 0) {
+    classes.unshift(sprinkles(props as Sprinkles));
+  }
+
+  return classes.join(' ');
 }

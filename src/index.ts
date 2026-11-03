@@ -10,6 +10,8 @@ export { cls, splitSprinklesProps, toSprinklesClass } from './core/utils';
 export { gradientToCss } from './core/gradient';
 export type { Gradient, GradientColor } from './core/gradient';
 export type { BaseProps, ComponentSize } from './core/types';
+export { gradients, animations } from './core/visuals.css';
+export type { GradientName, AnimationName } from './core/visuals.css';
 export { colorScales, darkColorScales, colorTokens, darkColorTokens } from './core/colors';
 export type { ColorTokenName } from './core/colors';
 
