@@ -1,10 +1,12 @@
-import { sprinkles } from '../core/sprinkles.css';
+import { gradientToCss, type Gradient } from '../core/gradient';
 import { cls, splitSprinklesProps, toSprinklesClass } from '../core/utils';
 import type { BaseProps } from '../core/types';
 
 export interface BoxProps extends BaseProps {
   /** Rendered HTML element. Defaults to 'div'. */
   as?: string;
+  /** Theme-aware background gradient. Takes precedence over `bg`. */
+  gradient?: Gradient;
 }
 
 /**
@@ -20,13 +22,24 @@ export interface BoxProps extends BaseProps {
  * </Box>
  * ```
  */
-export function Box({ as: Tag = 'div', class: extraClass, children, ...rest }: BoxProps) {
+export function Box({
+  as: Tag = 'div',
+  class: extraClass,
+  gradient,
+  style: inlineStyle,
+  children,
+  ...rest
+}: BoxProps) {
   const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
   const className = cls(toSprinklesClass(sprinklesProps), extraClass);
+  const gradientStyle = gradient ? { backgroundImage: gradientToCss(gradient) } : undefined;
+  const style = typeof inlineStyle === 'string'
+    ? [inlineStyle, gradientStyle && `background-image:${gradientStyle.backgroundImage}`].filter(Boolean).join(';')
+    : { ...gradientStyle, ...(inlineStyle as Record<string, unknown> | undefined) };
 
   return (
     // @ts-expect-error — dynamic tag
-    <Tag {...htmlProps} class={className || undefined}>
+    <Tag {...htmlProps} style={style} class={className || undefined}>
       {children}
     </Tag>
   );
