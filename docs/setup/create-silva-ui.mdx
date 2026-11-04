@@ -5,7 +5,7 @@ description: Generate a static SPA or Hono server-rendered Silva UI starter.
 
 # Create a Silva UI app
 
-`create-silva-ui` starts a new project with Silva UI, TypeScript, and the runtime configuration for the kind of app you choose. It is useful when you want a working starting point instead of adding Silva UI to an existing Hono JSX app.
+`create-silva-ui` starts a new project with Silva UI, TypeScript, and the runtime configuration for the kind of app you choose. Use it to start a new app instead of wiring Silva UI into an existing Hono JSX project.
 
 ```bash
 npm create silva-ui@latest my-silva-ui-app
@@ -39,6 +39,8 @@ When you select Full-stack SSR or SSR-only, choose the runtime that matches wher
 | Deno | Experimental | Deno server and import map |
 | Gcore FastEdge | Experimental | WASI Preview 2 entry point and build config |
 
+`Reference` adapters are the recommended starting points. `Candidate` adapters are validated starters that are still evolving. `Experimental` adapters are intended for evaluation and need provider-specific review before production use.
+
 A generated project contains configuration and local scripts only. It does not create a cloud project, store credentials, or deploy anything during generation. Complete the provider-specific setup before deploying.
 
 ## Install and validate
@@ -50,7 +52,7 @@ Enter the generated directory, then use the package tool for its runtime. The ge
 | Static SPA or Node.js | `npm install`, `npm run typecheck`, `npm run dev` |
 | Bun | `bun install`, `bun run typecheck`, `bun run dev` |
 | Deno | `deno task check`, `deno task dev` |
-| Provider runtimes | Install dependencies, run `npm run typecheck` when present, then use the generated provider command |
+| Other runtime adapters | Install dependencies, run `npm run typecheck` when present, then use the generated provider command |
 
 Some provider starters are build-only by design. Review their generated configuration and provider documentation before using a build or deployment command.
 
@@ -60,7 +62,7 @@ For the Vercel starter, `npm run build` runs `vercel deploy --temporary`. It can
 
 ## Automate generator choices
 
-For CI or scripted setup, provide the same choices through environment variables. `static`, `full-stack`, and `ssr-only` are valid template values. SSR templates also accept a runtime identifier.
+For CI or scripted setup, provide the same choices through environment variables. `static`, `full-stack`, and `ssr-only` are valid template values. SSR templates also accept an adapter ID.
 
 ```bash
 SILVA_UI_TEMPLATE=full-stack \
@@ -68,7 +70,7 @@ SILVA_UI_ADAPTER=cloudflare \
 npm create silva-ui@latest my-worker-app
 ```
 
-Supported runtime identifiers are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, `deno`, and `fastedge`.
+Supported adapter IDs are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, `deno`, and `fastedge`.
 
 ## Start from an existing app
 
