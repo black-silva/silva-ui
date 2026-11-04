@@ -36,6 +36,8 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(fastedgeFiles[".fastedge/build-config.js"], /tsConfigPath: "\.\/tsconfig\.json"/);
 
   const netlifyFiles = getSsrFiles("matrix-app", "full-stack", "netlify");
+  const netlify = JSON.parse(netlifyFiles["package.json"]);
+  assert.equal(netlify.devDependencies["netlify-cli"], "^27.16.2");
   assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /"\.\.\/\.\.\/src\/app\.tsx"/);
   assert.match(netlifyFiles["src/app.tsx"], /"\.\/api\.ts"/);
   assert.match(netlifyFiles["tsconfig.json"], /"allowImportingTsExtensions": true/);
