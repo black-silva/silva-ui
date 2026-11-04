@@ -10,7 +10,7 @@ export const adapters = {
   },
   node: {
     label: "Node.js", tier: "reference", runtime: "Node 22+",
-    packages: { dependencies: { "@hono/node-server": "^1.13.0" }, devDependencies: { "tsx": "^4.19.2" } },
+    packages: { dependencies: { "@hono/node-server": "^1.13.0" }, devDependencies: { "tsx": "^4.19.2", "@types/node": "^22.10.0" } },
     scripts: { dev: "tsx watch src/entry.ts", build: "tsc --outDir dist", start: "node dist/entry.js" },
     files: { "src/entry.ts": `import { serve } from "@hono/node-server";\nimport { createApp } from "./app";\nconst server = serve({ fetch: createApp().fetch, port: Number(process.env.PORT ?? 3000) });\nfor (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close());\n` }
   },
