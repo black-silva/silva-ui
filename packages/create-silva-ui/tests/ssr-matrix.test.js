@@ -29,9 +29,11 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(fastlyFiles["src/entry.ts"], /@fastly\/hono-fastly-compute/);
   assert.match(fastlyFiles["fastly.toml"], /build = "npm run build"/);
 
-  const fastedge = JSON.parse(getSsrFiles("matrix-app", "full-stack", "fastedge")["package.json"]);
+  const fastedgeFiles = getSsrFiles("matrix-app", "full-stack", "fastedge");
+  const fastedge = JSON.parse(fastedgeFiles["package.json"]);
   assert.equal(fastedge.devDependencies["@gcoredev/fastedge-sdk-js"], "^2.7.0");
-  assert.match(fastedge.scripts.build, /fastedge-build --input src\/entry\.ts --output wasm\/app.wasm/);
+  assert.equal(fastedge.scripts.build, "fastedge-build --config");
+  assert.match(fastedgeFiles[".fastedge/build-config.js"], /tsConfigPath: "\.\/tsconfig\.json"/);
 });
 
 test("invalid composition fails fast", () => {
