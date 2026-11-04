@@ -1,11 +1,11 @@
 ---
-title: Gradients
-description: Create theme-aware background gradients with the Box primitive.
+title: Theme-aware gradients
+description: Build custom gradients whose token stops follow the nearest Silva UI theme.
 ---
 
-# Gradients
+# Theme-aware gradients
 
-Use `gradient` on `Box` for a small, typed API that works with every built-in and nested Silva UI theme. Gradient stops accept semantic theme tokens, Radix colour tokens, or any valid CSS colour string.
+Use `gradient` on `Box` when the stops should follow the nearest Silva UI theme. It is a compact, typed API for custom gradients, and accepts semantic theme tokens, Radix colour tokens, or valid CSS colour values.
 
 ```tsx
 import { Box, Text, Theme } from "silva-ui"
@@ -21,6 +21,19 @@ import { Box, Text, Theme } from "silva-ui"
 </Theme>
 ```
 
+## Choose the right gradient API
+
+Silva UI has two complementary ways to use gradients:
+
+| Need | Use |
+| --- | --- |
+| A reusable, fixed visual treatment | Named `backgroundColor` or `color` value such as `aurora` or `ocean` |
+| Custom stops that respond to a `Theme` or custom theme | `Box` with the `gradient` prop |
+
+Named gradients and animation are documented in [Visuals](/docs/foundations/visuals). Use `gradient` when a component needs its own colours, direction, or gradient type.
+
+## Gradient options
+
 `from` and `to` are required. `via`, `type`, and `deg` are optional.
 
 | Property | Values | Default |
@@ -29,11 +42,11 @@ import { Box, Text, Theme } from "silva-ui"
 | `to` | theme token or CSS colour | required |
 | `via` | theme token or CSS colour | none |
 | `type` | `linear`, `radial`, `conic` | `linear` |
-| `deg` | number of degrees | `90` |
+| `deg` | degrees for `linear` and `conic` gradients | `90` |
 
 ## Theme-aware stops
 
-Token stops compile to Silva UI CSS variables. They respond to the nearest `Theme`, including custom Vanilla Extract themes.
+Token stops compile to Silva UI CSS variables. They respond to the nearest built-in `Theme` and to a custom Vanilla Extract theme using the Silva UI contract. See [Theming](/docs/theming) to create that contract.
 
 ```tsx
 <Box gradient={{ from: "primary", to: "primaryHover" }} />
@@ -41,7 +54,30 @@ Token stops compile to Silva UI CSS variables. They respond to the nearest `Them
 <Box gradient={{ from: "violet9", to: "cyan9", deg: 135 }} />
 ```
 
-Use a semantic token when the gradient has a UI role, and hue tokens when it is a decorative accent.
+Use semantic tokens for gradients with a UI role, such as a primary call to action. Use hue tokens for decorative accents. Literal CSS colours are useful for one-off brand work, but they remain fixed when the theme changes.
+
+### Custom theme example
+
+A gradient inside a custom theme resolves through that wrapper just like `bg`, `color`, and component variants do.
+
+```tsx
+import { Box } from "silva-ui"
+import { brandTheme } from "./brand-theme.css"
+
+export function BrandBanner() {
+  return (
+    <section class={brandTheme}>
+      <Box
+        gradient={{ from: "primary", to: "primaryActive", deg: 135 }}
+        borderRadius="large"
+        p="large"
+      >
+        Brand-aware banner
+      </Box>
+    </section>
+  )
+}
+```
 
 ## Gradient types
 
@@ -51,18 +87,28 @@ Use a semantic token when the gradient has a UI role, and hue tokens when it is 
 <Box gradient={{ type: "conic", from: "violet9", to: "cyan9", deg: 45 }} />
 ```
 
-## Exact CSS when needed
+`deg` changes the direction of linear gradients and the start angle of conic gradients. Radial gradients ignore it.
 
-For CSS features outside the compact API, retain the existing escape hatch:
+## Reuse the generated CSS
 
-```tsx
-<Box style={{ backgroundImage: "repeating-linear-gradient(45deg, #fff 0 10px, #f1f5f9 10px 20px)" }} />
-```
-
-You can also generate a CSS `background-image` value yourself:
+Use `gradientToCss` when a wrapper component or a plain element needs the exact same theme-aware `background-image` value.
 
 ```ts
 import { gradientToCss } from "silva-ui"
 
-const backgroundImage = gradientToCss({ from: "primary", to: "cyan9", deg: 135 })
+const backgroundImage = gradientToCss({
+  from: "primary",
+  to: "cyan9",
+  deg: 135,
+})
+```
+
+For CSS capabilities beyond the compact API, use `style` directly:
+
+```tsx
+<Box
+  style={{
+    backgroundImage: "repeating-linear-gradient(45deg, #fff 0 10px, #f1f5f9 10px 20px)",
+  }}
+/>
 ```

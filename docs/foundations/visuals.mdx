@@ -49,6 +49,10 @@ Set `color` to a gradient name to render text with a clipped gradient fill. Keep
 
 `backgroundColor` and `color` continue to accept normal Silva UI theme tokens. A gradient name is simply an additional supported value.
 
+## Named or theme-aware?
+
+Named gradients are fixed library presets. When a component needs custom stops that automatically follow the nearest built-in or custom `Theme`, use the [`Box` `gradient` prop](/docs/foundations/gradients) instead. That API also supports linear, radial, and conic gradients.
+
 ## Animation
 
 Use `animation` for a prebuilt animation declaration. The component still renders as normal HTML before the animation starts.
@@ -74,9 +78,7 @@ export function ReleaseNotice() {
 | `slideUp` | Fades in while moving up over 360ms |
 | `pulse` | Repeats a subtle opacity pulse |
 
-<Info>
 Use `pulse` only for information that is not essential to understand or operate the page. Do not rely on motion alone to communicate status.
-</Info>
 
 ## Reuse the definitions
 
