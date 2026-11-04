@@ -91,9 +91,7 @@ jobs:
         with:
           node-version: 22
       - uses: oven-sh/setup-bun@v2
-        if: ${{ matrix.adapter == bun }}
       - uses: denoland/setup-deno@v2
-        if: ${{ matrix.adapter == deno }}
       - run: npm install --ignore-scripts
         working-directory: packages/create-silva-ui
       - name: Generate and build adapter
