@@ -1,0 +1,81 @@
+---
+title: Create a Silva UI app
+description: Generate a static SPA or Hono server-rendered Silva UI starter.
+---
+
+# Create a Silva UI app
+
+`create-silva-ui` starts a new project with Silva UI, TypeScript, and the runtime configuration for the kind of app you choose. Use it to start a new app instead of wiring Silva UI into an existing Hono JSX project.
+
+```bash
+npm create silva-ui@latest my-silva-ui-app
+```
+
+The interactive prompt asks what you are building, then asks for a runtime when you choose a server-rendered app.
+
+## Choose a starter
+
+| Starter | Includes | Best for |
+| --- | --- | --- |
+| Static SPA | Vite, Ruta, and a browser-only Silva UI app | Portable client-side applications |
+| Full-stack SSR | Hono-rendered pages and a small `/api/message` example | Server-rendered apps that need API routes |
+| SSR-only | Hono-rendered pages and normal server navigation | Content and application pages without an API scaffold |
+
+The static SPA does not include a production Hono server. The two SSR starters share the same Hono JSX application structure; full-stack adds the API example, while SSR-only leaves it out.
+
+## Choose an SSR runtime
+
+When you select Full-stack SSR or SSR-only, choose the runtime that matches where you intend to run the app.
+
+| Runtime | Support tier | Notes |
+| --- | --- | --- |
+| Cloudflare Workers | Reference | Worker entry point and Wrangler configuration |
+| Node.js | Reference | Node 22+ server using `@hono/node-server` |
+| Bun | Candidate | Bun server and bundled entry point |
+| Vercel Functions | Candidate | Hono Vercel handler and rewrite configuration |
+| Fastly Compute | Experimental | Fastly Compute entry point and WASM build |
+| AWS Lambda | Experimental | Lambda handler and bundled output |
+| Netlify Edge | Experimental | Netlify Edge function configuration |
+| Deno | Experimental | Deno server and import map |
+| Gcore FastEdge | Experimental | WASI Preview 2 entry point and build config |
+
+`Reference` adapters are the recommended starting points. `Candidate` adapters are validated starters that are still evolving. `Experimental` adapters are intended for evaluation and need provider-specific review before production use.
+
+A generated project contains configuration and local scripts only. It does not create a cloud project, store credentials, or deploy anything during generation. Complete the provider-specific setup before deploying.
+
+## Install and validate
+
+Enter the generated directory, then use the package tool for its runtime. The generated `package.json` is the source of truth for the available scripts.
+
+| Starter runtime | Typical first commands |
+| --- | --- |
+| Static SPA or Node.js | `npm install`, `npm run typecheck`, `npm run dev` |
+| Bun | `bun install`, `bun run typecheck`, `bun run dev` |
+| Deno | `deno task check`, `deno task dev` |
+| Other runtime adapters | Install dependencies, run `npm run typecheck` when present, then use the generated provider command |
+
+Some provider starters are build-only by design. Review their generated configuration and provider documentation before using a build or deployment command.
+
+<Warning>
+For the Vercel starter, `npm run build` runs `vercel deploy --temporary`. It can create a temporary deployment once the Vercel CLI is configured, so only run it when you intend to deploy.
+</Warning>
+
+## Automate generator choices
+
+For CI or scripted setup, provide the same choices through environment variables. `static`, `full-stack`, and `ssr-only` are valid template values. SSR templates also accept an adapter ID.
+
+```bash
+SILVA_UI_TEMPLATE=full-stack \
+SILVA_UI_ADAPTER=cloudflare \
+npm create silva-ui@latest my-worker-app
+```
+
+Supported adapter IDs are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, `deno`, and `fastedge`.
+
+## Start from an existing app
+
+The generator is optional. To add Silva UI to an existing Hono JSX project, follow [Installation](/docs/installation) instead.
+
+<Note>
+A starter is a foundation, not a deployment policy. Keep provider credentials outside the project, review runtime-specific configuration, and use the support tier as a guide when selecting a production target.
+</Note>
