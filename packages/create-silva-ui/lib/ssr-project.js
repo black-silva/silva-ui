@@ -7,8 +7,8 @@ export const categories = {
 
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
-const app = (fullStack, adapter) => `import { Hono } from "hono";
-import { jsxRenderer } from "hono/jsx-renderer";
+const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
+import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
 ${adapter === "netlify" ? "// @ts-expect-error Netlify's Edge bundler requires resolving this package through node_modules." : ""}
 import { H1, Text, YStack } from "${adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui"}";
 ${fullStack ? "import { api } from \"./api\";" : ""}
