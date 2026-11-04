@@ -1,107 +1,127 @@
 name: generator platform checklist
 
 on:
-  pull_request:
-    paths:
-      - "packages/create-silva-ui/**"
-      - ".github/workflows/platform-checklist.yml"
-  push:
-    branches: [copilot/cleanup-generator-template]
-    paths:
-      - "packages/create-silva-ui/**"
-      - ".github/workflows/platform-checklist.yml"
+ pull_request:
+ paths:
+ - "packages/create-silva-ui/**"
+ - ".github/workflows/platform-checklist.yml"
+ push:
+ branches: [copilot/cleanup-generator-template]
+ paths:
+ - "packages/create-silva-ui/**"
+ - ".github/workflows/platform-checklist.yml"
 
 jobs:
-  generate-matrix:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm install --ignore-scripts
-        working-directory: packages/create-silva-ui
-      - name: Generate every SSR combination
-        run: |
-          set -eu
-          mkdir -p /tmp/silva-matrix
-          cd /tmp/silva-matrix
-          for adapter in cloudflare node bun vercel fastly lambda netlify deno fastedge; do
-            for category in ssr-only full-stack; do
-              SILVA_UI_TEMPLATE=$category SILVA_UI_ADAPTER=$adapter node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" "$adapter-$category" >/dev/null
-              test -f "$adapter-$category/src/app.tsx"
-              test -f "$adapter-$category/package.json"
-            done
-          done
+ generate-matrix:
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v4
+ - uses: actions/setup-node@v4
+ with:
+ node-version: 22
+ - run: npm install --ignore-scripts
+ working-directory: packages/create-silva-ui
+ - name: Generate every SSR combination
+ run: |
+ set -eu
+ mkdir -p /tmp/silva-matrix
+ cd /tmp/silva-matrix
+ for adapter in cloudflare node bun vercel fastly lambda netlify deno fastedge; do
+ for category in ssr-only full-stack; do
+ SILVA_UI_TEMPLATE=$category SILVA_UI_ADAPTER=$adapter node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" "$adapter-$category" >/dev/null
+ test -f "$adapter-$category/src/app.tsx"
+ test -f "$adapter-$category/package.json"
+ done
+ done
 
-  node-smoke:
-    needs: generate-matrix
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm install --ignore-scripts
-        working-directory: packages/create-silva-ui
-      - run: |
-          mkdir /tmp/node-starter && cd /tmp/node-starter
-          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=node node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
-          cd app
-          npm install --ignore-scripts
-          npm run typecheck
-          npm run dev > /tmp/node-starter.log 2>&1 &
-          echo $! > /tmp/node-starter.pid
-          for i in 1 2 3 4 5; do curl -fsS http://127.0.0.1:3000/ && break || sleep 1; done
-          curl -fsS http://127.0.0.1:3000/api/message | grep -q "Hello from Silva UI"
-          kill $(cat /tmp/node-starter.pid)
+ node-smoke:
+ needs: generate-matrix
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v4
+ - uses: actions/setup-node@v4
+ with:
+ node-version: 22
+ - run: npm install --ignore-scripts
+ working-directory: packages/create-silva-ui
+ - run: |
+ mkdir /tmp/node-starter && cd /tmp/node-starter
+ SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=node node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+ cd app
+ npm install --ignore-scripts
+ npm run typecheck
+ npm run dev > /tmp/node-starter.log 2>&1 &
+ echo $! > /tmp/node-starter.pid
+ for i in 1 2 3 4 5; do curl -fsS http://127.0.0.1:3000/ && break || sleep 1; done
+ curl -fsS http://127.0.0.1:3000/api/message | grep -q "Hello from Silva UI"
+ kill $(cat /tmp/node-starter.pid)
 
-  cloudflare-and-lambda-build:
-    needs: generate-matrix
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        adapter: [cloudflare, lambda]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm install --ignore-scripts
-        working-directory: packages/create-silva-ui
-      - run: |
-          mkdir /tmp/starter && cd /tmp/starter
-          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
-          cd app
-          npm install --ignore-scripts
-          npm run typecheck
-          npm run build
+ cloudflare-and-lambda-build:
+ needs: generate-matrix
+ runs-on: ubuntu-latest
+ strategy:
+ fail-fast: false
+ matrix:
+ adapter: [cloudflare, lambda]
+ steps:
+ - uses: actions/checkout@v4
+ - uses: actions/setup-node@v4
+ with:
+ node-version: 22
+ - run: npm install --ignore-scripts
+ working-directory: packages/create-silva-ui
+ - run: |
+ mkdir /tmp/starter && cd /tmp/starter
+ SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+ cd app
+ npm install --ignore-scripts
+ npm run typecheck
+ npm run build
 
-  next-adapter-builds:
-    needs: generate-matrix
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        adapter: [bun, vercel, netlify, deno, fastly, fastedge]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: oven-sh/setup-bun@v2
-      - uses: denoland/setup-deno@v2
-      - run: npm install --ignore-scripts
-        working-directory: packages/create-silva-ui
-      - name: Generate and build adapter
-        run: |
-          set -eu
-          mkdir /tmp/starter && cd /tmp/starter
-          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
-          cd app
-          case "${{ matrix.adapter }}" in
-            bun) bun install --ignore-scripts && bun run typecheck && bun run build ;;
-            deno) deno install --minimum-dependency-age 0 && deno task check ;;
-            *) npm install --ignore-scripts && npm run typecheck && npm run build ;;
-          esac
+ next-adapter-builds:
+ needs: generate-matrix
+ runs-on: ubuntu-latest
+ strategy:
+ fail-fast: false
+ matrix:
+ adapter: [bun, vercel, netlify, deno, fastly, fastedge]
+ steps:
+ - uses: actions/checkout@v4
+ - uses: actions/setup-node@v4
+ with:
+ node-version: 22
+ - uses: oven-sh/setup-bun@v2
+ - uses: denoland/setup-deno@v2
+ - run: npm install --ignore-scripts
+ working-directory: packages/create-silva-ui
+ - name: Generate adapter starter
+ run: |
+ set -eu
+ mkdir /tmp/starter && cd /tmp/starter
+ SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+ - name: Install adapter dependencies
+ run: |
+ set -eu
+ cd /tmp/starter/app
+ case "${{ matrix.adapter }}" in
+ bun) bun install --ignore-scripts ;;
+ deno) deno install --minimum-dependency-age 0 ;;
+ *) npm install --ignore-scripts ;;
+ esac
+ - name: Typecheck adapter starter
+ run: |
+ set -eu
+ cd /tmp/starter/app
+ case "${{ matrix.adapter }}" in
+ deno) deno task check ;;
+ *) npm run typecheck ;;
+ esac
+ - name: Build adapter starter
+ run: |
+ set -eu
+ cd /tmp/starter/app
+ case "${{ matrix.adapter }}" in
+ bun) bun run build ;;
+ deno) npm run build ;;
+ *) npm run build ;;
+ esac
