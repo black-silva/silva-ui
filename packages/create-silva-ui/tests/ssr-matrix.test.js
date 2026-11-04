@@ -16,6 +16,24 @@ test("every adapter composes both SSR categories", () => {
   }
 });
 
+test("runtime adapters include their required compiler and type packages", () => {
+  const bun = JSON.parse(getSsrFiles("matrix-app", "full-stack", "bun")["package.json"]);
+  assert.ok(bun.devDependencies["@types/bun"]);
+  assert.ok(bun.devDependencies["@types/node"]);
+
+  const fastlyFiles = getSsrFiles("matrix-app", "full-stack", "fastly");
+  const fastly = JSON.parse(fastlyFiles["package.json"]);
+  assert.equal(fastly.dependencies["@fastly/hono-fastly-compute"], "^0.3.10");
+  assert.ok(fastly.dependencies["@fastly/js-compute"]);
+  assert.ok(fastly.devDependencies["@fastly/cli"]);
+  assert.match(fastlyFiles["src/entry.ts"], /@fastly\/hono-fastly-compute/);
+  assert.match(fastlyFiles["fastly.toml"], /build = "npm run build"/);
+
+  const fastedge = JSON.parse(getSsrFiles("matrix-app", "full-stack", "fastedge")["package.json"]);
+  assert.equal(fastedge.devDependencies["@gcoredev/fastedge-sdk-js"], "^2.7.0");
+  assert.match(fastedge.scripts.build, /fastedge-build --input src\/entry\.ts --output wasm\/app.wasm/);
+});
+
 test("invalid composition fails fast", () => {
   assert.throws(() => getSsrFiles("matrix-app", "ssr-only", "not-an-adapter"));
   assert.throws(() => getSsrFiles("matrix-app", "not-a-category", "node"));
