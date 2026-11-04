@@ -11,7 +11,7 @@ const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
 ${adapter === "netlify" ? "// @ts-expect-error Netlify's Edge bundler requires resolving this package through node_modules." : ""}
 import { H1, Text, YStack } from "${adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui"}";
-${fullStack ? "import { api } from \"./api\";" : ""}
+${fullStack ? "import { api } from \"./api.ts\";" : ""}
 
 export function createApp() {
   const app = new Hono();
