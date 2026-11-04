@@ -1,7 +1,7 @@
 {
   "name": "create-silva-ui",
   "version": "0.1.0",
-  "description": "Create a Hono + Silva UI application",
+  "description": "Create a static Silva UI single-page application",
   "type": "module",
   "bin": {
     "create-silva-ui": "./index.js"
@@ -9,5 +9,8 @@
   "files": ["index.js", "template"],
   "engines": { "node": ">=18" },
   "license": "MIT",
-  "keywords": ["silva-ui", "create", "hono", "starter"]
+  "keywords": ["silva-ui", "create", "hono", "starter", "spa"],
+  "dependencies": {
+    "@clack/prompts": "^1.8.1"
+  }
 }
