@@ -116,12 +116,13 @@ jobs:
             deno) deno task check ;;
             *) npm run typecheck ;;
           esac
-      - name: Build adapter starter
+      - name: Build or validate adapter starter
         run: |
           set -eu
           cd /tmp/starter/app
           case "${{ matrix.adapter }}" in
             bun) bun run build ;;
             deno) npm run build ;;
+            vercel) npm run typecheck ;;
             *) npm run build ;;
           esac
