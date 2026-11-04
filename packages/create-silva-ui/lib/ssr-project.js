@@ -78,7 +78,8 @@ export function getSsrFiles(name, category, adapter) {
   export { H1, Text, YStack } from "silva-ui";
 }
 `;
-    files["src/netlify-hono-dom.ts"] = `export { useEffect, useState } from "../node_modules/hono/dist/jsx/hooks/index.js";
+    files["src/netlify-hono-dom.ts"] = `// @ts-nocheck
+export { useEffect, useState } from "../node_modules/hono/dist/jsx/hooks/index.js";
 `;
     files["import_map.json"] = `{
   "imports": {
