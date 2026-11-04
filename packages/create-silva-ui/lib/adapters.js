@@ -12,7 +12,7 @@ export const adapters = {
     label: "Node.js", tier: "reference", runtime: "Node 22+",
     packages: { dependencies: { "@hono/node-server": "^1.13.0" }, devDependencies: { "tsx": "^4.19.2", "@types/node": "^22.10.0" } },
     scripts: { dev: "tsx watch src/entry.ts", build: "tsc --outDir dist", start: "node dist/entry.js" },
-    files: { "src/entry.ts": `import { serve } from "@hono/node-server";\nimport { createApp } from "./app";\nconst server = serve({ fetch: createApp().fetch, port: Number(process.env.PORT ?? 3000) });\nfor (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close());\n` }
+    files: { "src/entry.ts": `import { serve } from "@hono/node-server";\nimport { createApp } from "./app.js";\nconst server = serve({ fetch: createApp().fetch, port: Number(process.env.PORT ?? 3000) });\nfor (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close());\n` }
   },
   bun: {
     label: "Bun", tier: "candidate", runtime: "Bun",
@@ -31,7 +31,7 @@ export const adapters = {
   },
   lambda: {
     label: "AWS Lambda", tier: "experimental", runtime: "AWS Lambda Node.js 22",
-    packages: { dependencies: { "@hono/aws-lambda": "^1.4.0" }, devDependencies: { "esbuild": "^0.24.0" } }, scripts: { build: "esbuild src/entry.ts --bundle --platform=node --target=node22 --outfile=dist/index.mjs" },
+    packages: { dependencies: { "@hono/aws-lambda": "^1.0.1" }, devDependencies: { "esbuild": "^0.24.0" } }, scripts: { build: "esbuild src/entry.ts --bundle --platform=node --target=node22 --outfile=dist/index.mjs" },
     files: { "src/entry.ts": `import { handle } from "@hono/aws-lambda";\nimport { createApp } from "./app";\nexport const handler = handle(createApp());\n`, "template.yaml": `AWSTemplateFormatVersion: 2010-09-09\nTransform: AWS::Serverless-2016-10-31\nResources:\n  App:\n    Type: AWS::Serverless::Function\n    Properties:\n      Runtime: nodejs22.x\n      Handler: index.handler\n      CodeUri: dist/\n` }
   },
   netlify: {
