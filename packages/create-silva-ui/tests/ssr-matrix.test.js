@@ -39,8 +39,8 @@ test("runtime adapters include their required compiler and type packages", () =>
   const netlify = JSON.parse(netlifyFiles["package.json"]);
   assert.equal(netlify.dependencies?.["@hono/netlify"], undefined);
   assert.equal(netlify.devDependencies["netlify-cli"], "^27.16.2");
-  assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /src\/netlify-app\.tsx/);
-  assert.doesNotMatch(netlifyFiles["src/netlify-app.tsx"], /silva-ui/);
+  assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /app\.fetch\(request, context\)/);
+  assert.match(netlifyFiles["src/app.tsx"], /node_modules\/silva-ui\/dist\/library\/silva-ui\.js/);
   assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
 });
 

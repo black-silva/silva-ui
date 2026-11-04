@@ -7,9 +7,10 @@ export const categories = {
 
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
-const app = (fullStack) => `import { Hono } from "hono";
+const app = (fullStack, adapter) => `import { Hono } from "hono";
 import { jsxRenderer } from "hono/jsx-renderer";
-import { H1, Text, YStack } from "silva-ui";
+${adapter === "netlify" ? "// @ts-expect-error Netlify's Edge bundler requires resolving this package through node_modules." : ""}
+import { H1, Text, YStack } from "${adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui"}";
 ${fullStack ? "import { api } from \"./api\";" : ""}
 
 export function createApp() {
@@ -29,23 +30,6 @@ const api = `import { Hono } from "hono";
 
 export const api = new Hono();
 api.get("/message", (c) => c.json({ message: "Hello from Silva UI" }));
-`;
-
-const netlifyApp = (fullStack) => `import { Hono } from "hono";
-${fullStack ? "import { api } from \"./api.ts\";" : ""}
-
-export function createApp() {
-  const app = new Hono();
-  app.use("*", async (c, next) => {
-    await next();
-    c.header("content-type", "text/html; charset=UTF-8");
-  });
-  app.get("/", (c) => c.html("<main><h1>Silva UI SSR</h1><p>Your Hono JSX starter is ready.</p></main>"));
-  app.get("/about", (c) => c.html("<main><h1>About</h1><p>This route uses normal server navigation.</p></main>"));
-  ${fullStack ? "app.route(\"/api\", api);" : ""}
-  app.notFound((c) => c.text("Not found", 404));
-  return app;
-}
 `;
 
 const tsconfig = `{
@@ -86,11 +70,16 @@ export function getSsrFiles(name, category, adapter) {
   const files = {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
-    "src/app.tsx": app(fullStack),
+    "src/app.tsx": app(fullStack, adapter),
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
+  if (adapter === "netlify") {
+    files["src/netlify-silva-ui.d.ts"] = `declare module "../node_modules/silva-ui/dist/library/silva-ui.js" {
+  export { H1, Text, YStack } from "silva-ui";
+}
+`;
+  }
   if (fullStack) files["src/api.ts"] = api;
-  if (adapter === "netlify") files["src/netlify-app.tsx"] = netlifyApp(fullStack);
   Object.assign(files, definition.files);
   return files;
 }
