@@ -1,6 +1,6 @@
 # Silva UI starter
 
-A small Vite + TypeScript starter for Silva UI.
+A portable static SPA starter built with Vite, TypeScript, Silva UI, Hono JSX, and Ruta.
 
 ## Pages
 
@@ -26,5 +26,9 @@ npm run typecheck
 npm run build
 npm run preview
 ```
+
+`npm run build` emits static files to `dist/`.
+
+For Ruta client routes like `/about`, configure your host with SPA history fallback so unknown paths serve `dist/index.html`.
 
 To add a page, make a file in `src/pages`, add a navigation link in `Layout.tsx`, then map its path in `app.tsx`.
