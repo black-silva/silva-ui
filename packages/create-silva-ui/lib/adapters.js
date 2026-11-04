@@ -21,8 +21,8 @@ export const adapters = {
   },
   vercel: {
     label: "Vercel", tier: "candidate", runtime: "Vercel Functions",
-    packages: { devDependencies: { "vercel": "^39.0.0" } }, scripts: { dev: "vercel dev", build: "vercel build" },
-    files: { "api/index.ts": `import { handle } from "hono/vercel";\nimport { createApp } from "../src/app";\nexport default handle(createApp());\n`, "vercel.json": `{\n  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]\n}\n` }
+    packages: { dependencies: { "@hono/vercel": "^1.0.1" }, devDependencies: { "vercel": "^39.0.0" } }, scripts: { dev: "vercel dev", build: "vercel build" },
+    files: { "api/index.ts": `import { handle } from "@hono/vercel";\nimport { createApp } from "../src/app";\nexport default handle(createApp());\n`, "vercel.json": `{\n  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]\n}\n` }
   },
   fastly: {
     label: "Fastly Compute", tier: "experimental", runtime: "Fastly Compute",
@@ -36,8 +36,8 @@ export const adapters = {
   },
   netlify: {
     label: "Netlify Edge", tier: "experimental", runtime: "Deno Edge Functions",
-    packages: { dependencies: { "@hono/netlify": "^1.1.0" }, devDependencies: { "netlify-cli": "^17.0.0" } }, scripts: { dev: "netlify dev", build: "netlify build" },
-    files: { "netlify/edge-functions/app.ts": `import { handle } from "hono/netlify";\nimport { createApp } from "../../src/app";\nexport default handle(createApp());\n`, "netlify.toml": `[build]\n  command = "npm run build"\n\n[[edge_functions]]\n  function = "app"\n  path = "/*"\n` }
+    packages: { dependencies: { "@hono/netlify": "^1.0.2" }, devDependencies: { "netlify-cli": "^17.0.0" } }, scripts: { dev: "netlify dev", build: "netlify build" },
+    files: { "netlify/edge-functions/app.ts": `import { handle } from "@hono/netlify";\nimport { createApp } from "../../src/app";\nexport default handle(createApp());\n`, "netlify.toml": `[build]\n  command = "npm run build"\n\n[[edge_functions]]\n  function = "app"\n  path = "/*"\n` }
   },
   deno: {
     label: "Deno", tier: "experimental", runtime: "Deno",
