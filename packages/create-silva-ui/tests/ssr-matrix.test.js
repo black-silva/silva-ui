@@ -39,6 +39,7 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /"\.\.\/\.\.\/src\/app\.tsx"/);
   assert.match(netlifyFiles["src/app.tsx"], /"\.\/api\.ts"/);
   assert.match(netlifyFiles["tsconfig.json"], /"allowImportingTsExtensions": true/);
+  assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
 });
 
 test("invalid composition fails fast", () => {
