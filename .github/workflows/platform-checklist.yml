@@ -20,6 +20,7 @@ jobs:
         run: |
           set -eu
           mkdir -p /tmp/silva-matrix
+          cd /tmp/silva-matrix
           for adapter in cloudflare node bun vercel fastly lambda netlify deno fastedge; do
             for category in ssr-only full-stack; do
               SILVA_UI_TEMPLATE=$category SILVA_UI_ADAPTER=$adapter node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" "$adapter-$category" >/dev/null
@@ -27,7 +28,6 @@ jobs:
               test -f "$adapter-$category/package.json"
             done
           done
-        working-directory: /tmp/silva-matrix
 
   node-smoke:
     needs: generate-matrix
