@@ -10,7 +10,7 @@ export const categoryOptions = Object.entries(categories).map(([value, category]
 const app = (fullStack) => `import { Hono } from "hono";
 import { jsxRenderer } from "hono/jsx-renderer";
 import { H1, Text, YStack } from "silva-ui";
-${fullStack ? "import { api } from \"./api\";" : ""}
+${fullStack ? "import { api } from \"./api.ts\";" : ""}
 
 export function createApp() {
   const app = new Hono();
@@ -40,7 +40,8 @@ const tsconfig = `{
     "skipLibCheck": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "allowImportingTsExtensions": true
   },
   "include": ["src", "api", "netlify"]
 }
