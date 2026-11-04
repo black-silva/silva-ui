@@ -37,6 +37,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: npm install --ignore-scripts
+        working-directory: packages/create-silva-ui
       - run: |
           mkdir /tmp/node-starter && cd /tmp/node-starter
           SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=node node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
@@ -61,6 +63,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: npm install --ignore-scripts
+        working-directory: packages/create-silva-ui
       - run: |
           mkdir /tmp/starter && cd /tmp/starter
           SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
