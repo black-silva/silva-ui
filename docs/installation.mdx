@@ -34,16 +34,17 @@ The package exposes this stylesheet as the `silva-ui/style.css` subpath. Compone
 
 ## Start a new app
 
-The `create-silva-ui` starter generates a multi-page Hono application with server-rendered Silva UI markup and small client-side controllers for tabs and sheet navigation.
+Use `create-silva-ui` to start a static SPA, a full-stack Hono SSR app, or an SSR-only Hono app. The prompt asks you to choose the starter and, for SSR, the target runtime.
 
 ```bash
 npm create silva-ui@latest my-silva-ui-app
 cd my-silva-ui-app
 npm install
+npm run typecheck
 npm run dev
 ```
 
-It is a practical starting point, not a required runtime. Existing Hono JSX applications can install `silva-ui` directly.
+See [Create a Silva UI app](/docs/setup/create-silva-ui) for starter choices, supported runtimes, and scripted generation. Existing Hono JSX applications can install `silva-ui` directly.
 
 ## Create a route
 
@@ -51,13 +52,13 @@ It is a practical starting point, not a required runtime. Existing Hono JSX appl
   <Tab title="Code">
 
 ```tsx
-import { Hono } from 'hono'
-import 'silva-ui/style.css'
-import { Button, Heading, Paragraph, Theme, YStack } from 'silva-ui'
+import { Hono } from "hono"
+import "silva-ui/style.css"
+import { Button, Heading, Paragraph, Theme, YStack } from "silva-ui"
 
 const app = new Hono()
 
-app.get(/, (c) => c.html(
+app.get("/", (c) => c.html(
   <Theme name="emerald" p="large">
     <YStack gap="medium" maxWidth={400}>
       <Heading level={1}>Hello, Silva</Heading>
@@ -91,4 +92,4 @@ export default app
 | `silva-ui` | Components, tokens, types and theme utilities |
 | `silva-ui/style.css` | Prebuilt CSS required by the components |
 
-Next: [apply a theme](/docs/theming).
+Next: [create a starter](/docs/setup/create-silva-ui) or [apply a theme](/docs/theming).
