@@ -1,0 +1,70 @@
+name: generator platform checklist
+
+on:
+  pull_request:
+    paths:
+      - "packages/create-silva-ui/**"
+      - ".github/workflows/platform-checklist.yml"
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --ignore-scripts
+        working-directory: packages/create-silva-ui
+      - name: Generate every SSR combination
+        run: |
+          set -eu
+          mkdir -p /tmp/silva-matrix
+          for adapter in cloudflare node bun vercel fastly lambda netlify deno fastedge; do
+            for category in ssr-only full-stack; do
+              SILVA_UI_TEMPLATE=$category SILVA_UI_ADAPTER=$adapter node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" "$adapter-$category" >/dev/null
+              test -f "$adapter-$category/src/app.tsx"
+              test -f "$adapter-$category/package.json"
+            done
+          done
+        working-directory: /tmp/silva-matrix
+
+  node-smoke:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          mkdir /tmp/node-starter && cd /tmp/node-starter
+          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=node node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+          cd app
+          npm install --ignore-scripts
+          npm run typecheck
+          npm run dev > /tmp/node-starter.log 2>&1 &
+          echo $! > /tmp/node-starter.pid
+          for i in 1 2 3 4 5; do curl -fsS http://127.0.0.1:3000/ && break || sleep 1; done
+          curl -fsS http://127.0.0.1:3000/api/message | grep -q "Hello from Silva UI"
+          kill $(cat /tmp/node-starter.pid)
+
+  cloudflare-and-lambda-build:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        adapter: [cloudflare, lambda]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          mkdir /tmp/starter && cd /tmp/starter
+          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+          cd app
+          npm install --ignore-scripts
+          npm run typecheck
+          npm run build
