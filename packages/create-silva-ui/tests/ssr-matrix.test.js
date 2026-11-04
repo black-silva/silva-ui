@@ -37,6 +37,7 @@ test("runtime adapters include their required compiler and type packages", () =>
 
   const netlifyFiles = getSsrFiles("matrix-app", "full-stack", "netlify");
   assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /"\.\.\/\.\.\/src\/app\.tsx"/);
+  assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
 });
 
 test("invalid composition fails fast", () => {
