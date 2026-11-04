@@ -31,6 +31,23 @@ export const api = new Hono();
 api.get("/message", (c) => c.json({ message: "Hello from Silva UI" }));
 `;
 
+const netlifyApp = (fullStack) => `import { Hono } from "hono";
+${fullStack ? "import { api } from \"./api.ts\";" : ""}
+
+export function createApp() {
+  const app = new Hono();
+  app.use("*", async (c, next) => {
+    await next();
+    c.header("content-type", "text/html; charset=UTF-8");
+  });
+  app.get("/", (c) => c.html("<main><h1>Silva UI SSR</h1><p>Your Hono JSX starter is ready.</p></main>"));
+  app.get("/about", (c) => c.html("<main><h1>About</h1><p>This route uses normal server navigation.</p></main>"));
+  ${fullStack ? "app.route(\"/api\", api);" : ""}
+  app.notFound((c) => c.text("Not found", 404));
+  return app;
+}
+`;
+
 const tsconfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -73,6 +90,7 @@ export function getSsrFiles(name, category, adapter) {
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
   if (fullStack) files["src/api.ts"] = api;
+  if (adapter === "netlify") files["src/netlify-app.tsx"] = netlifyApp(fullStack);
   Object.assign(files, definition.files);
   return files;
 }
