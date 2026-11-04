@@ -41,18 +41,22 @@ When you select Full-stack SSR or SSR-only, choose the runtime that matches wher
 
 A generated project contains configuration and local scripts only. It does not create a cloud project, store credentials, or deploy anything during generation. Complete the provider-specific setup before deploying.
 
-## Install and run
+## Install and validate
 
-After generation, enter the project and install its dependencies.
+Enter the generated directory, then use the package tool for its runtime. The generated `package.json` is the source of truth for the available scripts.
 
-```bash
-cd my-silva-ui-app
-npm install
-npm run typecheck
-npm run dev
-```
+| Starter runtime | Typical first commands |
+| --- | --- |
+| Static SPA or Node.js | `npm install`, `npm run typecheck`, `npm run dev` |
+| Bun | `bun install`, `bun run typecheck`, `bun run dev` |
+| Deno | `deno task check`, `deno task dev` |
+| Provider runtimes | Install dependencies, run `npm run typecheck` when present, then use the generated provider command |
 
-Use the runtime normal package tool when its documentation calls for one. The generated `package.json` contains the available `dev`, `build`, and, where relevant, `start` scripts.
+Some provider starters are build-only by design. Review their generated configuration and provider documentation before using a build or deployment command.
+
+<Warning>
+For the Vercel starter, `npm run build` runs `vercel deploy --temporary`. It can create a temporary deployment once the Vercel CLI is configured, so only run it when you intend to deploy.
+</Warning>
 
 ## Automate generator choices
 
