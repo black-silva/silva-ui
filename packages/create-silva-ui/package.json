@@ -1,6 +1,6 @@
 {
   "name": "create-silva-ui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Create a Silva UI static or server-rendered application",
   "type": "module",
   "bin": {
