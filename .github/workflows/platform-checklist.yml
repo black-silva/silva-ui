@@ -77,3 +77,33 @@ jobs:
           npm install --ignore-scripts
           npm run typecheck
           npm run build
+
+  next-adapter-builds:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        adapter: [bun, vercel, netlify, deno, fastly, fastedge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+        if: matrix.adapter == bun
+      - uses: denoland/setup-deno@v2
+        if: matrix.adapter == deno
+      - run: npm install --ignore-scripts
+        working-directory: packages/create-silva-ui
+      - name: Generate and build adapter
+        run: |
+          set -eu
+          mkdir /tmp/starter && cd /tmp/starter
+          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+          cd app
+          case "${{ matrix.adapter }}" in
+            bun) bun install --ignore-scripts && bun run typecheck && bun run build ;;
+            deno) deno task check ;;
+            *) npm install --ignore-scripts && npm run typecheck && npm run build ;;
+          esac
