@@ -78,6 +78,14 @@ export function getSsrFiles(name, category, adapter) {
   export { H1, Text, YStack } from "silva-ui";
 }
 `;
+    files["src/netlify-hono-dom.ts"] = `export { useEffect, useState } from "../node_modules/hono/dist/hooks/index.js";
+`;
+    files["import_map.json"] = `{
+  "imports": {
+    "hono/jsx/dom": "./src/netlify-hono-dom.ts"
+  }
+}
+`;
   }
   if (fullStack) files["src/api.ts"] = api;
   Object.assign(files, definition.files);
