@@ -37,8 +37,9 @@ test("runtime adapters include their required compiler and type packages", () =>
 
   const netlifyFiles = getSsrFiles("matrix-app", "full-stack", "netlify");
   const netlify = JSON.parse(netlifyFiles["package.json"]);
+  assert.equal(netlify.dependencies?.["@hono/netlify"], undefined);
   assert.equal(netlify.devDependencies["netlify-cli"], "^27.16.2");
-  assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /"\.\.\/\.\.\/src\/app\.tsx"/);
+  assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /app\.fetch\(request, context\)/);
   assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
 });
 
