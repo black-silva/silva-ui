@@ -81,9 +81,13 @@ export function getSsrFiles(name, category, adapter) {
     files["src/netlify-hono-dom.ts"] = `// @ts-nocheck
 export { useEffect, useState } from "../node_modules/hono/dist/jsx/hooks/index.js";
 `;
+    files["src/netlify-hono-jsx-runtime.ts"] = `// @ts-nocheck
+export * from "../node_modules/hono/dist/jsx/jsx-runtime.js";
+`;
     files["import_map.json"] = `{
   "imports": {
-    "hono/jsx/dom": "./src/netlify-hono-dom.ts"
+    "hono/jsx/dom": "./src/netlify-hono-dom.ts",
+    "hono/jsx/jsx-runtime": "./src/netlify-hono-jsx-runtime.ts"
   }
 }
 `;
