@@ -36,7 +36,7 @@ export const adapters = {
  },
  netlify: {
  label: "Netlify Edge", tier: "experimental", runtime: "Deno Edge Functions",
- packages: { dependencies: { "@hono/netlify": "^1.0.2" }, devDependencies: { "netlify-cli": "^17.0.0" } }, scripts: { dev: "netlify dev", build: "netlify build" },
+ packages: { dependencies: { "@hono/netlify": "^1.0.2" }, devDependencies: { "netlify-cli": "^17.0.0" } }, scripts: { dev: "netlify dev", build: "netlify build --offline" },
  files: { "netlify/edge-functions/app.ts": `import { handle } from "@hono/netlify";\nimport { createApp } from "../../src/app";\nexport default handle(createApp());\n`, "netlify.toml": `[[edge_functions]]\n function = "app"\n path = "/*"\n` }
  },
  deno: {
