@@ -102,6 +102,6 @@ jobs:
           cd app
           case "${{ matrix.adapter }}" in
             bun) bun install --ignore-scripts && bun run typecheck && bun run build ;;
-            deno) deno task check ;;
+            deno) deno install --minimum-dependency-age 0 && deno task check ;;
             *) npm install --ignore-scripts && npm run typecheck && npm run build ;;
           esac
