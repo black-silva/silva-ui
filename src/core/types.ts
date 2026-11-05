@@ -5,12 +5,12 @@
  * so the library works with Hono JSX, Preact, or plain string rendering.
  */
 
-import type { Sprinkles } from './sprinkles.css';
+import type { ProjectionSprinkles, Sprinkles } from './sprinkles.css';
 import type { AnimationName } from './visuals.css';
 import type { GradientName } from './gradients';
 
 /** Props common to every silva-ui primitive. */
-export type BaseProps = Omit<Sprinkles, 'backgroundColor' | 'color'> & {
+export type BaseProps = Omit<ProjectionSprinkles, 'backgroundColor' | 'color'> & {
   /** Named gradients work with `backgroundColor` and `color` in addition to theme color tokens. */
   backgroundColor?: Sprinkles['backgroundColor'] | GradientName;
   color?: Sprinkles['color'] | GradientName;
