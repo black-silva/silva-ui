@@ -1,5 +1,6 @@
 // sprinkles.css.ts
 import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles';
+import type { ProjectionToken } from './projection';
 import { themeColors } from './theme.css';
 
 // 1. Design Tokens
@@ -229,3 +230,23 @@ const responsiveProperties = defineProperties({
 
 export const sprinkles = createSprinkles(responsiveProperties);
 export type Sprinkles = Parameters<typeof sprinkles>[0];
+
+/**
+ * Sprinkles properties that also accept a fluid projection token such as
+ * `$24`. The numeric part is its pixel value at the 1000px reference viewport.
+ */
+export type ProjectionProperty =
+  | 'gap'
+  | 'paddingTop' | 'paddingBottom' | 'paddingLeft' | 'paddingRight'
+  | 'marginTop' | 'marginBottom' | 'marginLeft' | 'marginRight'
+  | 'width' | 'height' | 'minWidth' | 'minHeight' | 'maxWidth' | 'maxHeight'
+  | 'fontSize' | 'borderRadius'
+  | 'top' | 'right' | 'bottom' | 'left'
+  | 'p' | 'px' | 'py' | 'pt' | 'pb' | 'pl' | 'pr'
+  | 'm' | 'mx' | 'my' | 'mt' | 'mb' | 'ml' | 'mr'
+  | 'w' | 'h';
+
+/** Sprinkles extended with dynamic, linearly projected numeric size tokens. */
+export type ProjectionSprinkles = Omit<Sprinkles, ProjectionProperty> & {
+  [Property in ProjectionProperty]?: Sprinkles[Property] | ProjectionToken;
+};
