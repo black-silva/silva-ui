@@ -13,7 +13,11 @@ export const categories = {
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
 function moduleExtension(adapter) {
-  return adapter === "netlify" ? ".tsx" : "";
+  return adapter === "netlify" || adapter === "deno" ? ".tsx" : "";
+}
+
+function stylesheetModuleExtension(adapter) {
+  return adapter === "deno" || adapter === "netlify" ? ".ts" : "";
 }
 
 function silvaImport(adapter) {
@@ -28,7 +32,7 @@ const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
 import { About } from "./pages/About${moduleExtension(adapter)}";
-${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${moduleExtension(adapter)}";` : ""}
+${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
 ${fullStack ? `import { api } from "./api.ts";` : ""}
 
 export function createApp() {
