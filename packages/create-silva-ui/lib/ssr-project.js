@@ -15,6 +15,10 @@ function silvaImport(adapter) {
   return adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui";
 }
 
+function supportTier(definition, category) {
+  return definition.support?.[category] ?? definition.tier;
+}
+
 const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
@@ -180,7 +184,7 @@ export function getSsrFiles(name, category, adapter) {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
     "src/app.tsx": app(fullStack, adapter),
-    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
+    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
   files["src/components/Layout.tsx"] = layout(adapter);
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
