@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { brotliDecompressSync } from "node:zlib";
 import test from "node:test";
 import { adapters } from "../lib/adapters.js";
 import { getSsrFiles } from "../lib/ssr-project.js";
@@ -97,6 +98,23 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(netlifyFiles["src/app.tsx"], /node_modules\/hono\/dist\/middleware\/jsx-renderer\/index\.js/);
   assert.match(netlifyFiles["import_map.json"], /hono\/jsx\/dom/);
   assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
+});
+
+test("unverified adapters serve the bundled Silva stylesheet in both SSR categories", async () => {
+  for (const name of Object.keys(adapters).filter((name) => name !== "cloudflare")) {
+    for (const category of ["ssr-only", "full-stack"]) {
+      const files = getSsrFiles("matrix-app", category, name);
+      assert.ok(files["src/silva-ui.css.ts"], `${name} embeds the Silva stylesheet`);
+      assert.match(files["src/silva-ui.css.ts"], /Uint8Array\.from\(atob/);
+      assert.ok(files["src/silva-ui.css.ts"].length > 30_000, `${name} includes the compressed stylesheet`);
+      assert.match(files["src/app.tsx"], /href="\/silva-ui\.css"/);
+      assert.match(files["src/app.tsx"], /Content-Encoding": "br"/);
+      assert.match(files["src/app.tsx"], /app\.get\("\/silva-ui\.css"/);
+    }
+  }
+  const nodeStyles = getSsrFiles("matrix-app", "ssr-only", "node")["src/silva-ui.css.ts"];
+  const { default: compressedStyles } = await import(`data:text/javascript,${encodeURIComponent(nodeStyles)}`);
+  assert.match(brotliDecompressSync(compressedStyles).toString("utf8"), /^:root\{/);
 });
 
 test("invalid composition fails fast", () => {
