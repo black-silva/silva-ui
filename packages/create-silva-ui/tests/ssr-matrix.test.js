@@ -37,6 +37,7 @@ test("runtime adapters include their required compiler and type packages", () =>
  assert.ok(bun.devDependencies["@types/node"]);
 
  const cloudflareFiles = getSsrFiles("matrix-app", "ssr-only", "cloudflare");
+ assert.equal(adapters.cloudflare.tier, "fully-supported");
  const cloudflare = JSON.parse(cloudflareFiles["package.json"]);
  assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
  assert.ok(cloudflareFiles["scripts/copy-silva-styles.js"]);
