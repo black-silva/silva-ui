@@ -1,4 +1,9 @@
 import { adapters } from "./adapters.js";
+import { readFileSync } from "node:fs";
+
+// Keep the SSR starters self-contained: edge runtimes cannot assume a public
+// directory or a Node filesystem at request time.
+const silvaStyles = [1, 2, 3, 4, 5].map((part) => readFileSync(new URL(`../template/silva-ui.css.br.base64.${part}`, import.meta.url), "utf8").trim()).join("");
 
 export const categories = {
   "full-stack": { label: "Full-stack SSR", description: "Hono pages with a small /api example." },
@@ -23,13 +28,15 @@ const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
 import { About } from "./pages/About${moduleExtension(adapter)}";
+${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${moduleExtension(adapter)}";` : ""}
 ${fullStack ? `import { api } from "./api.ts";` : ""}
 
 export function createApp() {
   const app = new Hono();
   app.use("*", jsxRenderer(({ children }) => (
-    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />${adapter === "cloudflare" ? "<link rel=\"stylesheet\" href=\"/silva-ui.css\" />" : ""}<title>Silva UI</title></head><body>{children}</body></html>
+    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="stylesheet" href="/silva-ui.css" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
+  ${adapter !== "cloudflare" ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}
   app.get("/", (c) => c.render(<Home />));
   app.get("/about", (c) => c.render(<About />));
   ${fullStack ? `app.route("/api", api);` : ""}
@@ -186,6 +193,7 @@ export function getSsrFiles(name, category, adapter) {
     "src/app.tsx": app(fullStack, adapter),
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
+  if (adapter !== "cloudflare") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
   files["src/components/Layout.tsx"] = layout(adapter);
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
   files["src/pages/About.tsx"] = about(adapter);
