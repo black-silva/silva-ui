@@ -17,19 +17,18 @@ function silvaImport(adapter) {
 
 const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
-${fullStack ? `import { H1, Text, YStack } from "${silvaImport(adapter)}";
-import { api } from "./api.ts";` : `import { Home } from "./pages/Home${moduleExtension(adapter)}";
-import { About } from "./pages/About${moduleExtension(adapter)}";`}
+import { Home } from "./pages/Home${moduleExtension(adapter)}";
+import { About } from "./pages/About${moduleExtension(adapter)}";
+${fullStack ? `import { api } from "./api.ts";` : ""}
 
 export function createApp() {
   const app = new Hono();
   app.use("*", jsxRenderer(({ children }) => (
     <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />${adapter === "cloudflare" ? "<link rel=\"stylesheet\" href=\"/silva-ui.css\" />" : ""}<title>Silva UI</title></head><body>{children}</body></html>
   )));
-  ${fullStack ? `app.get("/", (c) => c.render(<YStack gap="large"><H1>Silva UI SSR</H1><Text as="p">Your Hono JSX starter is ready.</Text></YStack>));
-  app.get("/about", (c) => c.render(<YStack gap="medium"><H1>About</H1><Text as="p">This route uses normal server navigation.</Text></YStack>));
-  app.route("/api", api);` : `app.get("/", (c) => c.render(<Home />));
-  app.get("/about", (c) => c.render(<About />));`}
+  app.get("/", (c) => c.render(<Home />));
+  app.get("/about", (c) => c.render(<About />));
+  ${fullStack ? `app.route("/api", api);` : ""}
   app.notFound((c) => c.text("Not found", 404));
   return app;
 }
@@ -67,8 +66,24 @@ export function Layout({ children }: LayoutProps) {
 }
 `;
 
-const home = (adapter) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter)}";
+const apiMessageButton = (adapter) => `import { Box, Text, YStack } from "${silvaImport(adapter)}";
+
+export function ApiMessageButton() {
+  return (
+    <YStack gap="small">
+      <Box as="button" id="api-message-button" type="button" bg="primary" color="primaryContrast" borderRadius="medium" p="medium">
+        Call the API
+      </Box>
+      <Text id="api-message" aria-live="polite" color="muted">The API message will appear here.</Text>
+      <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("api-message-button")?.addEventListener("click", async () => { const target = document.getElementById("api-message"); if (!target) return; target.textContent = "Loading…"; try { const response = await fetch("/api/message"); const data = await response.json(); target.textContent = data.message; } catch { target.textContent = "Could not load the API message."; } });' }} />
+    </YStack>
+  );
+}
+`;
+
+const home = (adapter, fullStack) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter)}";
 import { Layout } from "../components/Layout${moduleExtension(adapter)}";
+${fullStack ? `import { ApiMessageButton } from "../components/ApiMessageButton${moduleExtension(adapter)}";` : ""}
 
 export function Home() {
   return (
@@ -88,6 +103,7 @@ export function Home() {
             <Anchor href="/about" color="primaryContrast" fontWeight="bold">Meet the project</Anchor>
           </YStack>
         </Card>
+        ${fullStack ? "<ApiMessageButton />" : ""}
       </YStack>
     </Layout>
   );
@@ -164,12 +180,14 @@ export function getSsrFiles(name, category, adapter) {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
     "src/app.tsx": app(fullStack, adapter),
-    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nFor SSR-only apps, put routes in \`src/pages\` and shared UI in \`src/components\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
+    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
-  if (!fullStack) {
-    files["src/components/Layout.tsx"] = layout(adapter);
-    files["src/pages/Home.tsx"] = home(adapter);
-    files["src/pages/About.tsx"] = about(adapter);
+  files["src/components/Layout.tsx"] = layout(adapter);
+  files["src/pages/Home.tsx"] = home(adapter, fullStack);
+  files["src/pages/About.tsx"] = about(adapter);
+  if (fullStack) {
+    files["src/api.ts"] = api;
+    files["src/components/ApiMessageButton.tsx"] = apiMessageButton(adapter);
   }
   if (adapter === "netlify") {
     files["src/netlify-silva-ui.d.ts"] = `declare module "../node_modules/silva-ui/dist/library/silva-ui.js" {
@@ -190,7 +208,6 @@ export * from "../node_modules/hono/dist/jsx/jsx-runtime.js";
 }
 `;
   }
-  if (fullStack) files["src/api.ts"] = api;
   Object.assign(files, definition.files);
   return files;
 }
