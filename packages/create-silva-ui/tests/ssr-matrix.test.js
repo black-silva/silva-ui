@@ -63,7 +63,11 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.equal(adapters.node.tier, "fully-supported");
   assert.equal(adapters.node.support["ssr-only"], "fully-supported");
   assert.equal(adapters.node.support["full-stack"], "fully-supported");
+  assert.equal(adapters.bun.tier, "fully-supported");
+  assert.equal(adapters.bun.support["ssr-only"], "fully-supported");
+  assert.equal(adapters.bun.support["full-stack"], "fully-supported");
   assert.match(getSsrFiles("matrix-app", "full-stack", "node")["README.md"], /Support tier: fully-supported\./);
+  assert.match(getSsrFiles("matrix-app", "full-stack", "bun")["README.md"], /Support tier: fully-supported\./);
   assert.match(cloudflareFullStack["README.md"], /Support tier: fully-supported\./);
   const cloudflare = JSON.parse(cloudflareSsrOnly["package.json"]);
   assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
