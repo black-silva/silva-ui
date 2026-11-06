@@ -36,6 +36,14 @@ test("runtime adapters include their required compiler and type packages", () =>
  assert.ok(bun.devDependencies["@types/bun"]);
  assert.ok(bun.devDependencies["@types/node"]);
 
+ const cloudflareFiles = getSsrFiles("matrix-app", "ssr-only", "cloudflare");
+ const cloudflare = JSON.parse(cloudflareFiles["package.json"]);
+ assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
+ assert.ok(cloudflareFiles["scripts/copy-silva-styles.js"]);
+ assert.match(cloudflareFiles["src/app.tsx"], /href="\/silva-ui\.css"/);
+ assert.match(cloudflareFiles["wrangler.jsonc"], /"directory": "\.\/public"/);
+ assert.match(cloudflareFiles["wrangler.jsonc"], /"binding": "ASSETS"/);
+
  const vercelFiles = getSsrFiles("matrix-app", "full-stack", "vercel");
  assert.match(vercelFiles["api/index.ts"], /hono\/vercel/);
  assert.match(vercelFiles["api/index.ts"], /handle\(createApp\(\)\)/);
