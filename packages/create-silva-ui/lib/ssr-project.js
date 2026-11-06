@@ -24,7 +24,7 @@ import { About } from "./pages/About${moduleExtension(adapter)}";`}
 export function createApp() {
   const app = new Hono();
   app.use("*", jsxRenderer(({ children }) => (
-    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Silva UI</title></head><body>{children}</body></html>
+    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />${adapter === "cloudflare" ? "<link rel=\"stylesheet\" href=\"/silva-ui.css\" />" : ""}<title>Silva UI</title></head><body>{children}</body></html>
   )));
   ${fullStack ? `app.get("/", (c) => c.render(<YStack gap="large"><H1>Silva UI SSR</H1><Text as="p">Your Hono JSX starter is ready.</Text></YStack>));
   app.get("/about", (c) => c.render(<YStack gap="medium"><H1>About</H1><Text as="p">This route uses normal server navigation.</Text></YStack>));
