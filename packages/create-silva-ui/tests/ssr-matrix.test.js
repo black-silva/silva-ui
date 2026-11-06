@@ -16,6 +16,21 @@ test("every adapter composes both SSR categories", () => {
  }
 });
 
+test("SSR-only starters separate routes from reusable UI", () => {
+ for (const name of Object.keys(adapters)) {
+ const files = getSsrFiles("matrix-app", "ssr-only", name);
+ assert.ok(files["src/components/Layout.tsx"], `${name} creates a shared layout`);
+ assert.ok(files["src/pages/Home.tsx"], `${name} creates a home page`);
+ assert.ok(files["src/pages/About.tsx"], `${name} creates an about page`);
+ assert.match(files["src/app.tsx"], /import \{ Home \} from "\.\/pages\/Home/);
+ assert.match(files["src/app.tsx"], /import \{ About \} from "\.\/pages\/About/);
+ assert.match(files["src/app.tsx"], /c\.render\(<Home \/>\)/);
+ assert.match(files["src/pages/Home.tsx"], /\.\.\/components\/Layout/);
+ assert.match(files["src/pages/Home.tsx"], /Edit src\/pages\/Home\.tsx/);
+ assert.match(files["README.md"], /src\/pages/);
+ }
+});
+
 test("runtime adapters include their required compiler and type packages", () => {
  const bun = JSON.parse(getSsrFiles("matrix-app", "full-stack", "bun")["package.json"]);
  assert.ok(bun.devDependencies["@types/bun"]);
@@ -48,7 +63,6 @@ test("runtime adapters include their required compiler and type packages", () =>
  assert.match(netlifyFiles["netlify/edge-functions/app.ts"], /app\.fetch\(request, context\)/);
  assert.match(netlifyFiles["src/app.tsx"], /node_modules\/hono\/dist\/index\.js/);
  assert.match(netlifyFiles["src/app.tsx"], /node_modules\/hono\/dist\/middleware\/jsx-renderer\/index\.js/);
- assert.match(netlifyFiles["src/app.tsx"], /node_modules\/silva-ui\/dist\/library\/silva-ui\.js/);
  assert.match(netlifyFiles["import_map.json"], /hono\/jsx\/dom/);
  assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
 });

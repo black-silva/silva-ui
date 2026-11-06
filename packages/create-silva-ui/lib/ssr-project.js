@@ -7,22 +7,115 @@ export const categories = {
 
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
+function moduleExtension(adapter) {
+  return adapter === "netlify" ? ".tsx" : "";
+}
+
+function silvaImport(adapter) {
+  return adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui";
+}
+
 const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
 import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
-${adapter === "netlify" ? "// @ts-expect-error Netlify's Edge bundler requires resolving this package through node_modules." : ""}
-import { H1, Text, YStack } from "${adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui"}";
-${fullStack ? "import { api } from \"./api.ts\";" : ""}
+${fullStack ? `import { H1, Text, YStack } from "${silvaImport(adapter)}";
+import { api } from "./api.ts";` : `import { Home } from "./pages/Home${moduleExtension(adapter)}";
+import { About } from "./pages/About${moduleExtension(adapter)}";`}
 
 export function createApp() {
   const app = new Hono();
   app.use("*", jsxRenderer(({ children }) => (
     <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
-  app.get("/", (c) => c.render(<YStack gap="large"><H1>Silva UI SSR</H1><Text as="p">Your Hono JSX starter is ready.</Text></YStack>));
+  ${fullStack ? `app.get("/", (c) => c.render(<YStack gap="large"><H1>Silva UI SSR</H1><Text as="p">Your Hono JSX starter is ready.</Text></YStack>));
   app.get("/about", (c) => c.render(<YStack gap="medium"><H1>About</H1><Text as="p">This route uses normal server navigation.</Text></YStack>));
-  ${fullStack ? "app.route(\"/api\", api);" : ""}
+  app.route("/api", api);` : `app.get("/", (c) => c.render(<Home />));
+  app.get("/about", (c) => c.render(<About />));`}
   app.notFound((c) => c.text("Not found", 404));
   return app;
+}
+`;
+
+const layout = (adapter) => `import type { Child } from "hono/jsx";
+import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "${silvaImport(adapter)}";
+
+interface LayoutProps {
+  children: Child;
+}
+
+export function Layout({ children }: LayoutProps) {
+  return (
+    <Theme name="green">
+      <YStack gap="xl" p="medium" bg="background">
+        <XStack alignItems="center" justifyContent="space-between" gap="medium" flexWrap="wrap">
+          <Box href="/" textDecoration="none" color="secondary">
+            <H2 fontSize="xl">silva-ui</H2>
+          </Box>
+          <XStack aria-label="Main navigation" gap="medium">
+            <Anchor href="/" color="secondary">Home</Anchor>
+            <Anchor href="/about" color="secondary">About</Anchor>
+          </XStack>
+        </XStack>
+
+        {children}
+
+        <Box as="footer" borderWidth={1} borderStyle="solid" borderColor="border" borderRadius="medium" p="medium">
+          <Text color="muted" fontSize="sm">Built with Silva UI.</Text>
+        </Box>
+      </YStack>
+    </Theme>
+  );
+}
+`;
+
+const home = (adapter) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter)}";
+import { Layout } from "../components/Layout${moduleExtension(adapter)}";
+
+export function Home() {
+  return (
+    <Layout>
+      <YStack gap="large">
+        <YStack gap="small">
+          <H1 color="primary">Welcome to Silva UI</H1>
+          <Text color="muted" lineHeight="relaxed">
+            A small starting point for building your app.
+          </Text>
+        </YStack>
+
+        <Card p="large" backgroundColor="ocean">
+          <YStack gap="medium">
+            <Text color="primaryContrast" fontWeight="bold">Start building</Text>
+            <Text color="primaryContrast">Edit src/pages/Home.tsx and make this page yours.</Text>
+            <Anchor href="/about" color="primaryContrast" fontWeight="bold">Meet the project</Anchor>
+          </YStack>
+        </Card>
+      </YStack>
+    </Layout>
+  );
+}
+`;
+
+const about = (adapter) => `import { Card, H1, Text, YStack } from "${silvaImport(adapter)}";
+import { Layout } from "../components/Layout${moduleExtension(adapter)}";
+
+export function About() {
+  return (
+    <Layout>
+      <YStack gap="large">
+        <YStack gap="small">
+          <H1>About this starter</H1>
+          <Text as="p" color="muted" lineHeight="relaxed">
+            It has two pages, one shared layout, and normal server navigation.
+          </Text>
+        </YStack>
+
+        <Card p="large">
+          <YStack gap="medium">
+            <Text as="p">Add pages in src/pages, then define their paths in src/app.tsx.</Text>
+          </YStack>
+        </Card>
+      </YStack>
+    </Layout>
+  );
 }
 `;
 
@@ -71,11 +164,16 @@ export function getSsrFiles(name, category, adapter) {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
     "src/app.tsx": app(fullStack, adapter),
-    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
+    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nFor SSR-only apps, put routes in \`src/pages\` and shared UI in \`src/components\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
+  if (!fullStack) {
+    files["src/components/Layout.tsx"] = layout(adapter);
+    files["src/pages/Home.tsx"] = home(adapter);
+    files["src/pages/About.tsx"] = about(adapter);
+  }
   if (adapter === "netlify") {
     files["src/netlify-silva-ui.d.ts"] = `declare module "../node_modules/silva-ui/dist/library/silva-ui.js" {
-  export { H1, Text, YStack } from "silva-ui";
+  export { Anchor, Box, Card, H1, H2, Text, Theme, XStack, YStack } from "silva-ui";
 }
 `;
     files["src/netlify-hono-dom.ts"] = `// @ts-nocheck
