@@ -72,7 +72,10 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(getSsrFiles("matrix-app", "full-stack", "node")["README.md"], /Support tier: fully-supported\./);
   assert.match(getSsrFiles("matrix-app", "full-stack", "bun")["README.md"], /Support tier: fully-supported\./);
   assert.match(getSsrFiles("matrix-app", "full-stack", "fastly")["README.md"], /Support tier: fully-supported\./);
-  assert.match(getSsrFiles("matrix-app", "ssr-only", "deno")["package.json"], /deno run --allow-net --allow-read --allow-env src\/entry\.ts/);
+  const denoSsrOnly = getSsrFiles("matrix-app", "ssr-only", "deno");
+  assert.match(denoSsrOnly["package.json"], /deno run --allow-net --allow-read --allow-env src\/entry\.ts/);
+  assert.match(denoSsrOnly["src/app.tsx"], /\.\/pages\/Home\.tsx/);
+  assert.match(denoSsrOnly["src/app.tsx"], /\.\/silva-ui\.css\.ts/);
   assert.match(cloudflareFullStack["README.md"], /Support tier: fully-supported\./);
   const cloudflare = JSON.parse(cloudflareSsrOnly["package.json"]);
   assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
