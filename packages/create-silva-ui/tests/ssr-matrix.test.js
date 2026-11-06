@@ -58,6 +58,8 @@ test("runtime adapters include their required compiler and type packages", () =>
   const cloudflareSsrOnly = getSsrFiles("matrix-app", "ssr-only", "cloudflare");
   const cloudflareFullStack = getSsrFiles("matrix-app", "full-stack", "cloudflare");
   assert.equal(adapters.cloudflare.tier, "fully-supported");
+  assert.equal(adapters.cloudflare.support["full-stack"], "fully-supported");
+  assert.match(cloudflareFullStack["README.md"], /Support tier: fully-supported\./);
   const cloudflare = JSON.parse(cloudflareSsrOnly["package.json"]);
   assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
   assert.ok(cloudflareSsrOnly["scripts/copy-silva-styles.js"]);
