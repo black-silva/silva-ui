@@ -73,6 +73,7 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(getSsrFiles("matrix-app", "full-stack", "bun")["README.md"], /Support tier: fully-supported\./);
   assert.match(getSsrFiles("matrix-app", "full-stack", "fastly")["README.md"], /Support tier: fully-supported\./);
   const denoSsrOnly = getSsrFiles("matrix-app", "ssr-only", "deno");
+  assert.match(denoSsrOnly["package.json"], /"deno": "\^2\.9\.6"/);
   assert.match(denoSsrOnly["package.json"], /deno run --allow-net --allow-read --allow-env src\/entry\.ts/);
   assert.match(denoSsrOnly["src/app.tsx"], /\.\/pages\/Home\.tsx/);
   assert.match(denoSsrOnly["src/app.tsx"], /\.\/silva-ui\.css\.ts/);
