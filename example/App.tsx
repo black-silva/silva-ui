@@ -43,6 +43,8 @@ const docGroups: DocGroup[] = [
     items: [
       { name: 'Colors', slug: 'colors', group: 'foundations', description: 'Theme-aware numbered color ramps and semantic color tokens.' },
       { name: 'Themes', slug: 'themes', group: 'foundations', description: 'Switch themes globally or scope a different theme to any subtree.' },
+      { name: 'Semantic size tokens', slug: 'semantic-sizes', group: 'foundations', description: 'Use responsive $n tokens that scale linearly with the viewport.' },
+      { name: 'Theme-aware gradients', slug: 'gradients', group: 'foundations', description: 'Build gradients whose token stops follow the active theme.' },
     ],
   },
   {
@@ -162,6 +164,8 @@ const commonProps: PropDoc[] = [
 ];
 
 const componentDocs: Record<string, ComponentDoc> = {
+  'semantic-sizes': { explanation: 'Use $n size tokens for intentional, responsive proportions. $40 is 40px at a 1000px viewport and scales linearly as the viewport changes.', anatomy: 'Projection tokens are open-ended: any non-negative value such as $16, $40, or $240 is valid.', props: [{ name: '$n', type: 'ProjectionToken', defaultValue: '—', values: 'Any non-negative number prefixed with $', description: 'Scales linearly from the 1000px reference viewport.' }] },
+  gradients: { explanation: 'Pass a gradient object to Box. Semantic and numbered token stops resolve through the closest Theme, so the same component adapts automatically.', anatomy: 'Use from, optional via, to, and deg to describe a linear gradient.', props: [{ name: 'gradient', type: 'GradientProps', defaultValue: '—', values: 'from, via, to, deg', description: 'Creates a theme-aware linear gradient from token or CSS colour stops.' }] },
   box: {
     explanation: 'Box is the lowest-level layout primitive. Use it when you need one element that accepts spacing, sizing, color, border, and positioning tokens.',
     anatomy: 'Box renders a div by default and can render another HTML element with `as`.',
@@ -891,6 +895,9 @@ function getPreviewCodeContent(item: DocItem, theme: string) {
     return '<Paragraph color="muted">A paragraph with comfortable reading rhythm for longer copy.</Paragraph>';
   }
 
+  if (item.slug === 'semantic-sizes') return <YStack gap="medium"><Paragraph color="muted">Resize the window: these proportions stay coordinated.</Paragraph><XStack gap="$24" alignItems="flex-end"><Box w="$80" h="$80" bg="primary" borderRadius="$12" /><Box w="$120" h="$120" bg="secondary" borderRadius="$16" /><Box w="$160" h="$160" bg="muted" borderRadius="$20" /></XStack><Text fontFamily="monospace">$80 · $120 · $160</Text></YStack>;
+  if (item.slug === 'gradients') return <YStack gap="medium"><Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} p="$32" borderRadius="$16"><H3 color="primaryContrast">Theme-aware gradient</H3><Text color="primaryContrast">Change the preview theme to see token stops adapt.</Text></Box><Text fontFamily="monospace">gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }}</Text></YStack>;
+
   if (item.slug === 'colors') {
     return `const [previewTheme, setPreviewTheme] = useState<ThemeName>('${theme}');\n\n<YStack gap="medium">\n  <Text>Preview theme</Text>\n  <Select value={previewTheme} onChange={(event) => setPreviewTheme(event.target.value as ThemeName)}>\n    <option value="light">Light</option>\n    <option value="dark">Dark</option>\n    <option value="emerald">Emerald</option>\n    <option value="emerald-dark">Emerald dark</option>\n    <option value="midnight">Midnight</option>\n  </Select>\n  <Theme name={previewTheme}>\n    <YStack gap="small">\n      <H4 color="secondary">Blue shades</H4>\n      <XStack gap="small" alignItems="center">\n        <Box bg="blue4" p="medium">blue4</Box>\n        <Box bg="blue8" p="medium">blue8</Box>\n        <Text color="blue12">blue12 text</Text>\n      </XStack>\n          <Text color="muted">The same token names receive light or dark palette values from the active theme.</Text>\n    </YStack>\n  </Theme>\n</YStack>`;
   }
@@ -1070,6 +1077,9 @@ function Demo({ item, previewTheme, setPreviewTheme }: { item: DocItem; previewT
     setOpen(false);
     setToastOpen(false);
   }, [item.slug]);
+
+  if (item.slug === 'semantic-sizes') return <YStack gap="medium"><Paragraph color="muted">Resize the window: these proportions stay coordinated.</Paragraph><XStack gap="$24" alignItems="flex-end"><Box w="$80" h="$80" bg="primary" borderRadius="$12" /><Box w="$120" h="$120" bg="secondary" borderRadius="$16" /><Box w="$160" h="$160" bg="muted" borderRadius="$20" /></XStack><Text fontFamily="monospace">$80 · $120 · $160</Text></YStack>;
+  if (item.slug === 'gradients') return <YStack gap="medium"><Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} p="$32" borderRadius="$16"><H3 color="primaryContrast">Theme-aware gradient</H3><Text color="primaryContrast">Change the preview theme to see token stops adapt.</Text></Box><Text fontFamily="monospace">gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }}</Text></YStack>;
 
   if (item.slug === 'colors') {
     return (
