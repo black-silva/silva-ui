@@ -78,7 +78,7 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(denoSsrOnly["package.json"], /"deno": "\^2\.9\.6"/);
   assert.match(denoSsrOnly["package.json"], /deno run --allow-net --allow-read --allow-env src\/entry\.ts/);
   assert.match(denoSsrOnly["src/app.tsx"], /\.\/pages\/Home\.tsx/);
-  assert.match(denoSsrOnly["src/app.tsx"], /\.\/silva-ui\.css\.ts/);
+  assert.match(denoSsrOnly["src/app.tsx"], /serveStatic\(\{ path: "\.\/public\/silva-ui\.css" \}\)/);
   assert.match(cloudflareFullStack["README.md"], /Support tier: fully-supported\./);
   const cloudflare = JSON.parse(cloudflareSsrOnly["package.json"]);
   assert.equal(cloudflare.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
@@ -114,7 +114,7 @@ test("runtime adapters include their required compiler and type packages", () =>
 });
 
 test("adapters serve Silva styles through their runtime-appropriate flow", () => {
-  for (const name of Object.keys(adapters).filter((name) => !["cloudflare", "node", "bun", "fastly"].includes(name))) {
+  for (const name of Object.keys(adapters).filter((name) => !["cloudflare", "node", "bun", "fastly", "deno"].includes(name))) {
     for (const category of ["ssr-only", "full-stack"]) {
       const files = getSsrFiles("matrix-app", category, name);
       assert.ok(files["src/silva-ui.css.ts"], `${name} embeds the Silva stylesheet`);
@@ -132,6 +132,14 @@ test("adapters serve Silva styles through their runtime-appropriate flow", () =>
     assert.match(node["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
     assert.match(node["src/app.tsx"], /serveStatic\(\{ path: "\.\/public\/silva-ui\.css" \}\)/);
     assert.equal(packageJson.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
+  }
+  for (const category of ["ssr-only", "full-stack"]) {
+    const deno = getSsrFiles("matrix-app", category, "deno");
+    const packageJson = JSON.parse(deno["package.json"]);
+    assert.equal(deno["src/silva-ui.css.ts"], undefined);
+    assert.match(deno["scripts/copy-silva-styles.ts"], /require\.resolve\("silva-ui\/style\.css"\)/);
+    assert.match(deno["src/app.tsx"], /import \{ serveStatic \} from "hono\/deno"/);
+    assert.equal(packageJson.scripts["prepare:styles"], "deno run --allow-read --allow-write scripts/copy-silva-styles.ts");
   }
   for (const category of ["ssr-only", "full-stack"]) {
     const bun = getSsrFiles("matrix-app", category, "bun");
