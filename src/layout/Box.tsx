@@ -30,16 +30,16 @@ export function Box({
   children,
   ...rest
 }: BoxProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
-  const className = cls(toSprinklesClass(sprinklesProps), extraClass);
   const gradientStyle = gradient ? { backgroundImage: gradientToCss(gradient) } : undefined;
-  const style = typeof inlineStyle === 'string'
+  const mergedInlineStyle = typeof inlineStyle === 'string'
     ? [inlineStyle, gradientStyle && `background-image:${gradientStyle.backgroundImage}`].filter(Boolean).join(';')
     : { ...gradientStyle, ...(inlineStyle as Record<string, unknown> | undefined) };
+  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps({ ...rest, style: mergedInlineStyle });
+  const className = cls(toSprinklesClass(sprinklesProps), extraClass);
 
   return (
     // @ts-expect-error — dynamic tag
-    <Tag {...htmlProps} style={style} class={className || undefined}>
+    <Tag {...htmlProps} class={className || undefined}>
       {children}
     </Tag>
   );

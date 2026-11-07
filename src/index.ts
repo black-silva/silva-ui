@@ -5,7 +5,9 @@
 // Core, Tokens & Theming
 // ============================================================================
 export { sprinkles, tokens } from './core/sprinkles.css';
-export type { Sprinkles } from './core/sprinkles.css';
+export type { ProjectionProperty, ProjectionSprinkles, Sprinkles } from './core/sprinkles.css';
+export { isProjectionToken, projectionTokenToCss } from './core/projection';
+export type { ProjectionToken } from './core/projection';
 export { cls, splitSprinklesProps, toSprinklesClass } from './core/utils';
 export { gradientToCss } from './core/gradient';
 export type { Gradient, GradientColor } from './core/gradient';

@@ -1,4 +1,9 @@
 import { adapters } from "./adapters.js";
+import { readFileSync } from "node:fs";
+
+// Keep the SSR starters self-contained: edge runtimes cannot assume a public
+// directory or a Node filesystem at request time.
+const silvaStyles = [1, 2, 3, 4, 5].map((part) => readFileSync(new URL(`../template/silva-ui.css.br.base64.${part}`, import.meta.url), "utf8").trim()).join("");
 
 export const categories = {
   "full-stack": { label: "Full-stack SSR", description: "Hono pages with a small /api example." },
@@ -7,26 +12,149 @@ export const categories = {
 
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
-const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
-import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
-${adapter === "netlify" ? "// @ts-expect-error Netlify's Edge bundler requires resolving this package through node_modules." : ""}
-import { H1, Text, YStack } from "${adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui"}";
-${fullStack ? "import { api } from \"./api.ts\";" : ""}
+function moduleExtension(adapter) {
+  return adapter === "deno" ? ".tsx" : "";
+}
+
+function stylesheetModuleExtension(adapter) {
+  return adapter === "deno" ? ".ts" : "";
+}
+
+function runtimeImport(adapter, specifier) {
+  return specifier;
+}
+
+function silvaImport(adapter) {
+  return "silva-ui";
+}
+
+function supportTier(definition, category) {
+  return definition.support?.[category] ?? definition.tier;
+}
+
+const app = (fullStack, adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
+import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
+import { Home } from "./pages/Home${moduleExtension(adapter)}";
+import { About } from "./pages/About${moduleExtension(adapter)}";
+${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
+${fullStack ? `import { api } from "./api.ts";` : ""}
 
 export function createApp() {
   const app = new Hono();
   app.use("*", jsxRenderer(({ children }) => (
-    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Silva UI</title></head><body>{children}</body></html>
+    <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="stylesheet" href="/silva-ui.css" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
-  app.get("/", (c) => c.render(<YStack gap="large"><H1>Silva UI SSR</H1><Text as="p">Your Hono JSX starter is ready.</Text></YStack>));
-  app.get("/about", (c) => c.render(<YStack gap="medium"><H1>About</H1><Text as="p">This route uses normal server navigation.</Text></YStack>));
-  ${fullStack ? "app.route(\"/api\", api);" : ""}
+  ${adapter !== "cloudflare" ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}
+  app.get("/", (c) => c.render(<Home />));
+  app.get("/about", (c) => c.render(<About />));
+  ${fullStack ? `app.route("/api", api);` : ""}
   app.notFound((c) => c.text("Not found", 404));
   return app;
 }
 `;
 
-const api = `import { Hono } from "hono";
+const layout = (adapter) => `import type { Child } from "${runtimeImport(adapter, "hono/jsx")}";
+import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "${silvaImport(adapter, true)}";
+
+interface LayoutProps {
+  children: Child;
+}
+
+export function Layout({ children }: LayoutProps) {
+  return (
+    <Theme name="green">
+      <YStack gap="xl" p="medium" bg="background">
+        <XStack alignItems="center" justifyContent="space-between" gap="medium" flexWrap="wrap">
+          <Box href="/" textDecoration="none" color="secondary">
+            <H2 fontSize="xl">silva-ui</H2>
+          </Box>
+          <XStack aria-label="Main navigation" gap="medium">
+            <Anchor href="/" color="secondary">Home</Anchor>
+            <Anchor href="/about" color="secondary">About</Anchor>
+          </XStack>
+        </XStack>
+
+        {children}
+
+        <Box as="footer" borderWidth={1} borderStyle="solid" borderColor="border" borderRadius="medium" p="medium">
+          <Text color="muted" fontSize="sm">Built with Silva UI.</Text>
+        </Box>
+      </YStack>
+    </Theme>
+  );
+}
+`;
+
+const apiMessageButton = (adapter) => `import { Box, Text, YStack } from "${silvaImport(adapter, true)}";
+
+export function ApiMessageButton() {
+  return (
+    <YStack gap="small">
+      <Box as="button" id="api-message-button" type="button" bg="primary" color="primaryContrast" borderRadius="medium" p="medium">
+        Call the API
+      </Box>
+      <Text id="api-message" aria-live="polite" color="muted">The API message will appear here.</Text>
+      <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("api-message-button")?.addEventListener("click", async () => { const target = document.getElementById("api-message"); if (!target) return; target.textContent = "Loading…"; try { const response = await fetch("/api/message"); const data = await response.json(); target.textContent = data.message; } catch { target.textContent = "Could not load the API message."; } });' }} />
+    </YStack>
+  );
+}
+`;
+
+const home = (adapter, fullStack) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter, true)}";
+import { Layout } from "../components/Layout${moduleExtension(adapter)}";
+${fullStack ? `import { ApiMessageButton } from "../components/ApiMessageButton${moduleExtension(adapter)}";` : ""}
+
+export function Home() {
+  return (
+    <Layout>
+      <YStack gap="large">
+        <YStack gap="small">
+          <H1 color="primary">Welcome to Silva UI</H1>
+          <Text color="muted" lineHeight="relaxed">
+            A small starting point for building your app.
+          </Text>
+        </YStack>
+
+        <Card p="large" backgroundColor="ocean">
+          <YStack gap="medium">
+            <Text color="primaryContrast" fontWeight="bold">Start building</Text>
+            <Text color="primaryContrast">Edit src/pages/Home.tsx and make this page yours.</Text>
+            <Anchor href="/about" color="primaryContrast" fontWeight="bold">Meet the project</Anchor>
+          </YStack>
+        </Card>
+        ${fullStack ? "<ApiMessageButton />" : ""}
+      </YStack>
+    </Layout>
+  );
+}
+`;
+
+const about = (adapter) => `import { Card, H1, Text, YStack } from "${silvaImport(adapter, true)}";
+import { Layout } from "../components/Layout${moduleExtension(adapter)}";
+
+export function About() {
+  return (
+    <Layout>
+      <YStack gap="large">
+        <YStack gap="small">
+          <H1>About this starter</H1>
+          <Text as="p" color="muted" lineHeight="relaxed">
+            It has two pages, one shared layout, and normal server navigation.
+          </Text>
+        </YStack>
+
+        <Card p="large">
+          <YStack gap="medium">
+            <Text as="p">Add pages in src/pages, then define their paths in src/app.tsx.</Text>
+          </YStack>
+        </Card>
+      </YStack>
+    </Layout>
+  );
+}
+`;
+
+const api = (adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
 
 export const api = new Hono();
 api.get("/message", (c) => c.json({ message: "Hello from Silva UI" }));
@@ -44,7 +172,7 @@ const tsconfig = `{
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
-  "include": ["src", "api", "netlify"]
+  "include": ["src", "api"]
 }
 `;
 
@@ -71,28 +199,16 @@ export function getSsrFiles(name, category, adapter) {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
     "src/app.tsx": app(fullStack, adapter),
-    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${definition.tier}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
+    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
-  if (adapter === "netlify") {
-    files["src/netlify-silva-ui.d.ts"] = `declare module "../node_modules/silva-ui/dist/library/silva-ui.js" {
-  export { H1, Text, YStack } from "silva-ui";
-}
-`;
-    files["src/netlify-hono-dom.ts"] = `// @ts-nocheck
-export { useEffect, useState } from "../node_modules/hono/dist/jsx/hooks/index.js";
-`;
-    files["src/netlify-hono-jsx-runtime.ts"] = `// @ts-nocheck
-export * from "../node_modules/hono/dist/jsx/jsx-runtime.js";
-`;
-    files["import_map.json"] = `{
-  "imports": {
-    "hono/jsx/dom": "./src/netlify-hono-dom.ts",
-    "hono/jsx/jsx-runtime": "./src/netlify-hono-jsx-runtime.ts"
+  if (adapter !== "cloudflare") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
+  files["src/components/Layout.tsx"] = layout(adapter);
+  files["src/pages/Home.tsx"] = home(adapter, fullStack);
+  files["src/pages/About.tsx"] = about(adapter);
+  if (fullStack) {
+    files["src/api.ts"] = api(adapter);
+    files["src/components/ApiMessageButton.tsx"] = apiMessageButton(adapter);
   }
-}
-`;
-  }
-  if (fullStack) files["src/api.ts"] = api;
   Object.assign(files, definition.files);
   return files;
 }
