@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { brotliDecompressSync } from "node:zlib";
 import test from "node:test";
 import { adapters } from "../lib/adapters.js";
 import { getSsrFiles } from "../lib/ssr-project.js";
@@ -109,8 +108,8 @@ test("runtime adapters include their required compiler and type packages", () =>
 
 });
 
-test("unverified adapters serve the bundled Silva stylesheet in both SSR categories", async () => {
-  for (const name of Object.keys(adapters).filter((name) => name !== "cloudflare")) {
+test("adapters serve Silva styles through their runtime-appropriate flow", () => {
+  for (const name of Object.keys(adapters).filter((name) => !["cloudflare", "node"].includes(name))) {
     for (const category of ["ssr-only", "full-stack"]) {
       const files = getSsrFiles("matrix-app", category, name);
       assert.ok(files["src/silva-ui.css.ts"], `${name} embeds the Silva stylesheet`);
@@ -121,9 +120,14 @@ test("unverified adapters serve the bundled Silva stylesheet in both SSR categor
       assert.match(files["src/app.tsx"], /app\.get\("\/silva-ui\.css"/);
     }
   }
-  const nodeStyles = getSsrFiles("matrix-app", "ssr-only", "node")["src/silva-ui.css.ts"];
-  const { default: compressedStyles } = await import(`data:text/javascript,${encodeURIComponent(nodeStyles)}`);
-  assert.match(brotliDecompressSync(compressedStyles).toString("utf8"), /^:root\{/);
+  for (const category of ["ssr-only", "full-stack"]) {
+    const node = getSsrFiles("matrix-app", category, "node");
+    const packageJson = JSON.parse(node["package.json"]);
+    assert.equal(node["src/silva-ui.css.ts"], undefined);
+    assert.match(node["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
+    assert.match(node["src/app.tsx"], /serveStatic\(\{ path: "\.\/public\/silva-ui\.css" \}\)/);
+    assert.equal(packageJson.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
+  }
 });
 
 test("invalid composition fails fast", () => {

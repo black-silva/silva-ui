@@ -13,7 +13,7 @@ export const categories = {
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
 function moduleExtension(adapter) {
-  return adapter === "deno" ? ".tsx" : "";
+  return adapter === "deno" ? ".tsx" : adapter === "node" ? ".js" : "";
 }
 
 function stylesheetModuleExtension(adapter) {
@@ -32,11 +32,15 @@ function supportTier(definition, category) {
   return definition.support?.[category] ?? definition.tier;
 }
 
-const app = (fullStack, adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
+const app = (fullStack, adapter) => {
+ const servesPackageStyles = adapter === "cloudflare" || adapter === "node";
+ const nodeStaticStyles = adapter === "node" ? `app.get("/silva-ui.css", serveStatic({ path: "./public/silva-ui.css" }));` : "";
+ return `import { Hono } from "${runtimeImport(adapter, "hono")}";
 import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
+${adapter === "node" ? 'import { serveStatic } from "@hono/node-server/serve-static";' : ""}
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
 import { About } from "./pages/About${moduleExtension(adapter)}";
-${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
+${!servesPackageStyles ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
 ${fullStack ? `import { api } from "./api.ts";` : ""}
 
 export function createApp() {
@@ -44,7 +48,7 @@ export function createApp() {
   app.use("*", jsxRenderer(({ children }) => (
     <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="stylesheet" href="/silva-ui.css" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
-  ${adapter !== "cloudflare" ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}
+  ${!servesPackageStyles ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}${nodeStaticStyles}
   app.get("/", (c) => c.render(<Home />));
   app.get("/about", (c) => c.render(<About />));
   ${fullStack ? `app.route("/api", api);` : ""}
@@ -52,6 +56,7 @@ export function createApp() {
   return app;
 }
 `;
+};
 
 const layout = (adapter) => `import type { Child } from "${runtimeImport(adapter, "hono/jsx")}";
 import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "${silvaImport(adapter, true)}";
@@ -201,7 +206,7 @@ export function getSsrFiles(name, category, adapter) {
     "src/app.tsx": app(fullStack, adapter),
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
-  if (adapter !== "cloudflare") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
+  if (adapter !== "cloudflare" && adapter !== "node") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
   files["src/components/Layout.tsx"] = layout(adapter);
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
   files["src/pages/About.tsx"] = about(adapter);
