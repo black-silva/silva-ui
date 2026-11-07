@@ -33,12 +33,14 @@ function supportTier(definition, category) {
 }
 
 const app = (fullStack, adapter) => {
- const servesPackageStyles = adapter === "cloudflare" || adapter === "node" || adapter === "bun";
+ const servesPackageStyles = adapter === "cloudflare" || adapter === "node" || adapter === "bun" || adapter === "fastly";
  const nodeStaticStyles = adapter === "node" ? `app.get("/silva-ui.css", serveStatic({ path: "./public/silva-ui.css" }));` : "";
  const bunStaticStyles = adapter === "bun" ? `app.get("/silva-ui.css", (c) => c.body(Bun.file("public/silva-ui.css"), 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
+ const fastlyStaticStyles = adapter === "fastly" ? `const silvaStyles = includeBytes("../public/silva-ui.css");\napp.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
  return `import { Hono } from "${runtimeImport(adapter, "hono")}";
 import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
 ${adapter === "node" ? 'import { serveStatic } from "@hono/node-server/serve-static";' : ""}
+${adapter === "fastly" ? 'import { includeBytes } from "fastly:experimental";' : ""}
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
 import { About } from "./pages/About${moduleExtension(adapter)}";
 ${!servesPackageStyles ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
@@ -49,7 +51,7 @@ export function createApp() {
   app.use("*", jsxRenderer(({ children }) => (
     <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="stylesheet" href="/silva-ui.css" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
-  ${!servesPackageStyles ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}${nodeStaticStyles}${bunStaticStyles}
+  ${!servesPackageStyles ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}${nodeStaticStyles}${bunStaticStyles}${fastlyStaticStyles}
   app.get("/", (c) => c.render(<Home />));
   app.get("/about", (c) => c.render(<About />));
   ${fullStack ? `app.route("/api", api);` : ""}
@@ -166,7 +168,7 @@ export const api = new Hono();
 api.get("/message", (c) => c.json({ message: "Hello from Silva UI" }));
 `;
 
-const tsconfig = `{
+const tsconfig = (adapter) => `{
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
@@ -176,7 +178,7 @@ const tsconfig = `{
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx"${adapter === "fastly" ? ',\n    "types": ["@fastly/js-compute"]' : ""}
   },
   "include": ["src", "api"]
 }
@@ -203,11 +205,11 @@ export function getSsrFiles(name, category, adapter) {
   const definition = adapters[adapter];
   const files = {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
-    "tsconfig.json": tsconfig,
+    "tsconfig.json": tsconfig(adapter),
     "src/app.tsx": app(fullStack, adapter),
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
-  if (adapter !== "cloudflare" && adapter !== "node" && adapter !== "bun") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
+  if (adapter !== "cloudflare" && adapter !== "node" && adapter !== "bun" && adapter !== "fastly") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
   files["src/components/Layout.tsx"] = layout(adapter);
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
   files["src/pages/About.tsx"] = about(adapter);
