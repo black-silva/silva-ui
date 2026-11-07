@@ -88,6 +88,11 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(cloudflareSsrOnly["wrangler.jsonc"], /"directory": "\.\/public"/);
   assert.match(cloudflareSsrOnly["wrangler.jsonc"], /"binding": "ASSETS"/);
   assert.match(cloudflareSsrOnly["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
+  for (const category of ["ssr-only", "full-stack"]) {
+    const cloudflareFiles = getSsrFiles("matrix-app", category, "cloudflare");
+    assert.equal(cloudflareFiles["src/silva-ui.css.ts"], undefined);
+    assert.match(cloudflareFiles["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
+  }
 
   const fastlyFiles = getSsrFiles("matrix-app", "full-stack", "fastly");
   const fastly = JSON.parse(fastlyFiles["package.json"]);
