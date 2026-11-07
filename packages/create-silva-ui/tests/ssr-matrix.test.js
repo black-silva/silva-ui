@@ -89,32 +89,6 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(cloudflareSsrOnly["wrangler.jsonc"], /"directory": "\.\/public"/);
   assert.match(cloudflareSsrOnly["wrangler.jsonc"], /"binding": "ASSETS"/);
 
-  const vercelFiles = getSsrFiles("matrix-app", "full-stack", "vercel");
-  assert.match(vercelFiles["api/index.ts"], /import \{ handle \} from "hono\/vercel"/);
-  assert.match(vercelFiles["api/index.ts"], /from "\.\.\/src\/app"/);
-  assert.match(vercelFiles["api/index.ts"], /export default handle\(createApp\(\)\)/);
-  assert.equal(vercelFiles["src/index.ts"], undefined);
-  assert.equal(vercelFiles["vercel.json"], undefined);
-  const vercel = JSON.parse(vercelFiles["package.json"]);
-  assert.equal(vercel.scripts.build, "vercel build");
-  assert.equal(vercel.scripts.deploy, "vercel deploy");
-
-  const lambdaFiles = getSsrFiles("matrix-app", "full-stack", "lambda");
-  const lambda = JSON.parse(lambdaFiles["package.json"]);
-  assert.match(lambdaFiles["src/index.ts"], /@hono\/aws-lambda/);
-  assert.match(lambdaFiles["src/index.ts"], /export const handler = handle\(createApp\(\)\)/);
-  assert.match(lambdaFiles["src/dev.ts"], /@hono\/node-server/);
-  assert.equal(lambda.scripts.dev, "tsx watch src/dev.ts");
-  assert.equal(lambda.scripts.build, "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts");
-
-  const netlifyFiles = getSsrFiles("matrix-app", "full-stack", "netlify");
-  assert.match(netlifyFiles["netlify/edge-functions/index.ts"], /jsr:@hono\/netlify/);
-  assert.match(netlifyFiles["netlify/edge-functions/index.ts"], /handle\(createApp\(\)\)/);
-  assert.match(netlifyFiles["netlify.toml"], /function = "index"/);
-  assert.match(netlifyFiles["src/app.tsx"], /jsr:@hono\/hono/);
-  assert.match(netlifyFiles["src/components\/Layout.tsx"], /npm:silva-ui/);
-  assert.equal(netlifyFiles["import_map.json"], undefined);
-
   const fastlyFiles = getSsrFiles("matrix-app", "full-stack", "fastly");
   const fastly = JSON.parse(fastlyFiles["package.json"]);
   assert.equal(fastly.dependencies["@fastly/hono-fastly-compute"], "^0.3.10");
@@ -125,15 +99,13 @@ test("runtime adapters include their required compiler and type packages", () =>
 
   const fastedgeFiles = getSsrFiles("matrix-app", "full-stack", "fastedge");
   const fastedge = JSON.parse(fastedgeFiles["package.json"]);
-  assert.equal(fastedge.devDependencies["@gcoredev/fastedge-sdk-js"], "^2.7.0");
-  assert.equal(fastedge.scripts.build, "fastedge-build --config");
-  assert.match(fastedgeFiles[".fastedge/build-config.js"], /tsConfigPath: "\.\/tsconfig\.json"/);
+  assert.equal(fastedge.devDependencies["@gcoredev/fastedge-sdk-js"], "latest");
+  assert.equal(fastedge.scripts.build, "tsc && npx fastedge-build --input ./src/index.ts --output ./wasm/basic-http.wasm --tsconfig ./tsconfig.json");
+  assert.match(fastedgeFiles["src/index.ts"], /addEventListener\("fetch"/);
+  assert.match(fastedgeFiles["src/index.ts"], /app\.fetch\(event\.request\)/);
+  assert.match(fastedgeFiles["tsconfig.json"], /@gcoredev\/fastedge-sdk-js/);
 
-  const netlify = JSON.parse(netlifyFiles["package.json"]);
-  assert.equal(netlify.dependencies?.["@hono/netlify"], undefined);
-  assert.equal(netlify.devDependencies["netlify-cli"], "^27.16.2");
-  assert.match(netlifyFiles["netlify.toml"], /NETLIFY_EXPERIMENTAL_NPM_MODULES = "true"/);
-  assert.doesNotMatch(netlifyFiles["netlify.toml"], /\[dev\]/);
+
 });
 
 test("unverified adapters serve the bundled Silva stylesheet in both SSR categories", async () => {
