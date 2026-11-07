@@ -90,8 +90,10 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(cloudflareSsrOnly["wrangler.jsonc"], /"binding": "ASSETS"/);
 
   const vercelFiles = getSsrFiles("matrix-app", "full-stack", "vercel");
-  assert.match(vercelFiles["src/index.ts"], /export default createApp\(\)/);
-  assert.equal(vercelFiles["api/index.ts"], undefined);
+  assert.match(vercelFiles["api/index.ts"], /import \{ handle \} from "hono\/vercel"/);
+  assert.match(vercelFiles["api/index.ts"], /from "\.\.\/src\/app"/);
+  assert.match(vercelFiles["api/index.ts"], /export default handle\(createApp\(\)\)/);
+  assert.equal(vercelFiles["src/index.ts"], undefined);
   assert.equal(vercelFiles["vercel.json"], undefined);
   const vercel = JSON.parse(vercelFiles["package.json"]);
   assert.equal(vercel.scripts.build, "vercel build");
