@@ -172,7 +172,7 @@ const tsconfig = `{
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
-  "include": ["src", "api", "netlify"]
+  "include": ["src", "api"]
 }
 `;
 
