@@ -20,16 +20,21 @@ function stylesheetModuleExtension(adapter) {
   return adapter === "deno" || adapter === "netlify" ? ".ts" : "";
 }
 
+function runtimeImport(adapter, specifier) {
+  if (adapter !== "netlify") return specifier;
+  return `jsr:@hono/hono${specifier === "hono" ? "" : specifier.slice(4)}`;
+}
+
 function silvaImport(adapter) {
-  return adapter === "netlify" ? "../node_modules/silva-ui/dist/library/silva-ui.js" : "silva-ui";
+  return adapter === "netlify" ? "npm:silva-ui@^1.2.0" : "silva-ui";
 }
 
 function supportTier(definition, category) {
   return definition.support?.[category] ?? definition.tier;
 }
 
-const app = (fullStack, adapter) => `${adapter === "netlify" ? "// @ts-nocheck\n" : ""}import { Hono } from "${adapter === "netlify" ? "../node_modules/hono/dist/index.js" : "hono"}";
-import { jsxRenderer } from "${adapter === "netlify" ? "../node_modules/hono/dist/middleware/jsx-renderer/index.js" : "hono/jsx-renderer"}";
+const app = (fullStack, adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
+import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
 import { Home } from "./pages/Home${moduleExtension(adapter)}";
 import { About } from "./pages/About${moduleExtension(adapter)}";
 ${adapter !== "cloudflare" ? `import silvaStyles from "./silva-ui.css${stylesheetModuleExtension(adapter)}";` : ""}
@@ -49,8 +54,8 @@ export function createApp() {
 }
 `;
 
-const layout = (adapter) => `import type { Child } from "hono/jsx";
-import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "${silvaImport(adapter)}";
+const layout = (adapter) => `import type { Child } from "${runtimeImport(adapter, "hono/jsx")}";
+import { Anchor, Box, H2, Text, Theme, XStack, YStack } from "${silvaImport(adapter, true)}";
 
 interface LayoutProps {
   children: Child;
@@ -81,7 +86,7 @@ export function Layout({ children }: LayoutProps) {
 }
 `;
 
-const apiMessageButton = (adapter) => `import { Box, Text, YStack } from "${silvaImport(adapter)}";
+const apiMessageButton = (adapter) => `import { Box, Text, YStack } from "${silvaImport(adapter, true)}";
 
 export function ApiMessageButton() {
   return (
@@ -96,7 +101,7 @@ export function ApiMessageButton() {
 }
 `;
 
-const home = (adapter, fullStack) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter)}";
+const home = (adapter, fullStack) => `import { Anchor, Card, H1, Text, YStack } from "${silvaImport(adapter, true)}";
 import { Layout } from "../components/Layout${moduleExtension(adapter)}";
 ${fullStack ? `import { ApiMessageButton } from "../components/ApiMessageButton${moduleExtension(adapter)}";` : ""}
 
@@ -125,7 +130,7 @@ export function Home() {
 }
 `;
 
-const about = (adapter) => `import { Card, H1, Text, YStack } from "${silvaImport(adapter)}";
+const about = (adapter) => `import { Card, H1, Text, YStack } from "${silvaImport(adapter, true)}";
 import { Layout } from "../components/Layout${moduleExtension(adapter)}";
 
 export function About() {
@@ -150,7 +155,7 @@ export function About() {
 }
 `;
 
-const api = `import { Hono } from "hono";
+const api = (adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
 
 export const api = new Hono();
 api.get("/message", (c) => c.json({ message: "Hello from Silva UI" }));
@@ -202,27 +207,8 @@ export function getSsrFiles(name, category, adapter) {
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
   files["src/pages/About.tsx"] = about(adapter);
   if (fullStack) {
-    files["src/api.ts"] = api;
+    files["src/api.ts"] = api(adapter);
     files["src/components/ApiMessageButton.tsx"] = apiMessageButton(adapter);
-  }
-  if (adapter === "netlify") {
-    files["src/netlify-silva-ui.d.ts"] = `declare module "../node_modules/silva-ui/dist/library/silva-ui.js" {
-  export { Anchor, Box, Card, H1, H2, Text, Theme, XStack, YStack } from "silva-ui";
-}
-`;
-    files["src/netlify-hono-dom.ts"] = `// @ts-nocheck
-export { useEffect, useState } from "../node_modules/hono/dist/jsx/hooks/index.js";
-`;
-    files["src/netlify-hono-jsx-runtime.ts"] = `// @ts-nocheck
-export * from "../node_modules/hono/dist/jsx/jsx-runtime.js";
-`;
-    files["import_map.json"] = `{
-  "imports": {
-    "hono/jsx/dom": "./src/netlify-hono-dom.ts",
-    "hono/jsx/jsx-runtime": "./src/netlify-hono-jsx-runtime.ts"
-  }
-}
-`;
   }
   Object.assign(files, definition.files);
   return files;
