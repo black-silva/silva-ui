@@ -37,7 +37,6 @@ When you select Full-stack SSR or SSR-only, choose the runtime that matches wher
 | AWS Lambda | Experimental | Lambda handler and bundled output |
 | Netlify Edge | Experimental | Netlify Edge function configuration |
 | Deno | Experimental | Deno server and import map |
-| Gcore FastEdge | Experimental | WASI Preview 2 entry point and build config |
 
 `Reference` adapters are the recommended starting points. `Candidate` adapters are validated starters that are still evolving. `Experimental` adapters are intended for evaluation and need provider-specific review before production use.
 
@@ -70,7 +69,7 @@ SILVA_UI_ADAPTER=cloudflare \
 npm create silva-ui@latest my-worker-app
 ```
 
-Supported adapter IDs are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, `deno`, and `fastedge`.
+Supported adapter IDs are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, and `deno`.
 
 ## Start from an existing app
 

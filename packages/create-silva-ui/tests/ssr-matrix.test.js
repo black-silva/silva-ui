@@ -102,14 +102,6 @@ test("runtime adapters include their required compiler and type packages", () =>
   assert.match(fastlyFiles["src/entry.ts"], /@fastly\/hono-fastly-compute/);
   assert.match(fastlyFiles["fastly.toml"], /build = "npm run build"/);
 
-  const fastedgeFiles = getSsrFiles("matrix-app", "full-stack", "fastedge");
-  const fastedge = JSON.parse(fastedgeFiles["package.json"]);
-  assert.equal(fastedge.devDependencies["@gcoredev/fastedge-sdk-js"], "latest");
-  assert.equal(fastedge.scripts.build, "tsc && npx fastedge-build --input ./src/index.ts --output ./wasm/basic-http.wasm --tsconfig ./tsconfig.json");
-  assert.match(fastedgeFiles["src/index.ts"], /addEventListener\("fetch"/);
-  assert.match(fastedgeFiles["src/index.ts"], /app\.fetch\(event\.request\)/);
-  assert.match(fastedgeFiles["tsconfig.json"], /@gcoredev\/fastedge-sdk-js/);
-
 
 });
 
