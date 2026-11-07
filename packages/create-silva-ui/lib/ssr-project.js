@@ -13,28 +13,23 @@ export const categories = {
 export const categoryOptions = Object.entries(categories).map(([value, category]) => ({ value, label: category.label, hint: category.description }));
 
 function moduleExtension(adapter) {
-  return adapter === "netlify" || adapter === "deno" ? ".tsx" : "";
+  return adapter === "deno" ? ".tsx" : "";
 }
 
 function stylesheetModuleExtension(adapter) {
-  return adapter === "deno" || adapter === "netlify" ? ".ts" : "";
+  return adapter === "deno" ? ".ts" : "";
 }
 
 function runtimeImport(adapter, specifier) {
-  if (adapter !== "netlify") return specifier;
-  return `jsr:@hono/hono${specifier === "hono" ? "" : specifier.slice(4)}`;
+  return specifier;
 }
 
 function silvaImport(adapter) {
-  return adapter === "netlify" ? "npm:silva-ui@^1.2.0" : "silva-ui";
+  return "silva-ui";
 }
 
 function supportTier(definition, category) {
   return definition.support?.[category] ?? definition.tier;
-}
-
-function developmentCommand(adapter) {
-  return adapter === "vercel" ? "npx vercel dev" : "npm run dev";
 }
 
 const app = (fullStack, adapter) => `import { Hono } from "${runtimeImport(adapter, "hono")}";
@@ -204,7 +199,7 @@ export function getSsrFiles(name, category, adapter) {
     "package.json": `${JSON.stringify(manifest(name, adapter), null, 2)}\n`,
     "tsconfig.json": tsconfig,
     "src/app.tsx": app(fullStack, adapter),
-    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`${developmentCommand(adapter)}\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
+    "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
   if (adapter !== "cloudflare") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
   files["src/components/Layout.tsx"] = layout(adapter);
