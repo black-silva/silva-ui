@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   server: {
+    allowedHosts: ['well-catering-bind-reno.trycloudflare.com'],
     fs: {
       allow: ['..'],
     },
