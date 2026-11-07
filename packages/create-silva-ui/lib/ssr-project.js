@@ -33,8 +33,9 @@ function supportTier(definition, category) {
 }
 
 const app = (fullStack, adapter) => {
- const servesPackageStyles = adapter === "cloudflare" || adapter === "node";
+ const servesPackageStyles = adapter === "cloudflare" || adapter === "node" || adapter === "bun";
  const nodeStaticStyles = adapter === "node" ? `app.get("/silva-ui.css", serveStatic({ path: "./public/silva-ui.css" }));` : "";
+ const bunStaticStyles = adapter === "bun" ? `app.get("/silva-ui.css", (c) => c.body(Bun.file("public/silva-ui.css"), 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
  return `import { Hono } from "${runtimeImport(adapter, "hono")}";
 import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
 ${adapter === "node" ? 'import { serveStatic } from "@hono/node-server/serve-static";' : ""}
@@ -48,7 +49,7 @@ export function createApp() {
   app.use("*", jsxRenderer(({ children }) => (
     <html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="stylesheet" href="/silva-ui.css" /><title>Silva UI</title></head><body>{children}</body></html>
   )));
-  ${!servesPackageStyles ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}${nodeStaticStyles}
+  ${!servesPackageStyles ? `app.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8", "Content-Encoding": "br" }));` : ""}${nodeStaticStyles}${bunStaticStyles}
   app.get("/", (c) => c.render(<Home />));
   app.get("/about", (c) => c.render(<About />));
   ${fullStack ? `app.route("/api", api);` : ""}
@@ -206,7 +207,7 @@ export function getSsrFiles(name, category, adapter) {
     "src/app.tsx": app(fullStack, adapter),
     "README.md": `# ${name}\n\n${categories[category].label} starter for ${definition.label}.\n\nRuntime: ${definition.runtime}. Support tier: ${supportTier(definition, category)}.\n\nRun \`npm install\`, \`npm run typecheck\`, then \`npm run dev\`.\n\nPut routes in \`src/pages\` and shared UI in \`src/components\`.${fullStack ? " The home page includes a small /api/message example." : ""}\n\nThe generator never creates cloud resources, stores secrets, or deploys on your behalf.\n`
   };
-  if (adapter !== "cloudflare" && adapter !== "node") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
+  if (adapter !== "cloudflare" && adapter !== "node" && adapter !== "bun") files["src/silva-ui.css.ts"] = `const silvaStyles = Uint8Array.from(atob(${JSON.stringify(silvaStyles)}), (character) => character.charCodeAt(0));\n\nexport default silvaStyles;\n`;
   files["src/components/Layout.tsx"] = layout(adapter);
   files["src/pages/Home.tsx"] = home(adapter, fullStack);
   files["src/pages/About.tsx"] = about(adapter);

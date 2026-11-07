@@ -109,7 +109,7 @@ test("runtime adapters include their required compiler and type packages", () =>
 });
 
 test("adapters serve Silva styles through their runtime-appropriate flow", () => {
-  for (const name of Object.keys(adapters).filter((name) => !["cloudflare", "node"].includes(name))) {
+  for (const name of Object.keys(adapters).filter((name) => !["cloudflare", "node", "bun"].includes(name))) {
     for (const category of ["ssr-only", "full-stack"]) {
       const files = getSsrFiles("matrix-app", category, name);
       assert.ok(files["src/silva-ui.css.ts"], `${name} embeds the Silva stylesheet`);
@@ -127,6 +127,14 @@ test("adapters serve Silva styles through their runtime-appropriate flow", () =>
     assert.match(node["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
     assert.match(node["src/app.tsx"], /serveStatic\(\{ path: "\.\/public\/silva-ui\.css" \}\)/);
     assert.equal(packageJson.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
+  }
+  for (const category of ["ssr-only", "full-stack"]) {
+    const bun = getSsrFiles("matrix-app", category, "bun");
+    const packageJson = JSON.parse(bun["package.json"]);
+    assert.equal(bun["src/silva-ui.css.ts"], undefined);
+    assert.match(bun["scripts/copy-silva-styles.ts"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
+    assert.match(bun["src/app.tsx"], /Bun\.file\("public\/silva-ui\.css"\)/);
+    assert.equal(packageJson.scripts["prepare:styles"], "bun scripts/copy-silva-styles.ts");
   }
 });
 
