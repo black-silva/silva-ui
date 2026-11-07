@@ -26,7 +26,7 @@ jobs:
           set -eu
           mkdir -p /tmp/silva-matrix
           cd /tmp/silva-matrix
-          for adapter in cloudflare node bun vercel fastly lambda netlify deno; do
+          for adapter in cloudflare node bun fastly deno; do
             for category in ssr-only full-stack; do
               SILVA_UI_TEMPLATE=$category SILVA_UI_ADAPTER=$adapter node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" "$adapter-$category" >/dev/null
               test -f "$adapter-$category/src/app.tsx"
@@ -56,13 +56,9 @@ jobs:
           curl -fsS http://127.0.0.1:3000/api/message | grep -q "Hello from Silva UI"
           kill $(cat /tmp/node-starter.pid)
 
-  cloudflare-and-lambda-build:
+  cloudflare-build:
     needs: generate-matrix
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        adapter: [cloudflare, lambda]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -72,7 +68,7 @@ jobs:
         working-directory: packages/create-silva-ui
       - run: |
           mkdir /tmp/starter && cd /tmp/starter
-          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=${{ matrix.adapter }} node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
+          SILVA_UI_TEMPLATE=full-stack SILVA_UI_ADAPTER=cloudflare node "$GITHUB_WORKSPACE/packages/create-silva-ui/index.js" app >/dev/null
           cd app
           npm install --ignore-scripts
           npm run typecheck
@@ -84,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        adapter: [bun, vercel, netlify, deno, fastly,]
+        adapter: [bun, deno, fastly]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -123,6 +119,5 @@ jobs:
           case "${{ matrix.adapter }}" in
             bun) bun run build ;;
             deno) npm run build ;;
-            vercel) npm run typecheck ;;
             *) npm run build ;;
           esac

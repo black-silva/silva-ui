@@ -32,10 +32,7 @@ When you select Full-stack SSR or SSR-only, choose the runtime that matches wher
 | Cloudflare Workers | Reference | Worker entry point and Wrangler configuration |
 | Node.js | Reference | Node 22+ server using `@hono/node-server` |
 | Bun | Candidate | Bun server and bundled entry point |
-| Vercel Functions | Candidate | Hono Vercel handler and rewrite configuration |
 | Fastly Compute | Experimental | Fastly Compute entry point and WASM build |
-| AWS Lambda | Experimental | Lambda handler and bundled output |
-| Netlify Edge | Experimental | Netlify Edge function configuration |
 | Deno | Experimental | Deno server and import map |
 
 `Reference` adapters are the recommended starting points. `Candidate` adapters are validated starters that are still evolving. `Experimental` adapters are intended for evaluation and need provider-specific review before production use.
@@ -55,10 +52,6 @@ Enter the generated directory, then use the package tool for its runtime. The ge
 
 Some provider starters are build-only by design. Review their generated configuration and provider documentation before using a build or deployment command.
 
-<Warning>
-For the Vercel starter, `npm run build` runs `vercel deploy --temporary`. It can create a temporary deployment once the Vercel CLI is configured, so only run it when you intend to deploy.
-</Warning>
-
 ## Automate generator choices
 
 For CI or scripted setup, provide the same choices through environment variables. `static`, `full-stack`, and `ssr-only` are valid template values. SSR templates also accept an adapter ID.
@@ -69,7 +62,7 @@ SILVA_UI_ADAPTER=cloudflare \
 npm create silva-ui@latest my-worker-app
 ```
 
-Supported adapter IDs are `cloudflare`, `node`, `bun`, `vercel`, `fastly`, `lambda`, `netlify`, and `deno`.
+Supported adapter IDs are `cloudflare`, `node`, `bun`, `fastly`, and `deno`.
 
 ## Start from an existing app
 
