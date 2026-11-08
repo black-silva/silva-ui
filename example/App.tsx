@@ -164,7 +164,7 @@ const commonProps: PropDoc[] = [
 ];
 
 const componentDocs: Record<string, ComponentDoc> = {
-  'semantic-sizes': { explanation: 'Use $n size tokens for intentional, responsive proportions. $40 is 40px at a 1000px viewport and scales linearly as the viewport changes.', anatomy: 'Projection tokens are open-ended: any non-negative value such as $16, $40, or $240 is valid.', props: [{ name: '$n', type: 'ProjectionToken', defaultValue: '—', values: 'Any non-negative number prefixed with $', description: 'Scales linearly from the 1000px reference viewport.' }] },
+  'semantic-sizes': { explanation: 'Use $n size tokens for intentional, responsive proportions. $4 is 40px at a 1000px viewport and scales linearly as the viewport changes.', anatomy: 'Projection tokens are open-ended: any non-negative value such as $1.6, $4, or $24 is valid.', props: [{ name: '$n', type: 'ProjectionToken', defaultValue: '—', values: 'Any non-negative number prefixed with $', description: 'Scales linearly from the 1000px reference viewport.' }] },
   gradients: { explanation: 'Pass a gradient object to Box. Semantic and numbered token stops resolve through the closest Theme, so the same component adapts automatically.', anatomy: 'Use from, optional via, to, and deg to describe a linear gradient.', props: [{ name: 'gradient', type: 'GradientProps', defaultValue: '—', values: 'from, via, to, deg', description: 'Creates a theme-aware linear gradient from token or CSS colour stops.' }] },
   box: {
     explanation: 'Box is the lowest-level layout primitive. Use it when you need one element that accepts spacing, sizing, color, border, and positioning tokens.',
@@ -895,7 +895,7 @@ function getPreviewCodeContent(item: DocItem, theme: string) {
     return '<Paragraph color="muted">A paragraph with comfortable reading rhythm for longer copy.</Paragraph>';
   }
 
-  if (item.slug === 'semantic-sizes') return '<XStack gap="$24" alignItems="flex-end">\n  <Box w="$80" h="$80" bg="primary" borderRadius="$12" />\n  <Box w="$120" h="$120" bg="secondary" borderRadius="$16" />\n  <Box w="$160" h="$160" bg="muted" borderRadius="$20" />\n</XStack>';
+  if (item.slug === 'semantic-sizes') return '<XStack gap="$2.4" alignItems="flex-end">\n  <Box w="$8" h="$8" bg="primary" borderRadius="$1.2" />\n  <Box w="$12" h="$12" bg="secondary" borderRadius="$1.6" />\n  <Box w="$16" h="$16" bg="muted" borderRadius="$2" />\n</XStack>';
   if (item.slug === 'gradients') return '<Box gradient={{ from: "primary", via: "violet9", to: "cyan9", deg: 135 }} p="$32" borderRadius="$16">\n  <H3 color="primaryContrast">Theme-aware gradient</H3>\n</Box>';
 
   if (item.slug === 'colors') {
@@ -1078,7 +1078,7 @@ function Demo({ item, previewTheme, setPreviewTheme }: { item: DocItem; previewT
     setToastOpen(false);
   }, [item.slug]);
 
-  if (item.slug === 'semantic-sizes') return <YStack gap="medium"><Paragraph color="muted">Resize the window: these proportions stay coordinated.</Paragraph><XStack gap="$24" alignItems="flex-end"><Box w="$80" h="$80" bg="primary" borderRadius="$12" /><Box w="$120" h="$120" bg="secondary" borderRadius="$16" /><Box w="$160" h="$160" bg="muted" borderRadius="$20" /></XStack><Text fontFamily="monospace">$80 · $120 · $160</Text></YStack>;
+  if (item.slug === 'semantic-sizes') return <YStack gap="medium"><Paragraph color="muted">Resize the window: these proportions stay coordinated.</Paragraph><XStack gap="$2.4" alignItems="flex-end"><Box w="$8" h="$8" bg="primary" borderRadius="$1.2" /><Box w="$12" h="$12" bg="secondary" borderRadius="$1.6" /><Box w="$16" h="$16" bg="muted" borderRadius="$2" /></XStack><Text fontFamily="monospace">$8 · $12 · $16</Text></YStack>;
   if (item.slug === 'gradients') return <YStack gap="medium"><Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} p="$32" borderRadius="$16"><H3 color="primaryContrast">Theme-aware gradient</H3><Text color="primaryContrast">Change the preview theme to see token stops adapt.</Text></Box><Text fontFamily="monospace">gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }}</Text></YStack>;
 
   if (item.slug === 'colors') {

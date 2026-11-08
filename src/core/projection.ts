@@ -1,7 +1,7 @@
 /**
  * A semantic size token calibrated at a 1000px-wide viewport.
  *
- * `$24` resolves to `24px` at 1000px, `12px` at 500px, and `48px` at
+ * `$2.4` resolves to `24px` at 1000px, `12px` at 500px, and `48px` at
  * 2000px. The value stays linear rather than stepping between breakpoints.
  */
 export type ProjectionToken = `$${number}`;
@@ -16,10 +16,10 @@ export function isProjectionToken(value: unknown): value is ProjectionToken {
 /**
  * Resolves `$n` to a viewport-relative CSS value.
  *
- * `n` is the token's pixel size at the 1000px reference viewport. Since one
- * viewport-width unit is 10px there, `$n` is equivalently `(n / 10)vw`.
+ * `n` is one tenth of the token's pixel size at the 1000px reference viewport.
+ * Since one viewport-width unit is 10px there, `$n` is equivalently `n vw`.
  */
 export function projectionTokenToCss(token: ProjectionToken): string {
-  const referencePixels = Number(token.slice(1));
-  return `${referencePixels / 10}vw`;
+  const baseUnits = Number(token.slice(1));
+  return `${baseUnits}vw`;
 }

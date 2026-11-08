@@ -233,7 +233,7 @@ export type Sprinkles = Parameters<typeof sprinkles>[0];
 
 /**
  * Sprinkles properties that also accept a fluid projection token such as
- * `$24`. The numeric part is its pixel value at the 1000px reference viewport.
+ * `$2.4`. The numeric part is one tenth of its pixel value at the 1000px reference viewport.
  */
 export type ProjectionProperty =
   | 'gap'

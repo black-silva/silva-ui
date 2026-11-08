@@ -35,14 +35,14 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 
 ## Projection tokens
 
-Any size-aligned prop can take a numeric projection token in the form `$n`. It is not a fixed entry in a token table: the number is its pixel size at Silva UI's 1000px reference viewport and is converted to a linearly fluid `vw` value.
+Any size-aligned prop can take a numeric projection token in the form `$n`. It is not a fixed entry in a token table: the number is one tenth of its pixel size at Silva UI's 1000px reference viewport and is converted to a linearly fluid `vw` value.
 
-`$40` is `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. This lets an intentional ratio such as tab `$80`, button `$40`, and icon or text `$20` remain intact as the viewport changes.
+`$4` is `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. This lets an intentional ratio such as tab `$8`, button `$4`, and icon or text `$2` remain intact as the viewport changes.
 
 ```tsx
-<XStack gap="$16" p="$24">
-  <Box w="$80" h="$80" borderRadius="$12" bg="card">
-    <Text fontSize="$20">Projected scale</Text>
+<XStack gap="$1.6" p="$2.4">
+  <Box w="$8" h="$8" borderRadius="$1.2" bg="card">
+    <Text fontSize="$2">Projected scale</Text>
   </Box>
 </XStack>
 ```
