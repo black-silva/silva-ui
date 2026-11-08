@@ -36,7 +36,7 @@ const previews={
  'typography-3':()=>title('Paragraph')+`<p class="muted">A readable paragraph with semantic colour and comfortable line height.</p>`+end,
  'intro-1':()=>title('Quick start')+card(`<div class="stack"><h3>Welcome to Silva UI</h3><p class="muted">Theme-aware components ready for composition.</p>${button('Get started')}</div>`)+end,
  'install-1':()=>title('Style import','Bundled stylesheet ready')+`<div class="server"><b>✓</b> Silva UI styles loaded successfully</div>`+end,
- 'install-2':()=>title('Hono JSX app','Server-rendered component output')+`<div class="server"><b>GET /</b> 200 OK<br>&lt;main&gt;Silva UI is ready.&lt;/main&gt;</div>`+end,
+ 'install-2':()=>`<div class="stack" style="max-width:400px;gap:16px"><h1 style="font-size:30px;line-height:1.2">Hello, Silva</h1><p class="muted">Your UI is ready to grow.</p>${button('Get started')}</div>`,
  'recipes-1':()=>title('Settings row')+card(`<div class="row between"><div><b>Email notifications</b><div class="muted small">Receive a summary of account activity.</div></div><input type="checkbox" checked aria-label="Email notifications"></div>`)+end,
  'recipes-2':()=>title('Empty state')+card(`<div class="stack" style="text-align:center;justify-items:center"><h3>No projects yet</h3><p class="muted">Create your first project to get started.</p>${button('Create project')}</div>`)+end,
  'recipes-3':()=>title('Toast')+`<div class="panel toast"><b>Changes saved</b><div class="muted">Your profile is up to date.</div></div>`+end,
