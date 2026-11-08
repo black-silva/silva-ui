@@ -1,22 +1,9 @@
 import { defineConfig } from 'vite';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import path from 'path';
+import path from 'node:path';
 
 export default defineConfig({
-  root: 'example',
   plugins: [vanillaExtractPlugin()],
-  resolve: {
-    alias: {
-      'silva-ui': path.resolve(process.cwd(), 'src/index.ts'),
-    },
-  },
-  server: {
-    allowedHosts: ['well-catering-bind-reno.trycloudflare.com'],
-    fs: {
-      allow: ['..'],
-    },
-  },
-  esbuild: {
-    jsxImportSource: 'hono/jsx/dom',
-  },
+  resolve: { alias: { 'silva-ui': path.resolve(process.cwd(), 'src/index.ts') } },
+  esbuild: { jsxImportSource: 'hono/jsx/dom' },
 });

@@ -8,3 +8,6 @@ vite-profile-*.cpuprofile
 
 # Local Netlify folder
 .netlify
+
+*storybook.log
+storybook-static
