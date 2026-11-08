@@ -13,7 +13,7 @@
 [![License](https://badgen.net/badge/license/MIT/green)](./LICENSE)
 [![Reddit](https://img.shields.io/badge/Reddit-black__silva-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/user/black_silva/)
 [![GitHub](https://img.shields.io/badge/GitHub-black--silva-181717?logo=github&logoColor=white)](https://github.com/black-silva)
-![Discord](https://img.shields.io/badge/Discord-blacksilva-5865F2?logo=discord&logoColor=white)
+[![Discord](https://img.shields.io/badge/Discord-blacksilva-5865F2?logo=discord&logoColor=white)](https://discord.gg/KjkmHYpSec)
 [![Patreon](https://img.shields.io/badge/Patreon-BlackSilva-000000?logo=patreon&logoColor=white)](https://www.patreon.com/c/BlackSilva)
 
 A Hono JSX UI component library with framework-neutral styling and Tamagui-inspired theming, built on `@vanilla-extract/css` and `@vanilla-extract/sprinkles`.
