@@ -2,6 +2,7 @@ import {
   Button,
   Checkbox,
   Field,
+  FieldError,
   FieldHelper,
   Form,
   Input,
@@ -67,6 +68,14 @@ export const CompleteForm = () => renderStory(
       <XStack gap="small"><Button type="submit">Send message</Button><Button variant="outline" type="reset">Clear</Button></XStack>
     </YStack>
   </Form>,
+);
+
+export const FieldErrorState = () => renderStory(
+  <Field error="A valid email address is required." style={{ width: '22rem' }}>
+    <Label for="error-email">Email address</Label>
+    <Input id="error-email" type="email" aria-invalid="true" value="not-an-email" />
+    <FieldError>A valid email address is required.</FieldError>
+  </Field>,
 );
 
 export const Disabled = () => renderStory(<YStack gap="small"><Input disabled placeholder="Unavailable" /><Select disabled><option>Unavailable</option></Select><Checkbox disabled>Unavailable</Checkbox><Switch disabled>Unavailable</Switch><Text color="muted">Disabled controls preserve their state clearly.</Text></YStack>);

@@ -1,4 +1,4 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Box, Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogTitle, Popover, PopoverClose, PopoverContent, PopoverTrigger, Tab, TabList, TabPanel, Tabs, Text, Tooltip, TooltipContent, TooltipTrigger, XStack, YStack } from '../index';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Box, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogTitle, Popover, PopoverClose, PopoverContent, PopoverTrigger, Tab, TabList, TabPanel, Tabs, Text, Tooltip, TooltipContent, TooltipTrigger, XStack, YStack } from '../index';
 import { renderStory } from './render';
 
 export default { title: 'Components/Overlays' };
@@ -23,7 +23,7 @@ export const TooltipOpenState = () => renderStory(
 );
 
 export const DialogComposition = () => renderStory(
-  <Dialog><DialogOverlay data-state="open" /><DialogContent data-state="open"><DialogHeader><DialogTitle>Delete project?</DialogTitle><DialogDescription>This action cannot be undone.</DialogDescription></DialogHeader><DialogFooter><XStack gap="small"><Button variant="outline">Cancel</Button><Button>Delete</Button></XStack></DialogFooter></DialogContent></Dialog>,
+  <Dialog><DialogOverlay data-state="open" /><DialogContent data-state="open"><DialogHeader><DialogTitle>Delete project?</DialogTitle><DialogDescription>This action cannot be undone.</DialogDescription></DialogHeader><DialogFooter><XStack gap="small"><DialogClose>Cancel</DialogClose><Button>Delete</Button></XStack></DialogFooter></DialogContent></Dialog>,
 );
 
 export const Layering = () => renderStory(<Box p="large" bg="subtle" borderRadius="large"><YStack gap="small"><Text>Overlay primitives are markup-first.</Text><Text color="muted">Connect their open state to the interaction model you need.</Text></YStack></Box>);
