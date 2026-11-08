@@ -1,4 +1,4 @@
----
+﻿---
 title: Sprinkles
 description: Use token-based style props on every silva-ui primitive.
 ---
@@ -32,6 +32,22 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
   </YStack>
 </Card>
 ```
+
+## Projection tokens
+
+Any size-aligned prop can take a numeric projection token in the form `$n`. It is not a fixed entry in a token table: the number is one tenth of its pixel size at Silva UI's 1000px reference viewport and is converted to a linearly fluid `vw` value.
+
+`$4` is `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. This lets an intentional ratio such as tab `$8`, button `$4`, and icon or text `$2` remain intact as the viewport changes.
+
+```tsx
+<XStack gap="$1.6" p="$2.4">
+  <Box w="$8" h="$8" borderRadius="$1.2" bg="card">
+    <Text fontSize="$2">Projected scale</Text>
+  </Box>
+</XStack>
+```
+
+Projection tokens currently use the viewport only. They do not establish or inherit container sizing contexts; parent-to-child projection is intentionally reserved for the next sizing phase.
 
 ## Interaction conditions
 

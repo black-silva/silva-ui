@@ -14,5 +14,5 @@
       "silva-ui": ["./src/index.ts"]
     }
   },
-  "include": ["src", "example"]
+  "include": ["src"]
 }
