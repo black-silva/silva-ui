@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/silva-ui-logo-dark.svg">
+    <img src="docs/assets/silva-ui-logo-light.svg" alt="Silva UI" width="360">
+  </picture>
+</p>
+
 # silva-ui Component Library
 
 [![Publish to npm](https://github.com/black-silva/silva-ui/actions/workflows/publish-npm.yml/badge.svg)](https://github.com/black-silva/silva-ui/actions/workflows/publish-npm.yml)
