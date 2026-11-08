@@ -146,7 +146,7 @@ test("adapters serve Silva styles through their runtime-appropriate flow", () =>
     const packageJson = JSON.parse(fastly["package.json"]);
     assert.equal(fastly["src/silva-ui.css.ts"], undefined);
     assert.match(fastly["scripts/copy-silva-styles.js"], /import\.meta\.resolve\("silva-ui\/style\.css"\)/);
-    assert.match(fastly["src/app.tsx"], /includeBytes\("\.\.\/public\/silva-ui\.css"\)/);
+    assert.match(fastly["src/app.tsx"], /includeBytes\("\.\/public\/silva-ui\.css"\)/);
     assert.equal(packageJson.scripts["prepare:styles"], "node scripts/copy-silva-styles.js");
   }
 });

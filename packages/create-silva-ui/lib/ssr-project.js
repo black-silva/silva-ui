@@ -37,7 +37,7 @@ const app = (fullStack, adapter) => {
  const nodeStaticStyles = adapter === "node" ? `app.get("/silva-ui.css", serveStatic({ path: "./public/silva-ui.css" }));` : "";
  const denoStaticStyles = adapter === "deno" ? `app.get("/silva-ui.css", serveStatic({ path: "./public/silva-ui.css" }));` : "";
  const bunStaticStyles = adapter === "bun" ? `app.get("/silva-ui.css", (c) => c.body(Bun.file("public/silva-ui.css"), 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
- const fastlyStaticStyles = adapter === "fastly" ? `const silvaStyles = includeBytes("../public/silva-ui.css");\napp.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
+ const fastlyStaticStyles = adapter === "fastly" ? `const silvaStyles = includeBytes("./public/silva-ui.css");\napp.get("/silva-ui.css", (c) => c.body(silvaStyles, 200, { "Content-Type": "text/css; charset=utf-8" }));` : "";
  return `import { Hono } from "${runtimeImport(adapter, "hono")}";
 import { jsxRenderer } from "${runtimeImport(adapter, "hono/jsx-renderer")}";
 ${adapter === "node" ? 'import { serveStatic } from "@hono/node-server/serve-static";' : adapter === "deno" ? 'import { serveStatic } from "hono/deno";' : ""}
