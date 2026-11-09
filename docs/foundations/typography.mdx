@@ -9,14 +9,37 @@ description: Semantic headings, readable body text and accessible links.
 
 `Text` renders a `span` by default and can render common inline or block tags with `as`. `SizableText` adds a coordinated `fontSize` and `lineHeight` size scale: `xs`, `sm`, `md`, `lg` and `xl`.
 
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-1" title="Rendered text styles preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
 ```tsx
 <Text as="strong" fontWeight="semibold">Strong emphasis</Text>
 <SizableText size="lg" color="muted">Supporting copy</SizableText>
 ```
 
+  </Tab>
+</Tabs>
+
 ## Headings
 
 `Heading` uses the appropriate `h1`–`h6` tag based on `level`. Shorthand exports `H1` through `H6` are also available.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-2" title="Rendered headings preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { H1, Heading, Paragraph } from "silva-ui"
@@ -26,14 +49,30 @@ import { H1, Heading, Paragraph } from "silva-ui"
 <Paragraph size="md">A short, readable description.</Paragraph>
 ```
 
+  </Tab>
+</Tabs>
+
 ## Paragraph and Anchor
 
 `Paragraph` is a `SizableText` configured as a paragraph with a default `md` size. `Anchor` renders an accessible, styled link and accepts `href`, `target`, `rel`, and `disabled`.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-3" title="Rendered paragraph preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 <Paragraph color="muted">
   Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.
 </Paragraph>
 ```
+
+  </Tab>
+</Tabs>
 
 Use semantic heading levels in order. Visual sizing can be controlled separately with sprinkles props.
