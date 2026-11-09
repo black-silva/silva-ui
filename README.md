@@ -20,6 +20,8 @@ A Hono JSX UI component library with framework-neutral styling and Tamagui-inspi
 
 Read the [Silva UI documentation](https://blacksilva.com/silva-ui) for installation, theming, foundations, components, and API guidance.
 
+AI tools can use the [full Silva UI reference](https://blacksilva.com/silva-ui/llms-full.txt) for the complete published documentation in one file.
+
 Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for
 development setup, validation commands, and pull request expectations.
 
