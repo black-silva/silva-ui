@@ -57,5 +57,6 @@
     "light": "/docs/assets/silva-ui-logo-light.svg",
     "dark": "/docs/assets/silva-ui-logo-dark.svg",
     "href": "/"
-  }
+  },
+  "favicon": "/docs/assets/favicon.svg"
 }
