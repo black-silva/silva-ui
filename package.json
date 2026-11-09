@@ -30,6 +30,7 @@
  "scripts": {
   "dev": "vite",
   "build": "vite build",
+  "build:previews": "vite build --config vite.previews.config.ts",
   "build:library": "vite build --config vite.library.config.ts",
   "build:types": "tsc -p tsconfig.types.json",
   "build:package": "npm run build:library && npm run build:types",
