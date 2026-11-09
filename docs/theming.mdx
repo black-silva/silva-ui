@@ -5,29 +5,51 @@ description: Apply built-in themes, semantic colours, and custom themes.
 
 # Theming
 
-Silva UI components read CSS variables from the nearest theme scope. Use a built-in `Theme`, or compile a custom variable class with Vanilla Extract.
+Silva UI components resolve CSS variables from the nearest theme scope. Use a built-in `Theme` for a ready-made palette, or compile a custom variable class with Vanilla Extract. The same semantic tokens power surfaces, text, component variants, and theme-aware gradients.
 
 ## Built-in themes
+
+Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. Theme scopes can nest, so a local section can use a different palette without changing the rest of the page.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 import { Box, Text, Theme } from "silva-ui"
 
-<Theme name="dark">
+<Theme name="midnight">
   <Box bg="card" color="primary" p="large" borderRadius="large">
     <Text>Dark themed content</Text>
   </Box>
 </Theme>
 ```
 
-Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. Theme scopes can nest.
+  </Tab>
+  <Tab title="Preview">
 
-## Token names
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Built-in theme preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
 
-Use semantic values in component props: `background`, `card`, `subtle`, `primary`, `primaryHover`, `primaryActive`, `primaryContrast`, `muted`, `border`, and `ring`. Silva UI also exports `colorTokens`, `darkColorTokens`, `lightColors`, `darkColors`, and `themeColors` for custom themes.
+  </Tab>
+</Tabs>
+
+## Semantic tokens first
+
+Choose semantic tokens when a colour describes a UI role rather than a specific hue. A `primary` button or `card` surface can change with the active theme without changing component code. Use Radix scale tokens such as `violet9` only when the hue itself is intentional, for example a decorative accent.
+
+| Role | Tokens | Use for |
+| --- | --- | --- |
+| Actions | `primary`, `primaryHover`, `primaryActive`, `primaryContrast`, `secondary` | Buttons, links, and selected states |
+| Surfaces | `background`, `card`, `subtle`, `border`, `overlay` | Page, container, quiet section, and boundaries |
+| Content | `muted`, `white`, `black`, `transparent` | Supporting text and explicit utility colours |
+| Focus and feedback | `ring`, `info`, `success`, `warning`, `error`, `destructive` | Focus indicators and status messaging |
+
+`themeColors` is the full CSS-variable contract behind these values. `colorTokens` and `darkColorTokens` provide the Radix scale defaults; `lightColors` and `darkColors` provide the semantic defaults for a theme.
 
 ## Custom themes with `createTheme`
 
-`createTheme` is Vanilla Extract’s build-time API. It creates a CSS class with the same variable contract as Silva UI. Add that class to a normal wrapper around components. They inherit its token values automatically.
+`createTheme` is Vanilla Extract’s build-time API. It creates a CSS class with the same variable contract as Silva UI. Add that class to a normal wrapper around components and they inherit its token values automatically.
 
 ### 1. Add Vanilla Extract
 
@@ -69,7 +91,10 @@ export const brandTheme = createTheme(themeColors, {
 })
 ```
 
-### 3. Use it with Silva UI components
+### 3. Apply the custom scope
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 import "silva-ui/style.css"
@@ -90,7 +115,17 @@ export function PricingCard() {
 }
 ```
 
-The wrapper class provides `primary`, `card`, `border`, and the other variables. Any nested Silva UI component resolves them from that wrapper. You can put the wrapper inside a built-in `Theme` or make it the outer application scope.
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Custom theme preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
+The wrapper provides `primary`, `card`, `border`, and the other variables. Any nested Silva UI component resolves them from that wrapper. You can put it inside a built-in `Theme` or make it the outer application scope.
 
 ### Dark custom theme
 

@@ -1,6 +1,6 @@
-﻿---
+---
 title: Sprinkles
-description: Use token-based style props on every silva-ui primitive.
+description: Use token-based style props and fluid semantic size tokens on every silva-ui primitive.
 ---
 
 # Sprinkles props
@@ -20,9 +20,12 @@ Every component extends `BaseProps`, which includes the generated `Sprinkles` ty
 | Borders | `borderRadius`, `borderWidth`, `borderStyle` |
 | Position | `position`, `top`, `right`, `bottom`, `left`, `zIndex` |
 
-## Token values
+## Fixed tokens
 
 Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Card p="large" borderRadius="xl" maxWidth="24" bg="card">
@@ -33,36 +36,76 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 </Card>
 ```
 
-## Projection tokens
+  </Tab>
+  <Tab title="Preview">
 
-Any size-aligned prop can take a numeric projection token in the form `$n`. It is not a fixed entry in a token table: the number is one tenth of its pixel size at Silva UI's 1000px reference viewport and is converted to a linearly fluid `vw` value.
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-1" title="Token-powered card preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
 
-`$4` is `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. This lets an intentional ratio such as tab `$8`, button `$4`, and icon or text `$2` remain intact as the viewport changes.
+  </Tab>
+</Tabs>
+
+## Semantic size tokens
+
+Use a numeric `$n` token for a size relationship that should stay proportional as the viewport changes. `$n` is not a fixed entry in a token table: the number represents one tenth of its pixel size at Silva UI's 1000px reference viewport, then compiles to a linear `vw` value.
+
+For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. That makes `$n` useful when an element's internal proportions matter more than a fixed pixel value: a tab at `$8`, a button at `$4`, and supporting text at `$2` keep the same relationship.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
-<XStack gap="$1.6" p="$2.4">
-  <Box w="$8" h="$8" borderRadius="$1.2" bg="card">
-    <Text fontSize="$2">Projected scale</Text>
-  </Box>
+<XStack gap="$1.6" p="$2.4" alignItems="center">
+  <Box w="$8" h="$8" borderRadius="$1.2" bg="primary" />
+  <YStack gap="$0.4">
+    <Text fontSize="$2" fontWeight="semibold">Projected scale</Text>
+    <Text fontSize="$1.4" color="muted">Fluid at every viewport width.</Text>
+  </YStack>
 </XStack>
 ```
 
-Projection tokens currently use the viewport only. They do not establish or inherit container sizing contexts; parent-to-child projection is intentionally reserved for the next sizing phase.
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-2" title="Semantic size token preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
+<Note>
+Projection tokens currently use the viewport only. They do not establish or inherit container sizing contexts; parent-to-child projection is intentionally reserved for a later sizing phase.
+</Note>
 
 ## Interaction conditions
 
-A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values.
+A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values. Use the `default` branch for the resting state and add only the conditions the component needs.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Box
-  bg={{ default: "card", hover: "teal3" }}
+  bg={{ default: "card", hover: "teal3", focus: "teal4" }}
   color={{ default: "primary", hover: "teal12" }}
   p="medium"
   borderRadius="medium"
 >
-  Hover me
+  Hover or focus me
 </Box>
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-3" title="Interactive sprinkles preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 ## Utilities
 

@@ -13,24 +13,11 @@ npm install silva-ui hono
 
 ## Import the CSS
 
-<Tabs sync={false}>
-  <Tab title="Code">
-
 ```tsx
 import "silva-ui/style.css"
 ```
 
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=install-1" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
-</Tabs>
-
-The package exposes this stylesheet as the `silva-ui/style.css` subpath. Component imports come from the root package.
+The package exposes this stylesheet as the `silva-ui/style.css` subpath. Import it once in the module shared by your routes. It contains the component styles and built-in theme variables, so this one-line setup does not need a visual preview.
 
 ## Start a new app
 

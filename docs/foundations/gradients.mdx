@@ -5,7 +5,14 @@ description: Build custom gradients whose token stops follow the nearest Silva U
 
 # Theme-aware gradients
 
-Use `gradient` on `Box` when the stops should follow the nearest Silva UI theme. It is a compact, typed API for custom gradients, and accepts semantic theme tokens, Radix colour tokens, or valid CSS colour values.
+Use `gradient` on `Box` when the stops should follow the nearest Silva UI theme. It is a compact, typed API for custom gradients that accepts semantic theme tokens, Radix colour tokens, or valid CSS colour values.
+
+## Use semantic stops for UI meaning
+
+Use semantic stops when a gradient has a UI role: `primary` and `primaryActive` follow the active theme, including a custom theme. Use named hue tokens such as `violet9` and `cyan9` for decorative accents. Literal CSS values are useful for one-off brand work, but remain fixed when the theme changes.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 import { Box, Text, Theme } from "silva-ui"
@@ -21,9 +28,17 @@ import { Box, Text, Theme } from "silva-ui"
 </Theme>
 ```
 
-## Choose the right gradient API
+  </Tab>
+  <Tab title="Preview">
 
-Silva UI has two complementary ways to use gradients:
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-1" title="Theme-aware gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
+## Choose the right gradient API
 
 | Need | Use |
 | --- | --- |
@@ -44,21 +59,41 @@ Named gradients and animation are documented in [Visuals](/docs/foundations/visu
 | `type` | `linear`, `radial`, `conic` | `linear` |
 | `deg` | degrees for `linear` and `conic` gradients | `90` |
 
-## Theme-aware stops
+## Theme scopes update gradient stops
 
-Token stops compile to Silva UI CSS variables. They respond to the nearest built-in `Theme` and to a custom Vanilla Extract theme using the Silva UI contract. See [Theming](/docs/theming) to create that contract.
+Token stops compile to Silva UI CSS variables. The gradient does not need to be rebuilt when its nearest `Theme` changes: its semantic values resolve in the new scope. The same applies to a custom Vanilla Extract theme that implements the Silva UI contract.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
-<Box gradient={{ from: "primary", to: "primaryHover" }} />
+<Theme name="light">
+  <Box gradient={{ from: "primary", to: "primaryHover" }} />
+</Theme>
 
-<Box gradient={{ from: "violet9", to: "cyan9", deg: 135 }} />
+<Theme name="midnight">
+  <Box gradient={{ from: "primary", to: "primaryHover" }} />
+</Theme>
 ```
 
-Use semantic tokens for gradients with a UI role, such as a primary call to action. Use hue tokens for decorative accents. Literal CSS colours are useful for one-off brand work, but they remain fixed when the theme changes.
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-2" title="Gradient across theme scopes preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
+See [Theming](/docs/theming) to define a custom theme contract.
 
 ### Custom theme example
 
 A gradient inside a custom theme resolves through that wrapper just like `bg`, `color`, and component variants do.
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 import { Box } from "silva-ui"
@@ -79,13 +114,36 @@ export function BrandBanner() {
 }
 ```
 
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-3" title="Custom theme gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
+
 ## Gradient types
+
+<Tabs sync={false}>
+  <Tab title="Code">
 
 ```tsx
 <Box gradient={{ type: "radial", from: "primary", to: "background" }} />
 
 <Box gradient={{ type: "conic", from: "violet9", to: "cyan9", deg: 45 }} />
 ```
+
+  </Tab>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-4" title="Radial and conic gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+</Tabs>
 
 `deg` changes the direction of linear gradients and the start angle of conic gradients. Radial gradients ignore it.
 
