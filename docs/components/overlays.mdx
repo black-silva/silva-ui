@@ -5,35 +5,23 @@ description: Build stateless dialogs, tabs, menus, sheets and feedback surfaces.
 
 # Overlays and compound components
 
-These components provide structure, styling, ARIA roles and state data attributes. They are deliberately **stateless**: your application owns interaction, focus management, keyboard handling and portal behaviour.
+These components provide structure, styling, ARIA roles, and state data attributes. They are deliberately **stateless**: your application owns interaction, focus management, keyboard handling, and portal behaviour.
 
-For production modal behaviour, add your own focus trap, Escape handling, background inertness and portal strategy around the visual primitives.
+For production modal behaviour, add your own focus trap, Escape handling, background inertness, and portal strategy around the visual primitives.
 
-## Dialog and AlertDialog
+## Tabs
 
-`Dialog` and `AlertDialog` accept `open`. Overlay and content components receive `data-state="open" | "closed"`; content defaults to `open` for standalone composition.
+Tabs are stateless. Keep the selected value in application state, set `data-active` on the current tab, and hide inactive panels.
 
-```tsx
-<Dialog open={isOpen}>
-  <DialogOverlay />
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Delete project?</DialogTitle>
-      <DialogDescription>This cannot be undone.</DialogDescription>
-    </DialogHeader>
-    <DialogFooter>
-      <DialogClose>Cancel</DialogClose>
-      <Button onClick={removeProject}>Delete</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
-```
+<Tabs sync={false}>
+  <Tab title="Preview">
 
-`AlertDialog` offers the parallel `AlertDialogAction` and `AlertDialogCancel` primitives for explicit confirmation flows.
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-2" title="Rendered Tabs preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
 
-## Tabs and accordion
-
-Set active tabs in application state using `data-active`; match `Tab` and `TabPanel` values, then hide inactive panels yourself.
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 <Tabs value={activeTab}>
@@ -46,16 +34,282 @@ Set active tabs in application state using `data-active`; match `Tab` and `TabPa
 </Tabs>
 ```
 
-The `Accordion` family uses `Accordion`, `AccordionItem`, `AccordionTrigger`, and `AccordionContent`. Control visual state through `data-state` on trigger and content.
+  </Tab>
+</Tabs>
 
-## Popover, Sheet and Tooltip
+## Dialog
 
-- `PopoverContent`, `SheetContent`, and `TooltipContent` accept `side="top" | "bottom" | "left" | "right"`.
-- `Sheet` accepts `open` and includes header, footer, title, description and close elements.
-- `Popover`, `Tooltip`, `Menu`, and `ContextMenu` include trigger/content pairs.
+`Dialog` provides modal structure and `data-state`; your app controls `open`, focus management, Escape handling, background inertness, and portal placement.
 
-## Toast, Menu and ContextMenu
+<Tabs sync={false}>
+  <Tab title="Preview">
 
-Wrap notifications in `ToastProvider`; choose a `position` such as `top-right` or `bottom-center`. `Toast` supports `default`, `success`, `error`, and `warning` variants.
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-1" title="Rendered Dialog preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
 
-`Menu` and `ContextMenu` export `Trigger`, `Content`, `Item`, `Separator`, `Label`, and `Group` components. Menu items support `disabled` and `onClick`.
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Dialog open={isOpen}>
+  <DialogOverlay />
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Delete project?</DialogTitle>
+      <DialogDescription>This cannot be undone.</DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <DialogClose onClick={() => setIsOpen(false)}>Cancel</DialogClose>
+      <Button onClick={removeProject}>Delete</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+  </Tab>
+</Tabs>
+
+## AlertDialog
+
+`AlertDialog` is the confirmation-oriented dialog family. Use its action and cancel primitives for destructive decisions.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-3" title="Rendered AlertDialog preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<AlertDialog open={isOpen}>
+  <AlertDialogOverlay />
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Discard changes?</AlertDialogTitle>
+      <AlertDialogDescription>Your unsaved changes will be lost.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel onClick={() => setIsOpen(false)}>Keep editing</AlertDialogCancel>
+      <AlertDialogAction onClick={discardChanges}>Discard</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+  </Tab>
+</Tabs>
+
+## Popover
+
+`Popover` composes a trigger with a positioned content panel. Drive `data-state` and dismiss behaviour from your application.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-4" title="Rendered Popover preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Popover>
+  <PopoverTrigger>
+    <Button onClick={() => setOpen(!open)}>Share</Button>
+  </PopoverTrigger>
+  <PopoverContent data-state={open ? "open" : "closed"} side="bottom">
+    Copy a link or invite a collaborator.
+    <PopoverClose onClick={() => setOpen(false)}>Close</PopoverClose>
+  </PopoverContent>
+</Popover>
+```
+
+  </Tab>
+</Tabs>
+
+## Sheet
+
+`Sheet` is a modal side panel. It accepts `open`; content supports `side="top" | "bottom" | "left" | "right"`.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-5" title="Rendered Sheet preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Sheet open={isOpen}>
+  <SheetOverlay />
+  <SheetContent side="right">
+    <SheetHeader>
+      <SheetTitle>Project settings</SheetTitle>
+      <SheetDescription>Update this project’s defaults.</SheetDescription>
+    </SheetHeader>
+    <SheetFooter>
+      <SheetClose onClick={() => setIsOpen(false)}>Done</SheetClose>
+    </SheetFooter>
+  </SheetContent>
+</Sheet>
+```
+
+  </Tab>
+</Tabs>
+
+## Tooltip
+
+`Tooltip` provides the trigger/content structure. Use `data-state` and your own hover, focus, and dismissal logic when client behaviour is needed.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-6" title="Rendered Tooltip preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Tooltip>
+  <TooltipTrigger>
+    <Button variant="outline" aria-describedby="save-tip">Save</Button>
+  </TooltipTrigger>
+  <TooltipContent id="save-tip" side="top" data-state={showTip ? "open" : "closed"}>
+    Save this project
+  </TooltipContent>
+</Tooltip>
+```
+
+  </Tab>
+</Tabs>
+
+## Toast
+
+`ToastProvider` positions notifications; `Toast` supports `default`, `success`, `error`, and `warning` variants.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-7" title="Rendered Toast preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<ToastProvider position="top-right">
+  <Toast variant="success">
+    <ToastTitle>Changes saved</ToastTitle>
+    <ToastDescription>Your project settings are up to date.</ToastDescription>
+    <ToastClose onClick={dismissToast} />
+  </Toast>
+</ToastProvider>
+```
+
+  </Tab>
+</Tabs>
+
+## Menu
+
+`Menu` exposes structural trigger, content, item, separator, label, and group primitives. Control visibility with `data-state`.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-8" title="Rendered Menu preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Menu>
+  <MenuTrigger>
+    <Button variant="outline" onClick={() => setOpen(!open)}>Actions</Button>
+  </MenuTrigger>
+  <MenuContent data-state={open ? "open" : "closed"}>
+    <MenuLabel>Project</MenuLabel>
+    <MenuGroup>
+      <MenuItem onClick={renameProject}>Rename</MenuItem>
+      <MenuItem onClick={duplicateProject}>Duplicate</MenuItem>
+    </MenuGroup>
+    <MenuSeparator />
+    <MenuItem disabled>Archive</MenuItem>
+  </MenuContent>
+</Menu>
+```
+
+  </Tab>
+</Tabs>
+
+## ContextMenu
+
+`ContextMenu` has the same compound structure as `Menu`; attach your application’s `contextmenu` handler to open it at the pointer position.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-9" title="Rendered ContextMenu preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger onContextMenu={openAtPointer}>
+    <Box p="medium" borderWidth={1}>Right-click this project</Box>
+  </ContextMenuTrigger>
+  <ContextMenuContent data-state={open ? "open" : "closed"}>
+    <ContextMenuItem onClick={renameProject}>Rename</ContextMenuItem>
+    <ContextMenuItem onClick={duplicateProject}>Duplicate</ContextMenuItem>
+    <ContextMenuSeparator />
+    <ContextMenuItem disabled>Archive</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+  </Tab>
+</Tabs>
+
+## Accordion
+
+`Accordion` is stateless. Apply `data-state="open" | "closed"` to each item, trigger, and content from your own state.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-10" title="Rendered Accordion preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Accordion type="single">
+  <AccordionItem value="shipping" data-state={openItem === "shipping" ? "open" : "closed"}>
+    <AccordionTrigger onClick={() => setOpenItem("shipping")} data-state={openItem === "shipping" ? "open" : "closed"}>
+      When does my order ship?
+    </AccordionTrigger>
+    <AccordionContent data-state={openItem === "shipping" ? "open" : "closed"}>
+      Orders leave our warehouse in one to two business days.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+  </Tab>
+</Tabs>
