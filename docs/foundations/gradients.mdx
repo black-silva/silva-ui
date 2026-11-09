@@ -12,6 +12,13 @@ Use `gradient` on `Box` when the stops should follow the nearest Silva UI theme.
 Use semantic stops when a gradient has a UI role: `primary` and `primaryActive` follow the active theme, including a custom theme. Use named hue tokens such as `violet9` and `cyan9` for decorative accents. Literal CSS values are useful for one-off brand work, but remain fixed when the theme changes.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-1" title="Theme-aware gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -27,13 +34,6 @@ import { Box, Text, Theme } from "silva-ui"
   </Box>
 </Theme>
 ```
-
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-1" title="Theme-aware gradient preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
 
   </Tab>
 </Tabs>
@@ -64,6 +64,13 @@ Named gradients and animation are documented in [Visuals](/docs/foundations/visu
 Token stops compile to Silva UI CSS variables. The gradient does not need to be rebuilt when its nearest `Theme` changes: its semantic values resolve in the new scope. The same applies to a custom Vanilla Extract theme that implements the Silva UI contract.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-2" title="Gradient across theme scopes preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -77,13 +84,6 @@ Token stops compile to Silva UI CSS variables. The gradient does not need to be 
 ```
 
   </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-2" title="Gradient across theme scopes preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
 </Tabs>
 
 See [Theming](/docs/theming) to define a custom theme contract.
@@ -93,6 +93,13 @@ See [Theming](/docs/theming) to define a custom theme contract.
 A gradient inside a custom theme resolves through that wrapper just like `bg`, `color`, and component variants do.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-3" title="Custom theme gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -115,18 +122,18 @@ export function BrandBanner() {
 ```
 
   </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-3" title="Custom theme gradient preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
 </Tabs>
 
 ## Gradient types
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-4" title="Radial and conic gradient preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -134,13 +141,6 @@ export function BrandBanner() {
 
 <Box gradient={{ type: "conic", from: "violet9", to: "cyan9", deg: 45 }} />
 ```
-
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=gradient-4" title="Radial and conic gradient preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
 
   </Tab>
 </Tabs>

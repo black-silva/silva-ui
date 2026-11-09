@@ -12,6 +12,13 @@ Silva UI components resolve CSS variables from the nearest theme scope. Use a bu
 Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. Theme scopes can nest, so a local section can use a different palette without changing the rest of the page.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Built-in theme preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -23,13 +30,6 @@ import { Box, Text, Theme } from "silva-ui"
   </Box>
 </Theme>
 ```
-
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Built-in theme preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
 
   </Tab>
 </Tabs>
@@ -94,6 +94,13 @@ export const brandTheme = createTheme(themeColors, {
 ### 3. Apply the custom scope
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Custom theme preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -114,13 +121,6 @@ export function PricingCard() {
   )
 }
 ```
-
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Custom theme preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
 
   </Tab>
 </Tabs>

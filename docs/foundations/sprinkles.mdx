@@ -25,6 +25,13 @@ Every component extends `BaseProps`, which includes the generated `Sprinkles` ty
 Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-1" title="Token-powered card preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -37,13 +44,6 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 ```
 
   </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-1" title="Token-powered card preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
 </Tabs>
 
 ## Semantic size tokens
@@ -53,6 +53,13 @@ Use a numeric `$n` token for a size relationship that should stay proportional a
 For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. That makes `$n` useful when an element's internal proportions matter more than a fixed pixel value: a tab at `$8`, a button at `$4`, and supporting text at `$2` keep the same relationship.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-2" title="Semantic size token preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -66,13 +73,6 @@ For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and 
 ```
 
   </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-2" title="Semantic size token preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
 </Tabs>
 
 <Note>
@@ -84,6 +84,13 @@ Projection tokens currently use the viewport only. They do not establish or inhe
 A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values. Use the `default` branch for the resting state and add only the conditions the component needs.
 
 <Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-3" title="Interactive sprinkles preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
   <Tab title="Code">
 
 ```tsx
@@ -96,13 +103,6 @@ A selected set of properties can be conditionally applied using `hover`, `active
   Hover or focus me
 </Box>
 ```
-
-  </Tab>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-3" title="Interactive sprinkles preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
 
   </Tab>
 </Tabs>
