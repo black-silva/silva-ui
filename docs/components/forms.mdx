@@ -36,7 +36,7 @@ Form components render native elements, then layer the Silva visual system on to
 
 ## Inputs
 
-`Input`, `TextArea`, `Select`, and `Label` support `sm`, `md` and `lg` sizes. Inputs expose the standard native fields such as `name`, `value`, `defaultValue`, `disabled`, `required`, and `onChange`.
+`Input`, `TextArea`, and `Label` support `sm`, `md` and `lg` sizes. Inputs expose the standard native fields such as `name`, `value`, `defaultValue`, `disabled`, `required`, and `onChange`.
 
 <Tabs sync={false}>
   <Tab title="Preview">
@@ -52,6 +52,34 @@ Form components render native elements, then layer the Silva visual system on to
 <Field>
   <Label htmlFor="message">Message</Label>
   <TextArea id="message" rows={5} placeholder="Tell us what you need." />
+</Field>
+```
+
+  </Tab>
+</Tabs>
+
+## Select
+
+`Select` accepts native `<option>` children and provides an accessible trigger, keyboard navigation, and a listbox of choices.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-5" title="Rendered select preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Field>
+  <Label htmlFor="workspace">Workspace</Label>
+  <Select id="workspace" name="workspace" defaultValue="silva-ui">
+    <option value="silva-ui">Silva UI</option>
+    <option value="blacksilva">BlackSilva</option>
+    <option value="cryptomall">CryptoMall</option>
+  </Select>
 </Field>
 ```
 
@@ -89,6 +117,78 @@ Form components render native elements, then layer the Silva visual system on to
   </RadioGroup>
   <Progress value={72} max={100} aria-label="Profile completeness" />
 </YStack>
+```
+
+  </Tab>
+</Tabs>
+
+## Switch
+
+`Switch` is a labelled native checkbox with `role="switch"`. Use `checked` for controlled state or `defaultChecked` for an initial value.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-6" title="Rendered switch preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Switch name="updates" defaultChecked>
+  Enable product updates
+</Switch>
+```
+
+  </Tab>
+</Tabs>
+
+## Slider
+
+`Slider` renders a native range input with `min`, `max`, `step`, `value`, and `defaultValue` support.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-7" title="Rendered slider preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<Field>
+  <Label htmlFor="volume">Volume</Label>
+  <Slider id="volume" name="volume" min={0} max={100} step={1} defaultValue={64} />
+</Field>
+```
+
+  </Tab>
+</Tabs>
+
+## Toggle group
+
+`ToggleGroup` groups related toggle buttons. Apply `data-active` from your application state to the selected `ToggleGroupItem`.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-8" title="Rendered toggle group preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+<ToggleGroup type="single" aria-label="View mode">
+  <ToggleGroupItem value="grid" data-active>Grid</ToggleGroupItem>
+  <ToggleGroupItem value="list">List</ToggleGroupItem>
+  <ToggleGroupItem value="compact">Compact</ToggleGroupItem>
+</ToggleGroup>
 ```
 
   </Tab>
