@@ -8,6 +8,6 @@
     </linearGradient>
   </defs>
   <rect x="8" y="8" width="240" height="240" rx="58" fill="#101828"/>
-  <text x="27" y="169" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="146" font-weight="800" letter-spacing="-12">S</text>
-  <text x="118" y="164" fill="url(#ui-gradient)" font-family="Arial, Helvetica, sans-serif" font-size="87" font-weight="800" letter-spacing="-9">UI</text>
+  <text x="27" y="165" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="800" letter-spacing="-8">S</text>
+  <text x="103" y="165" fill="url(#ui-gradient)" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="800" letter-spacing="-12">UI</text>
 </svg>
