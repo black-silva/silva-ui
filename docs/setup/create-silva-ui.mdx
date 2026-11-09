@@ -29,13 +29,13 @@ When you select Full-stack SSR or SSR-only, choose the runtime that matches wher
 
 | Runtime | Support tier | Notes |
 | --- | --- | --- |
-| Cloudflare Workers | Reference | Worker entry point and Wrangler configuration |
-| Node.js | Reference | Node 22+ server using `@hono/node-server` |
-| Bun | Candidate | Bun server and bundled entry point |
-| Fastly Compute | Experimental | Fastly Compute entry point and WASM build |
-| Deno | Experimental | Deno server and import map |
+| Cloudflare Workers | `fully-supported` | Worker entry point and Wrangler configuration |
+| Node.js | `fully-supported` | Node 22+ server using `@hono/node-server` |
+| Bun | `fully-supported` | Bun server and bundled entry point |
+| Fastly Compute | `fully-supported` | Fastly Compute entry point and WASM build |
+| Deno | `fully-supported` | Deno server and import map |
 
-`Reference` adapters are the recommended starting points. `Candidate` adapters are validated starters that are still evolving. `Experimental` adapters are intended for evaluation and need provider-specific review before production use.
+Every listed adapter is fully supported for both the Full-stack SSR and SSR-only starters. Choose the runtime that matches your deployment target.
 
 A generated project contains configuration and local scripts only. It does not create a cloud project, store credentials, or deploy anything during generation. Complete the provider-specific setup before deploying.
 

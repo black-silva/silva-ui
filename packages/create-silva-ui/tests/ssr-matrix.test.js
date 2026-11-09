@@ -50,6 +50,16 @@ test("full-stack starters organize pages and call their API from the home page",
   }
 });
 
+test("every adapter is fully supported for both SSR starters", () => {
+ for (const [name, adapter] of Object.entries(adapters)) {
+ assert.equal(adapter.tier, "fully-supported", `${name} has the fully-supported tier`);
+ for (const category of ["ssr-only", "full-stack"]) {
+ const readme = getSsrFiles("matrix-app", category, name)["README.md"];
+ assert.match(readme, /Support tier: fully-supported\./, `${name} documents its support tier`);
+ }
+ }
+});
+
 test("runtime adapters include their required compiler and type packages", () => {
   const bun = JSON.parse(getSsrFiles("matrix-app", "full-stack", "bun")["package.json"]);
   assert.ok(bun.devDependencies["@types/bun"]);
