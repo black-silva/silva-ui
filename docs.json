@@ -26,90 +26,26 @@
         "group": "Foundations",
         "icon": "palette",
         "pages": [
-          "docs/foundations/theme",
-          "docs/foundations/colors",
+          "docs/foundations/layout",
+          "docs/foundations/typography",
           "docs/foundations/sprinkles",
-          "docs/foundations/projection",
-          "docs/foundations/gradients",
           "docs/foundations/visuals",
-          "docs/foundations/theme-builder",
-          "docs/foundations/theme-registry",
-          "docs/foundations/utilities"
+          "docs/foundations/gradients"
         ]
       },
       {
-        "group": "Forms & Input",
-        "icon": "textbox",
+        "group": "Components",
+        "icon": "cube",
         "pages": [
-          "docs/forms/button",
-          "docs/forms/input",
-          "docs/forms/text-area",
-          "docs/forms/select",
-          "docs/forms/label",
-          "docs/forms/form",
-          "docs/forms/field",
-          "docs/forms/checkbox",
-          "docs/forms/radio-group",
-          "docs/forms/switch",
-          "docs/forms/toggle-group",
-          "docs/forms/slider",
-          "docs/forms/progress"
-        ]
-      },
-      {
-        "group": "Layout",
-        "icon": "table-cells",
-        "pages": [
-          "docs/layout/box",
-          "docs/layout/stacks",
-          "docs/layout/x-group",
-          "docs/layout/separator"
-        ]
-      },
-      {
-        "group": "Typography",
-        "icon": "text-size",
-        "pages": [
-          "docs/typography/text",
-          "docs/typography/sizable-text",
-          "docs/typography/paragraph",
-          "docs/typography/heading",
-          "docs/typography/anchor"
-        ]
-      },
-      {
-        "group": "Display",
-        "icon": "image",
-        "pages": [
-          "docs/display/avatar",
-          "docs/display/card",
-          "docs/display/image",
-          "docs/display/list-item",
-          "docs/display/spinner",
-          "docs/display/loader"
-        ]
-      },
-      {
-        "group": "Overlays",
-        "icon": "layers",
-        "pages": [
-          "docs/overlays/tabs",
-          "docs/overlays/dialog",
-          "docs/overlays/alert-dialog",
-          "docs/overlays/popover",
-          "docs/overlays/sheet",
-          "docs/overlays/tooltip",
-          "docs/overlays/toast",
-          "docs/overlays/menu",
-          "docs/overlays/context-menu",
-          "docs/overlays/accordion"
+          "docs/components/forms",
+          "docs/components/display",
+          "docs/components/overlays"
         ]
       },
       {
         "group": "Reference",
         "icon": "book-open",
         "pages": [
-          "docs/reference/props",
           "docs/reference/exports",
           "docs/reference/recipes",
           "docs/reference/accessibility"
