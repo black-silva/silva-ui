@@ -24,6 +24,16 @@ Every component extends `BaseProps`, which includes the generated `Sprinkles` ty
 
 Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
 
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-1" title="Token-powered card preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
 ```tsx
 <Card p="large" borderRadius="xl" maxWidth="24" bg="card">
   <YStack gap="small">
@@ -33,11 +43,24 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 </Card>
 ```
 
+  </Tab>
+</Tabs>
+
 ## Semantic size tokens
 
 Use a numeric `$n` token for a size relationship that should stay proportional as the viewport changes. `$n` is not a fixed entry in a token table: the number represents one tenth of its pixel size at Silva UI's 1000px reference viewport, then compiles to a linear `vw` value.
 
 For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and `60px` at 1500px. That makes `$n` useful when an element's internal proportions matter more than a fixed pixel value: a tab at `$8`, a button at `$4`, and supporting text at `$2` keep the same relationship.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-2" title="Semantic size token preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 <XStack gap="$1.6" p="$2.4" alignItems="center">
@@ -49,6 +72,9 @@ For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and 
 </XStack>
 ```
 
+  </Tab>
+</Tabs>
+
 <Note>
 Projection tokens currently use the viewport only. They do not establish or inherit container sizing contexts; parent-to-child projection is intentionally reserved for a later sizing phase.
 </Note>
@@ -56,6 +82,16 @@ Projection tokens currently use the viewport only. They do not establish or inhe
 ## Interaction conditions
 
 A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values. Use the `default` branch for the resting state and add only the conditions the component needs.
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-3" title="Interactive sprinkles preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 <Box
@@ -67,6 +103,9 @@ A selected set of properties can be conditionally applied using `hover`, `active
   Hover or focus me
 </Box>
 ```
+
+  </Tab>
+</Tabs>
 
 ## Utilities
 

@@ -13,18 +13,15 @@ description: Semantic headings, readable body text and accessible links.
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-38-a" title="Rendered text styles preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-1" title="Rendered text styles preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Text } from "silva-ui"
-
-const variant = 0;
-
-<Text color={variant ? 'muted' : undefined}>{variant ? 'Muted supporting text' : 'Token-driven text'}</Text>
+<Text as="strong" fontWeight="semibold">Strong emphasis</Text>
+<SizableText size="lg" color="muted">Supporting copy</SizableText>
 ```
 
   </Tab>
@@ -38,18 +35,18 @@ const variant = 0;
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-35-a" title="Rendered headings preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-2" title="Rendered headings preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { H1, H2, H3, H4, H5, H6, YStack } from "silva-ui"
+import { H1, Heading, Paragraph } from "silva-ui"
 
-const variant = 0;
-
-variant ? <YStack gap="small"><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fine print</H6></YStack> : <YStack gap="small"><H1>Build with confidence</H1><H2>Composable foundations</H2></YStack>
+<H1>Project overview</H1>
+<Heading level={2}>Recent activity</Heading>
+<Paragraph size="md">A short, readable description.</Paragraph>
 ```
 
   </Tab>
@@ -63,18 +60,16 @@ variant ? <YStack gap="small"><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fi
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-36-a" title="Rendered paragraph preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-3" title="Rendered paragraph preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Paragraph } from "silva-ui"
-
-const variant = 0;
-
-<Paragraph>{variant ? 'Clear prose makes component APIs easier to adopt.' : 'Documentation examples stay close to their implementation.'}</Paragraph>
+<Paragraph color="muted">
+  Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.
+</Paragraph>
 ```
 
   </Tab>
