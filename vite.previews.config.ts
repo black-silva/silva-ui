@@ -9,6 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       'silva-ui': fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+      'react/jsx-runtime': 'hono/jsx/dom/jsx-runtime',
+      'react/jsx-dev-runtime': 'hono/jsx/dom/jsx-dev-runtime',
     },
   },
   esbuild: {

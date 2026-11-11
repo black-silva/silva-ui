@@ -39,7 +39,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "docs:sync-previews": "node scripts/sync-preview-snippets.mjs",
-    "docs:check-previews": "node scripts/sync-preview-snippets.mjs && git diff --exit-code -- docs"
+    "docs:check-previews": "node scripts/sync-preview-snippets.mjs && git diff --exit-code -- docs",
+    "audit:previews": "playwright test"
   },
   "keywords": [
     "ui",
@@ -62,6 +63,7 @@
     "hono": "^4.13.13"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@vanilla-extract/css": "^1.21.3",
     "@vanilla-extract/sprinkles": "^1.7.1",
     "@vanilla-extract/vite-plugin": "^5.2.6",
