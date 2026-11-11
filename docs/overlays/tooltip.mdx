@@ -21,11 +21,32 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "silva-ui"
+import './styles.css'
 
-<Tooltip>
-  <TooltipTrigger><Button variant="outline">Hover or focus me</Button></TooltipTrigger>
-  <TooltipContent data-state="closed">Helpful context</TooltipContent>
-</Tooltip>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <Tooltip>
+    <TooltipTrigger onMouseEnter={(event) => setPreviewOpen(event, true)} onMouseLeave={(event) => setPreviewOpen(event, false)} onFocus={(event) => setPreviewOpen(event, true)} onBlur={(event) => setPreviewOpen(event, false)}>
+      <Button variant="outline">Hover or focus me</Button>
+    </TooltipTrigger>
+    <TooltipContent class="preview-popout preview-tooltip" data-preview-layer data-state="closed" style={{ position: 'static' }}>Helpful context</TooltipContent>
+  </Tooltip>
+</div>
 ```
 
   </Tab>
@@ -45,11 +66,32 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from "silva-ui"
 
 ```tsx
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "silva-ui"
+import './styles.css'
 
-<Tooltip>
-  <TooltipTrigger><Button variant="outline">Hover or focus me</Button></TooltipTrigger>
-  <TooltipContent data-state="closed">More details</TooltipContent>
-</Tooltip>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <Tooltip>
+    <TooltipTrigger onMouseEnter={(event) => setPreviewOpen(event, true)} onMouseLeave={(event) => setPreviewOpen(event, false)} onFocus={(event) => setPreviewOpen(event, true)} onBlur={(event) => setPreviewOpen(event, false)}>
+      <Button variant="outline">Hover or focus me</Button>
+    </TooltipTrigger>
+    <TooltipContent class="preview-popout preview-tooltip" data-preview-layer data-state="closed" style={{ position: 'static' }}>More details</TooltipContent>
+  </Tooltip>
+</div>
 ```
 
   </Tab>

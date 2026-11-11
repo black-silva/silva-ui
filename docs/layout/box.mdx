@@ -21,15 +21,19 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Box, H3, Text, XStack } from "silva-ui"
+import './styles.css'
 
-<Box as="article" p="large" borderRadius="large">
-  <Text>FOUNDATION</Text>
-  <H3>Build from one good Box</H3>
-  <Text>Spacing, colour and radius through tokens.</Text>
-  <XStack>
-    <div><strong>24</strong><span>tokens</span></div>
-    <div><strong>100%</strong><span>composable</span></div>
-  </XStack>
+<Box as="article" p="large" borderRadius="large" class="preview-box-showcase">
+  <div class="preview-box-grid" />
+  <div class="preview-box-content">
+    <Text class="preview-card-eyebrow">FOUNDATION</Text>
+    <H3>Build from one good Box</H3>
+    <Text>Spacing, colour and radius through tokens.</Text>
+    <XStack class="preview-box-stats">
+      <div><strong>24</strong><span>tokens</span></div>
+      <div><strong>100%</strong><span>composable</span></div>
+    </XStack>
+  </div>
 </Box>
 ```
 
@@ -50,15 +54,19 @@ import { Box, H3, Text, XStack } from "silva-ui"
 
 ```tsx
 import { Box, H3, Text, XStack } from "silva-ui"
+import './styles.css'
 
-<Box as="article" p="large" borderRadius="large">
-  <Text>WORKSPACE</Text>
-  <H3>Everything in its place</H3>
-  <Text>A focused layout for your next session.</Text>
-  <XStack>
-    <div><strong>12</strong><span>projects</span></div>
-    <div><strong>4.8</strong><span>rating</span></div>
-  </XStack>
+<Box as="article" p="large" borderRadius="large" class="preview-box-showcase">
+  <div class="preview-box-grid" />
+  <div class="preview-box-content">
+    <Text class="preview-card-eyebrow">WORKSPACE</Text>
+    <H3>Everything in its place</H3>
+    <Text>A focused layout for your next session.</Text>
+    <XStack class="preview-box-stats">
+      <div><strong>12</strong><span>projects</span></div>
+      <div><strong>4.8</strong><span>rating</span></div>
+    </XStack>
+  </div>
 </Box>
 ```
 

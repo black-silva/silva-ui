@@ -21,15 +21,34 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Button, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "silva-ui"
+import './styles.css'
 
-<ContextMenu>
-  <ContextMenuTrigger>
-    <Button variant="outline">Right-click this card</Button>
-  </ContextMenuTrigger>
-  <ContextMenuContent data-state="closed">
-    <ContextMenuItem>Edit</ContextMenuItem>
-  </ContextMenuContent>
-</ContextMenu>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <ContextMenu>
+    <ContextMenuTrigger onContextMenu={(event) => { event.preventDefault(); setPreviewOpen(event, true); }} onClick={(event) => setPreviewOpen(event, true)}>
+      <Button variant="outline">Right-click this card</Button>
+    </ContextMenuTrigger>
+    <ContextMenuContent class="preview-popout" data-preview-layer data-state="closed" style={{ position: 'static' }}>
+      <ContextMenuItem onClick={(event) => setPreviewOpen(event, false)}>Edit</ContextMenuItem>
+    </ContextMenuContent>
+  </ContextMenu>
+</div>
 ```
 
   </Tab>
@@ -49,18 +68,37 @@ import { Button, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTr
 
 ```tsx
 import { Button, ContextMenu, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from "silva-ui"
+import './styles.css'
 
-<ContextMenu>
-  <ContextMenuTrigger>
-    <Button variant="outline">Right-click for actions</Button>
-  </ContextMenuTrigger>
-  <ContextMenuContent data-state="closed">
-    <ContextMenuLabel>Actions</ContextMenuLabel>
-    <ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup>
-    <ContextMenuSeparator />
-    <ContextMenuItem>Delete</ContextMenuItem>
-  </ContextMenuContent>
-</ContextMenu>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <ContextMenu>
+    <ContextMenuTrigger onContextMenu={(event) => { event.preventDefault(); setPreviewOpen(event, true); }} onClick={(event) => setPreviewOpen(event, true)}>
+      <Button variant="outline">Right-click for actions</Button>
+    </ContextMenuTrigger>
+    <ContextMenuContent class="preview-popout" data-preview-layer data-state="closed" style={{ position: 'static' }}>
+      <ContextMenuLabel>Actions</ContextMenuLabel>
+      <ContextMenuGroup><ContextMenuItem onClick={(event) => setPreviewOpen(event, false)}>Edit</ContextMenuItem></ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuItem onClick={(event) => setPreviewOpen(event, false)}>Delete</ContextMenuItem>
+    </ContextMenuContent>
+  </ContextMenu>
+</div>
 ```
 
   </Tab>

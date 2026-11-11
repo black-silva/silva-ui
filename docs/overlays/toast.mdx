@@ -21,17 +21,32 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
+import './styles.css'
 
-<Button>Show saved toast</Button>
-<ToastProvider position="bottom-center">
-  <div hidden>
-    <Toast variant="default">
-      <ToastTitle>Saved</ToastTitle>
-      <ToastDescription>Your draft is safe.</ToastDescription>
-      <ToastClose>Dismiss</ToastClose>
-    </Toast>
-  </div>
-</ToastProvider>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Show saved toast</Button>
+  <ToastProvider position="bottom-center" class="preview-toast">
+    <div data-preview-toast hidden>
+      <Toast variant="default"><ToastTitle>Saved</ToastTitle><ToastDescription>Your draft is safe.</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast>
+    </div>
+  </ToastProvider>
+</div>
 ```
 
   </Tab>
@@ -51,17 +66,32 @@ import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle 
 
 ```tsx
 import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
+import './styles.css'
 
-<Button>Show published toast</Button>
-<ToastProvider position="bottom-center">
-  <div hidden>
-    <Toast variant="success">
-      <ToastTitle>Published</ToastTitle>
-      <ToastDescription>Your changes are live.</ToastDescription>
-      <ToastClose>Dismiss</ToastClose>
-    </Toast>
-  </div>
-</ToastProvider>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Show published toast</Button>
+  <ToastProvider position="bottom-center" class="preview-toast">
+    <div data-preview-toast hidden>
+      <Toast variant="success"><ToastTitle>Published</ToastTitle><ToastDescription>Your changes are live.</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast>
+    </div>
+  </ToastProvider>
+</div>
 ```
 
   </Tab>

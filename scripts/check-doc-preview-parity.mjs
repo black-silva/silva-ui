@@ -5,6 +5,7 @@ const root = process.cwd();
 const sections = ['display', 'forms', 'layout', 'overlays', 'typography'];
 const errors = [];
 const docs = [];
+const globalTypeNames = new Set(['HTMLElement']);
 const iframeReferences = [];
 
 const walkDocs = async (directory) => {
@@ -29,7 +30,7 @@ for (const filePath of (await walkDocs(path.join(root, 'docs'))).sort()) {
       if (!code.trim()) errors.push(`${relative}: ${id} has an empty Code snippet`);
       const imported = new Set([...code.matchAll(/import\s*{([^}]+)}/g)].flatMap(match => match[1].split(',').map(name => name.trim())));
       for (const [, component] of code.matchAll(/<([A-Z][A-Za-z0-9]*)\b/g)) {
-        if (!imported.has(component)) errors.push(`${relative}: ${id} uses ${component} without importing it`);
+        if (!globalTypeNames.has(component) && !imported.has(component)) errors.push(`${relative}: ${id} uses ${component} without importing it`);
       }
       docs.push({ relative, id, code });
     }

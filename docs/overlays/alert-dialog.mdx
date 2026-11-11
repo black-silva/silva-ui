@@ -21,21 +21,34 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle, Button } from "silva-ui"
+import './styles.css'
 
-<Button>Delete project</Button>
-<AlertDialog open={false}>
-  <AlertDialogOverlay hidden />
-  <AlertDialogContent hidden>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Delete project?</AlertDialogTitle>
-      <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction>Delete</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Delete project</Button>
+  <AlertDialog open={false}>
+    <AlertDialogOverlay class="preview-overlay" data-preview-layer hidden hidden onClick={(event) => setPreviewOpen(event, false)} />
+    <AlertDialogContent class="preview-modal preview-alert" data-preview-layer hidden>
+      <AlertDialogHeader><AlertDialogTitle>Delete project?</AlertDialogTitle><AlertDialogDescription>This cannot be undone.</AlertDialogDescription></AlertDialogHeader>
+      <AlertDialogFooter><AlertDialogCancel onClick={(event) => setPreviewOpen(event, false)}>Cancel</AlertDialogCancel><AlertDialogAction onClick={(event) => setPreviewOpen(event, false)}>Delete</AlertDialogAction></AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+</div>
 ```
 
   </Tab>
@@ -55,21 +68,34 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 ```tsx
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle, Button } from "silva-ui"
+import './styles.css'
 
-<Button>Discard draft</Button>
-<AlertDialog open={false}>
-  <AlertDialogOverlay hidden />
-  <AlertDialogContent hidden>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Discard changes?</AlertDialogTitle>
-      <AlertDialogDescription>Keep your current draft.</AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Keep editing</AlertDialogCancel>
-      <AlertDialogAction>Discard</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Discard draft</Button>
+  <AlertDialog open={false}>
+    <AlertDialogOverlay class="preview-overlay" data-preview-layer hidden hidden onClick={(event) => setPreviewOpen(event, false)} />
+    <AlertDialogContent class="preview-modal preview-alert" data-preview-layer hidden>
+      <AlertDialogHeader><AlertDialogTitle>Discard changes?</AlertDialogTitle><AlertDialogDescription>Keep your current draft.</AlertDialogDescription></AlertDialogHeader>
+      <AlertDialogFooter><AlertDialogCancel onClick={(event) => setPreviewOpen(event, false)}>Keep editing</AlertDialogCancel><AlertDialogAction onClick={(event) => setPreviewOpen(event, false)}>Discard</AlertDialogAction></AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+</div>
 ```
 
   </Tab>

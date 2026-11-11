@@ -21,15 +21,34 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
+import './styles.css'
 
-<Button>Open account settings</Button>
-<Sheet open={false}>
-  <SheetOverlay hidden />
-  <SheetContent side="bottom" hidden>
-    <SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader>
-    <SheetFooter><SheetClose>Done</SheetClose></SheetFooter>
-  </SheetContent>
-</Sheet>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Open account settings</Button>
+  <Sheet open={false}>
+    <SheetOverlay class="preview-overlay" data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} />
+    <SheetContent side="bottom" class="preview-sheet" data-preview-layer hidden>
+      <SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader>
+      <SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>Done</SheetClose></SheetFooter>
+    </SheetContent>
+  </Sheet>
+</div>
 ```
 
   </Tab>
@@ -49,15 +68,34 @@ import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter,
 
 ```tsx
 import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
+import './styles.css'
 
-<Button>Notification settings</Button>
-<Sheet open={false}>
-  <SheetOverlay hidden />
-  <SheetContent side="bottom" hidden>
-    <SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader>
-    <SheetFooter><SheetClose>Save</SheetClose></SheetFooter>
-  </SheetContent>
-</Sheet>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-interactive" data-preview-control>
+  <Button onClick={(event) => setPreviewOpen(event, true)}>Notification settings</Button>
+  <Sheet open={false}>
+    <SheetOverlay class="preview-overlay" data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} />
+    <SheetContent side="bottom" class="preview-sheet" data-preview-layer hidden>
+      <SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader>
+      <SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>Save</SheetClose></SheetFooter>
+    </SheetContent>
+  </Sheet>
+</div>
 ```
 
   </Tab>

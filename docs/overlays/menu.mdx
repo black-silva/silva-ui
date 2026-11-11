@@ -21,11 +21,30 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Button, Menu, MenuContent, MenuItem, MenuTrigger } from "silva-ui"
+import './styles.css'
 
-<Menu>
-  <MenuTrigger><Button variant="outline">Open menu</Button></MenuTrigger>
-  <MenuContent data-state="closed"><MenuItem>Edit</MenuItem></MenuContent>
-</Menu>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <Menu>
+    <MenuTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>Open menu</Button></MenuTrigger>
+    <MenuContent class="preview-popout" data-preview-layer data-state="closed" style={{ position: 'static' }}><MenuItem onClick={(event) => setPreviewOpen(event, false)}>Edit</MenuItem></MenuContent>
+  </Menu>
+</div>
 ```
 
   </Tab>
@@ -45,16 +64,35 @@ import { Button, Menu, MenuContent, MenuItem, MenuTrigger } from "silva-ui"
 
 ```tsx
 import { Button, Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "silva-ui"
+import './styles.css'
 
-<Menu>
-  <MenuTrigger><Button variant="outline">Project actions</Button></MenuTrigger>
-  <MenuContent data-state="closed">
-    <MenuLabel>Actions</MenuLabel>
-    <MenuGroup><MenuItem>Edit</MenuItem></MenuGroup>
-    <MenuSeparator />
-    <MenuItem>Delete</MenuItem>
-  </MenuContent>
-</Menu>
+function previewControl(event: Event) {
+  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
+}
+
+function setPreviewOpen(event: Event, open: boolean) {
+  const root = previewControl(event)
+  if (!root) return
+  root.dataset.open = String(open)
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
+    layer.hidden = !open
+    layer.setAttribute('data-state', open ? 'open' : 'closed')
+  })
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
+  if (toast) toast.hidden = !open
+}
+
+<div class="preview-menu preview-interactive" data-preview-control>
+  <Menu>
+    <MenuTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>Project actions</Button></MenuTrigger>
+    <MenuContent class="preview-popout" data-preview-layer data-state="closed" style={{ position: 'static' }}>
+      <MenuLabel>Actions</MenuLabel>
+      <MenuGroup><MenuItem onClick={(event) => setPreviewOpen(event, false)}>Edit</MenuItem></MenuGroup>
+      <MenuSeparator />
+      <MenuItem onClick={(event) => setPreviewOpen(event, false)}>Delete</MenuItem>
+    </MenuContent>
+  </Menu>
+</div>
 ```
 
   </Tab>

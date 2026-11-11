@@ -21,18 +21,21 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
+import './styles.css'
 
-<Card elevated>
-  <Box>
-    <Text>SHIP FASTER</Text>
+<Card elevated class="preview-showcase-card">
+  <Box class="preview-card-hero">
+    <span class="preview-orb preview-orb-one" />
+    <span class="preview-orb preview-orb-two" />
+    <Text class="preview-card-eyebrow">SHIP FASTER</Text>
     <H3>Release 1.3</H3>
   </Box>
-  <CardHeader>
-    <Text>A polished starting point</Text>
-    <Text>Composable Hono JSX, ready for your next idea.</Text>
+  <CardHeader class="preview-card-copy">
+    <Text class="preview-card-title">A polished starting point</Text>
+    <Text class="preview-card-description">Composable Hono JSX, ready for your next idea.</Text>
   </CardHeader>
-  <CardFooter>
-    <Text>Just published</Text>
+  <CardFooter class="preview-card-footer">
+    <Text class="preview-card-meta">Just published</Text>
     <Button>View notes</Button>
   </CardFooter>
 </Card>
@@ -55,18 +58,21 @@ import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
 
 ```tsx
 import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
+import './styles.css'
 
-<Card elevated>
-  <Box>
-    <Text>DESIGN SYSTEM</Text>
+<Card elevated class="preview-showcase-card">
+  <Box class="preview-card-hero">
+    <span class="preview-orb preview-orb-one" />
+    <span class="preview-orb preview-orb-two" />
+    <Text class="preview-card-eyebrow">DESIGN SYSTEM</Text>
     <H3>Silva UI</H3>
   </Box>
-  <CardHeader>
-    <Text>The calm way to build</Text>
-    <Text>Typed primitives that stay out of your way.</Text>
+  <CardHeader class="preview-card-copy">
+    <Text class="preview-card-title">The calm way to build</Text>
+    <Text class="preview-card-description">Typed primitives that stay out of your way.</Text>
   </CardHeader>
-  <CardFooter>
-    <Text>38 components</Text>
+  <CardFooter class="preview-card-footer">
+    <Text class="preview-card-meta">38 components</Text>
     <Button variant="outline">Explore</Button>
   </CardFooter>
 </Card>
