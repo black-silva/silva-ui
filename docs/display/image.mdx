@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Image } from "silva-ui"
 
-<Image src="https://placehold.co/640x360" alt="Placeholder preview" />
+const variant = 0;
+
+<Image width="64" height="32" objectFit="cover" borderRadius="large" src={variant ? 'https://placehold.co/320x180' : 'https://placehold.co/640x360'} alt={variant ? 'Small placeholder preview' : 'Placeholder preview'} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Image } from "silva-ui"
 ```tsx
 import { Image } from "silva-ui"
 
-<Image src="https://placehold.co/320x180" alt="Small placeholder preview" />
+const variant = 1;
+
+<Image width="64" height="32" objectFit="cover" borderRadius="large" src={variant ? 'https://placehold.co/320x180' : 'https://placehold.co/640x360'} alt={variant ? 'Small placeholder preview' : 'Placeholder preview'} />
 ```
 
   </Tab>

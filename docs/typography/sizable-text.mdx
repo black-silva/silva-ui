@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { SizableText } from "silva-ui"
 
-<SizableText size="lg">A larger piece of text</SizableText>
+const variant = 0;
+
+<SizableText size={variant ? 'sm' : 'lg'}>{variant ? 'A smaller piece of text' : 'A larger piece of text'}</SizableText>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { SizableText } from "silva-ui"
 ```tsx
 import { SizableText } from "silva-ui"
 
-<SizableText size="sm">A smaller piece of text</SizableText>
+const variant = 1;
+
+<SizableText size={variant ? 'sm' : 'lg'}>{variant ? 'A smaller piece of text' : 'A larger piece of text'}</SizableText>
 ```
 
   </Tab>

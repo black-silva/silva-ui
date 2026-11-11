@@ -20,25 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
-import './styles.css'
+import { Box, Button, Card, CardFooter, CardHeader, H3, Text, XStack, YStack } from "silva-ui"
 
-<Card elevated class="preview-showcase-card">
-  <Box class="preview-card-hero">
-    <span class="preview-orb preview-orb-one" />
-    <span class="preview-orb preview-orb-two" />
-    <Text class="preview-card-eyebrow">SHIP FASTER</Text>
-    <H3>Release 1.3</H3>
-  </Box>
-  <CardHeader class="preview-card-copy">
-    <Text class="preview-card-title">A polished starting point</Text>
-    <Text class="preview-card-description">Composable Hono JSX, ready for your next idea.</Text>
-  </CardHeader>
-  <CardFooter class="preview-card-footer">
-    <Text class="preview-card-meta">Just published</Text>
-    <Button>View notes</Button>
-  </CardFooter>
-</Card>
+const variant = 0;
+
+<Card elevated width="64" overflow="hidden"><Box gradient={{ from: 'teal9', via: 'blue9', to: 'violet9', deg: 135 }} minHeight="24" p="medium" color="background"><Text fontSize="xs" fontWeight="bold" letterSpacing="widest">{variant ? 'DESIGN SYSTEM' : 'SHIP FASTER'}</Text><H3 mt="small" color="background">{variant ? 'Silva UI' : 'Release 1.3'}</H3></Box><CardHeader p="medium"><YStack gap="xs"><Text fontSize="sm" fontWeight="bold">{variant ? 'The calm way to build' : 'A polished starting point'}</Text><Text fontSize="xs" color="muted">{variant ? 'Typed primitives that stay out of your way.' : 'Composable Hono JSX, ready for your next idea.'}</Text></YStack></CardHeader><CardFooter p="medium"><XStack alignItems="center" justifyContent="space-between" width="full"><Text fontSize="xs" color="muted">{variant ? '38 components' : 'Just published'}</Text><Button variant={variant ? 'outline' : undefined}>{variant ? 'Explore' : 'View notes'}</Button></XStack></CardFooter></Card>
 ```
 
   </Tab>
@@ -57,25 +43,11 @@ import './styles.css'
   <Tab title="Code">
 
 ```tsx
-import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
-import './styles.css'
+import { Box, Button, Card, CardFooter, CardHeader, H3, Text, XStack, YStack } from "silva-ui"
 
-<Card elevated class="preview-showcase-card">
-  <Box class="preview-card-hero">
-    <span class="preview-orb preview-orb-one" />
-    <span class="preview-orb preview-orb-two" />
-    <Text class="preview-card-eyebrow">DESIGN SYSTEM</Text>
-    <H3>Silva UI</H3>
-  </Box>
-  <CardHeader class="preview-card-copy">
-    <Text class="preview-card-title">The calm way to build</Text>
-    <Text class="preview-card-description">Typed primitives that stay out of your way.</Text>
-  </CardHeader>
-  <CardFooter class="preview-card-footer">
-    <Text class="preview-card-meta">38 components</Text>
-    <Button variant="outline">Explore</Button>
-  </CardFooter>
-</Card>
+const variant = 1;
+
+<Card elevated width="64" overflow="hidden"><Box gradient={{ from: 'teal9', via: 'blue9', to: 'violet9', deg: 135 }} minHeight="24" p="medium" color="background"><Text fontSize="xs" fontWeight="bold" letterSpacing="widest">{variant ? 'DESIGN SYSTEM' : 'SHIP FASTER'}</Text><H3 mt="small" color="background">{variant ? 'Silva UI' : 'Release 1.3'}</H3></Box><CardHeader p="medium"><YStack gap="xs"><Text fontSize="sm" fontWeight="bold">{variant ? 'The calm way to build' : 'A polished starting point'}</Text><Text fontSize="xs" color="muted">{variant ? 'Typed primitives that stay out of your way.' : 'Composable Hono JSX, ready for your next idea.'}</Text></YStack></CardHeader><CardFooter p="medium"><XStack alignItems="center" justifyContent="space-between" width="full"><Text fontSize="xs" color="muted">{variant ? '38 components' : 'Just published'}</Text><Button variant={variant ? 'outline' : undefined}>{variant ? 'Explore' : 'View notes'}</Button></XStack></CardFooter></Card>
 ```
 
   </Tab>

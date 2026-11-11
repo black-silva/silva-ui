@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Slider } from "silva-ui"
 
-<Slider value={50} />
+const variant = 0;
+
+<Slider value={variant ? 80 : 50} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Slider } from "silva-ui"
 ```tsx
 import { Slider } from "silva-ui"
 
-<Slider value={80} />
+const variant = 1;
+
+<Slider value={variant ? 80 : 50} />
 ```
 
   </Tab>

@@ -21,31 +21,19 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Tab, TabList, TabPanel, Tabs } from "silva-ui"
-import './styles.css'
 
 function choosePreviewTab(event: Event) {
-  const tab = event.currentTarget as HTMLElement
-  const root = tab.closest<HTMLElement>('[data-preview-tabs]')
-  if (!root) return
-  const value = tab.dataset.value
-  root.querySelectorAll<HTMLElement>('[role="tab"]').forEach((item) => {
-    const active = item.dataset.value === value
-    item.dataset.active = String(active)
-    item.setAttribute('aria-selected', String(active))
-  })
-  root.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => {
-    panel.hidden = panel.dataset.value !== value
-  })
+  const tab = event.currentTarget as HTMLElement;
+  const root = tab.closest<HTMLElement>('[data-preview-tabs]');
+  if (!root) return;
+  const value = tab.dataset.value;
+  root.querySelectorAll<HTMLElement>('[role="tab"]').forEach((item) => { const active = item.dataset.value === value; item.dataset.active = String(active); item.setAttribute('aria-selected', String(active)); });
+  root.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => { panel.hidden = panel.dataset.value !== value; });
 }
 
-<Tabs class="preview-tabs" data-preview-tabs>
-  <TabList aria-label="Project">
-    <Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel" onClick={choosePreviewTab}>Overview</Tab>
-    <Tab id="activity-tab" value="activity" aria-controls="activity-panel" onClick={choosePreviewTab}>Activity</Tab>
-  </TabList>
-  <TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Everything is ready for your next release.</TabPanel>
-  <TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>No pending updates. You are all caught up.</TabPanel>
-</Tabs>
+const variant = 0;
+
+<Tabs width="64" data-preview-tabs><TabList aria-label={variant ? 'Workspace' : 'Project'}><Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel" onClick={choosePreviewTab}>Overview</Tab><Tab id="activity-tab" value="activity" aria-controls="activity-panel" onClick={choosePreviewTab}>Activity</Tab></TabList><TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">{variant ? 'Workspace preferences and collaborators.' : 'Everything is ready for your next release.'}</TabPanel><TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>{variant ? 'Three team members are online.' : 'No pending updates. You are all caught up.'}</TabPanel></Tabs>
 ```
 
   </Tab>
@@ -65,31 +53,19 @@ function choosePreviewTab(event: Event) {
 
 ```tsx
 import { Tab, TabList, TabPanel, Tabs } from "silva-ui"
-import './styles.css'
 
 function choosePreviewTab(event: Event) {
-  const tab = event.currentTarget as HTMLElement
-  const root = tab.closest<HTMLElement>('[data-preview-tabs]')
-  if (!root) return
-  const value = tab.dataset.value
-  root.querySelectorAll<HTMLElement>('[role="tab"]').forEach((item) => {
-    const active = item.dataset.value === value
-    item.dataset.active = String(active)
-    item.setAttribute('aria-selected', String(active))
-  })
-  root.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => {
-    panel.hidden = panel.dataset.value !== value
-  })
+  const tab = event.currentTarget as HTMLElement;
+  const root = tab.closest<HTMLElement>('[data-preview-tabs]');
+  if (!root) return;
+  const value = tab.dataset.value;
+  root.querySelectorAll<HTMLElement>('[role="tab"]').forEach((item) => { const active = item.dataset.value === value; item.dataset.active = String(active); item.setAttribute('aria-selected', String(active)); });
+  root.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => { panel.hidden = panel.dataset.value !== value; });
 }
 
-<Tabs class="preview-tabs" data-preview-tabs>
-  <TabList aria-label="Workspace">
-    <Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel" onClick={choosePreviewTab}>Overview</Tab>
-    <Tab id="activity-tab" value="activity" aria-controls="activity-panel" onClick={choosePreviewTab}>Activity</Tab>
-  </TabList>
-  <TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Workspace preferences and collaborators.</TabPanel>
-  <TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>Three team members are online.</TabPanel>
-</Tabs>
+const variant = 1;
+
+<Tabs width="64" data-preview-tabs><TabList aria-label={variant ? 'Workspace' : 'Project'}><Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel" onClick={choosePreviewTab}>Overview</Tab><Tab id="activity-tab" value="activity" aria-controls="activity-panel" onClick={choosePreviewTab}>Activity</Tab></TabList><TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">{variant ? 'Workspace preferences and collaborators.' : 'Everything is ready for your next release.'}</TabPanel><TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>{variant ? 'Three team members are online.' : 'No pending updates. You are all caught up.'}</TabPanel></Tabs>
 ```
 
   </Tab>

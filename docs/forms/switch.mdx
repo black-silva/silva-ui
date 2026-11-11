@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Switch } from "silva-ui"
 
-<Switch checked />
+const variant = 0;
+
+<Switch checked={!variant} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Switch } from "silva-ui"
 ```tsx
 import { Switch } from "silva-ui"
 
-<Switch />
+const variant = 1;
+
+<Switch checked={!variant} />
 ```
 
   </Tab>

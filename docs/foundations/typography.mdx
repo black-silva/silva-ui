@@ -20,8 +20,11 @@ description: Semantic headings, readable body text and accessible links.
   <Tab title="Code">
 
 ```tsx
-<Text as="strong" fontWeight="semibold">Strong emphasis</Text>
-<SizableText size="lg" color="muted">Supporting copy</SizableText>
+import { Text } from "silva-ui"
+
+const variant = 0;
+
+<Text color={variant ? 'muted' : undefined}>{variant ? 'Muted supporting text' : 'Token-driven text'}</Text>
 ```
 
   </Tab>
@@ -42,11 +45,11 @@ description: Semantic headings, readable body text and accessible links.
   <Tab title="Code">
 
 ```tsx
-import { H1, Heading, Paragraph } from "silva-ui"
+import { H1, H2, H3, H4, H5, H6, YStack } from "silva-ui"
 
-<H1>Project overview</H1>
-<Heading level={2}>Recent activity</Heading>
-<Paragraph size="md">A short, readable description.</Paragraph>
+const variant = 0;
+
+variant ? <YStack gap="small"><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fine print</H6></YStack> : <YStack gap="small"><H1>Build with confidence</H1><H2>Composable foundations</H2></YStack>
 ```
 
   </Tab>
@@ -67,9 +70,11 @@ import { H1, Heading, Paragraph } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-<Paragraph color="muted">
-  Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.
-</Paragraph>
+import { Paragraph } from "silva-ui"
+
+const variant = 0;
+
+<Paragraph>{variant ? 'Clear prose makes component APIs easier to adopt.' : 'Documentation examples stay close to their implementation.'}</Paragraph>
 ```
 
   </Tab>

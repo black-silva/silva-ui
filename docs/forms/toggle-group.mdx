@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { ToggleGroup, ToggleGroupItem } from "silva-ui"
 
-<ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>
+const variant = 0;
+
+variant ? <ToggleGroup><ToggleGroupItem value="grid">Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem></ToggleGroup> : <ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { ToggleGroup, ToggleGroupItem } from "silva-ui"
 ```tsx
 import { ToggleGroup, ToggleGroupItem } from "silva-ui"
 
-<ToggleGroup><ToggleGroupItem value="grid">Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem></ToggleGroup>
+const variant = 1;
+
+variant ? <ToggleGroup><ToggleGroupItem value="grid">Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem></ToggleGroup> : <ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>
 ```
 
   </Tab>

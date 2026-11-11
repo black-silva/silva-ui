@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Progress } from "silva-ui"
 
-<Progress value={72} aria-label="Upload progress" />
+const variant = 0;
+
+<Progress value={variant ? 40 : 72} aria-label={variant ? 'Profile completion' : 'Upload progress'} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Progress } from "silva-ui"
 ```tsx
 import { Progress } from "silva-ui"
 
-<Progress value={40} aria-label="Profile completion" />
+const variant = 1;
+
+<Progress value={variant ? 40 : 72} aria-label={variant ? 'Profile completion' : 'Upload progress'} />
 ```
 
   </Tab>

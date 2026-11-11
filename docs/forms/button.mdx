@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Button } from "silva-ui"
 
-<Button>Save changes</Button>
+const variant = 0;
+
+<Button variant={variant ? 'outline' : undefined}>{variant ? 'Cancel' : 'Save changes'}</Button>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Button } from "silva-ui"
 ```tsx
 import { Button } from "silva-ui"
 
-<Button variant="outline">Cancel</Button>
+const variant = 1;
+
+<Button variant={variant ? 'outline' : undefined}>{variant ? 'Cancel' : 'Save changes'}</Button>
 ```
 
   </Tab>

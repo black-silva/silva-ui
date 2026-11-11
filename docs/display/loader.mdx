@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Loader } from "silva-ui"
 
-<Loader />
+const variant = 0;
+
+<Loader size={variant ? 'lg' : undefined} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Loader } from "silva-ui"
 ```tsx
 import { Loader } from "silva-ui"
 
-<Loader size="lg" />
+const variant = 1;
+
+<Loader size={variant ? 'lg' : undefined} />
 ```
 
   </Tab>

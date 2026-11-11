@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { XGroup, Button } from "silva-ui"
+import { Button, XGroup } from "silva-ui"
 
-<XGroup><Button>Day</Button><Button>Week</Button></XGroup>
+const variant = 0;
+
+<XGroup><Button>{variant ? 'Grid' : 'Day'}</Button><Button>{variant ? 'List' : 'Week'}</Button></XGroup>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { XGroup, Button } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { XGroup, Button } from "silva-ui"
+import { Button, XGroup } from "silva-ui"
 
-<XGroup><Button>Grid</Button><Button>List</Button></XGroup>
+const variant = 1;
+
+<XGroup><Button>{variant ? 'Grid' : 'Day'}</Button><Button>{variant ? 'List' : 'Week'}</Button></XGroup>
 ```
 
   </Tab>

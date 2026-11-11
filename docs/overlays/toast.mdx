@@ -20,33 +20,25 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
-import './styles.css'
+import { Box, Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-interactive" data-preview-control>
-  <Button onClick={(event) => setPreviewOpen(event, true)}>Show saved toast</Button>
-  <ToastProvider position="bottom-center" class="preview-toast">
-    <div data-preview-toast hidden>
-      <Toast variant="default"><ToastTitle>Saved</ToastTitle><ToastDescription>Your draft is safe.</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast>
-    </div>
-  </ToastProvider>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 0;
+
+<Interactive><Button onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Show published toast' : 'Show saved toast'}</Button><ToastProvider position="bottom-center"><Box data-preview-toast hidden width="full"><Toast variant={variant ? 'success' : 'default'}><ToastTitle>{variant ? 'Published' : 'Saved'}</ToastTitle><ToastDescription>{variant ? 'Your changes are live.' : 'Your draft is safe.'}</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast></Box></ToastProvider></Interactive>
 ```
 
   </Tab>
@@ -65,33 +57,25 @@ function setPreviewOpen(event: Event, open: boolean) {
   <Tab title="Code">
 
 ```tsx
-import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
-import './styles.css'
+import { Box, Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-interactive" data-preview-control>
-  <Button onClick={(event) => setPreviewOpen(event, true)}>Show published toast</Button>
-  <ToastProvider position="bottom-center" class="preview-toast">
-    <div data-preview-toast hidden>
-      <Toast variant="success"><ToastTitle>Published</ToastTitle><ToastDescription>Your changes are live.</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast>
-    </div>
-  </ToastProvider>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 1;
+
+<Interactive><Button onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Show published toast' : 'Show saved toast'}</Button><ToastProvider position="bottom-center"><Box data-preview-toast hidden width="full"><Toast variant={variant ? 'success' : 'default'}><ToastTitle>{variant ? 'Published' : 'Saved'}</ToastTitle><ToastDescription>{variant ? 'Your changes are live.' : 'Your draft is safe.'}</ToastDescription><ToastClose onClick={(event) => setPreviewOpen(event, false)}>Dismiss</ToastClose></Toast></Box></ToastProvider></Interactive>
 ```
 
   </Tab>

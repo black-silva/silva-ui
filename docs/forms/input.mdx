@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Input } from "silva-ui"
 
-<Input placeholder="you@example.com" type="email" />
+const variant = 0;
+
+<Input placeholder={variant ? 'Project name' : 'you@example.com'} type={variant ? undefined : 'email'} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Input } from "silva-ui"
 ```tsx
 import { Input } from "silva-ui"
 
-<Input placeholder="Project name" />
+const variant = 1;
+
+<Input placeholder={variant ? 'Project name' : 'you@example.com'} type={variant ? undefined : 'email'} />
 ```
 
   </Tab>

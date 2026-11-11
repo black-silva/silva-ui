@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Checkbox } from "silva-ui"
 
-<Checkbox>Send updates</Checkbox>
+const variant = 0;
+
+<Checkbox disabled={!!variant}>{variant ? 'Unavailable option' : 'Send updates'}</Checkbox>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Checkbox } from "silva-ui"
 ```tsx
 import { Checkbox } from "silva-ui"
 
-<Checkbox disabled>Unavailable option</Checkbox>
+const variant = 1;
+
+<Checkbox disabled={!!variant}>{variant ? 'Unavailable option' : 'Send updates'}</Checkbox>
 ```
 
   </Tab>

@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { ListItem } from "silva-ui"
 
-<ListItem title="Release notes" subTitle="Updated today" />
+const variant = 0;
+
+<ListItem title={variant ? 'Documentation' : 'Release notes'} subTitle={variant ? 'Two matched examples' : 'Updated today'} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { ListItem } from "silva-ui"
 ```tsx
 import { ListItem } from "silva-ui"
 
-<ListItem title="Documentation" subTitle="Two matched examples" />
+const variant = 1;
+
+<ListItem title={variant ? 'Documentation' : 'Release notes'} subTitle={variant ? 'Two matched examples' : 'Updated today'} />
 ```
 
   </Tab>

@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { TextArea } from "silva-ui"
 
-<TextArea placeholder="Write release notes" rows={3} />
+const variant = 0;
+
+<TextArea placeholder={variant ? 'Leave a comment' : 'Write release notes'} rows={3} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { TextArea } from "silva-ui"
 ```tsx
 import { TextArea } from "silva-ui"
 
-<TextArea placeholder="Leave a comment" rows={3} />
+const variant = 1;
+
+<TextArea placeholder={variant ? 'Leave a comment' : 'Write release notes'} rows={3} />
 ```
 
   </Tab>

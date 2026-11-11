@@ -20,34 +20,25 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text } from "silva-ui"
-import './styles.css'
+import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-menu preview-interactive" data-preview-control>
-  <Popover>
-    <PopoverTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>Open popover</Button></PopoverTrigger>
-    <PopoverContent class="preview-popout preview-popover" data-preview-layer data-state="closed" style={{ position: 'static' }}>
-      <Text>A little context, right when you need it.</Text>
-      <PopoverClose onClick={(event) => setPreviewOpen(event, false)}>Close</PopoverClose>
-    </PopoverContent>
-  </Popover>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 0;
+
+<Interactive menu><Popover><PopoverTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Show details' : 'Open popover'}</Button></PopoverTrigger><PopoverContent data-preview-layer data-state="closed"><YStack gap="small" p="medium"><Text>{variant ? 'This is where supporting detail belongs.' : 'A little context, right when you need it.'}</Text><PopoverClose onClick={(event) => setPreviewOpen(event, false)}>Close</PopoverClose></YStack></PopoverContent></Popover></Interactive>
 ```
 
   </Tab>
@@ -66,34 +57,25 @@ function setPreviewOpen(event: Event, open: boolean) {
   <Tab title="Code">
 
 ```tsx
-import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text } from "silva-ui"
-import './styles.css'
+import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-menu preview-interactive" data-preview-control>
-  <Popover>
-    <PopoverTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>Show details</Button></PopoverTrigger>
-    <PopoverContent class="preview-popout preview-popover" data-preview-layer data-state="closed" style={{ position: 'static' }}>
-      <Text>This is where supporting detail belongs.</Text>
-      <PopoverClose onClick={(event) => setPreviewOpen(event, false)}>Close</PopoverClose>
-    </PopoverContent>
-  </Popover>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 1;
+
+<Interactive menu><Popover><PopoverTrigger><Button variant="outline" onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Show details' : 'Open popover'}</Button></PopoverTrigger><PopoverContent data-preview-layer data-state="closed"><YStack gap="small" p="medium"><Text>{variant ? 'This is where supporting detail belongs.' : 'A little context, right when you need it.'}</Text><PopoverClose onClick={(event) => setPreviewOpen(event, false)}>Close</PopoverClose></YStack></PopoverContent></Popover></Interactive>
 ```
 
   </Tab>

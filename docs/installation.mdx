@@ -46,23 +46,11 @@ See [Create a Silva UI app](/docs/setup/create-silva-ui) for starter choices, su
   <Tab title="Code">
 
 ```tsx
-import { Hono } from "hono"
-import "silva-ui/style.css"
 import { Button, H1, Paragraph, Theme, YStack } from "silva-ui"
 
-const app = new Hono()
+const variant = 0;
 
-app.get("/", (c) => c.html(
-  <Theme name="emerald" p="large">
-    <YStack gap="medium" maxWidth={400}>
-      <H1>Hello, Silva</H1>
-      <Paragraph color="muted">Your UI is ready to grow.</Paragraph>
-      <Button type="button">Get started</Button>
-    </YStack>
-  </Theme>,
-))
-
-export default app
+<Theme name="emerald" p="large"><YStack gap="medium" maxWidth="40"><H1>Hello, Silva</H1><Paragraph color="muted">Your UI is ready to grow.</Paragraph><Button type="button">Get started</Button></YStack></Theme>
 ```
 
   </Tab>

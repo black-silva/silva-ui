@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Anchor } from "silva-ui"
 
-<Anchor href="/docs">Read the documentation</Anchor>
+const variant = 0;
+
+<Anchor href={variant ? '/getting-started' : '/docs'}>{variant ? 'Get started' : 'Read the documentation'}</Anchor>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Anchor } from "silva-ui"
 ```tsx
 import { Anchor } from "silva-ui"
 
-<Anchor href="/getting-started">Get started</Anchor>
+const variant = 1;
+
+<Anchor href={variant ? '/getting-started' : '/docs'}>{variant ? 'Get started' : 'Read the documentation'}</Anchor>
 ```
 
   </Tab>

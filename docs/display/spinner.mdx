@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Spinner } from "silva-ui"
 
-<Spinner />
+const variant = 0;
+
+<Spinner size={variant ? 'lg' : undefined} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Spinner } from "silva-ui"
 ```tsx
 import { Spinner } from "silva-ui"
 
-<Spinner size="lg" />
+const variant = 1;
+
+<Spinner size={variant ? 'lg' : undefined} />
 ```
 
   </Tab>

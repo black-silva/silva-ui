@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Text } from "silva-ui"
 
-<Text>Token-driven text</Text>
+const variant = 0;
+
+<Text color={variant ? 'muted' : undefined}>{variant ? 'Muted supporting text' : 'Token-driven text'}</Text>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Text } from "silva-ui"
 ```tsx
 import { Text } from "silva-ui"
 
-<Text color="muted">Muted supporting text</Text>
+const variant = 1;
+
+<Text color={variant ? 'muted' : undefined}>{variant ? 'Muted supporting text' : 'Token-driven text'}</Text>
 ```
 
   </Tab>

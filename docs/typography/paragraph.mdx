@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Paragraph } from "silva-ui"
 
-<Paragraph>Documentation examples stay close to their implementation.</Paragraph>
+const variant = 0;
+
+<Paragraph>{variant ? 'Clear prose makes component APIs easier to adopt.' : 'Documentation examples stay close to their implementation.'}</Paragraph>
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Paragraph } from "silva-ui"
 ```tsx
 import { Paragraph } from "silva-ui"
 
-<Paragraph>Clear prose makes component APIs easier to adopt.</Paragraph>
+const variant = 1;
+
+<Paragraph>{variant ? 'Clear prose makes component APIs easier to adopt.' : 'Documentation examples stay close to their implementation.'}</Paragraph>
 ```
 
   </Tab>

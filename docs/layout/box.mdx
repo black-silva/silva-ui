@@ -20,21 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Box, H3, Text, XStack } from "silva-ui"
-import './styles.css'
+import { Box, H3, Text, XStack, YStack } from "silva-ui"
 
-<Box as="article" p="large" borderRadius="large" class="preview-box-showcase">
-  <div class="preview-box-grid" />
-  <div class="preview-box-content">
-    <Text class="preview-card-eyebrow">FOUNDATION</Text>
-    <H3>Build from one good Box</H3>
-    <Text>Spacing, colour and radius through tokens.</Text>
-    <XStack class="preview-box-stats">
-      <div><strong>24</strong><span>tokens</span></div>
-      <div><strong>100%</strong><span>composable</span></div>
-    </XStack>
-  </div>
-</Box>
+const variant = 0;
+
+<Box as="article" p="large" borderRadius="large" width="64" minHeight="48" overflow="hidden" gradient={{ from: 'blue10', via: 'blue9', to: 'teal9', deg: 135 }} color="background"><YStack gap="small"><Text fontSize="xs" fontWeight="bold" letterSpacing="widest">{variant ? 'WORKSPACE' : 'FOUNDATION'}</Text><H3 color="background">{variant ? 'Everything in its place' : 'Build from one good Box'}</H3><Text color="background" fontSize="xs">{variant ? 'A focused layout for your next session.' : 'Spacing, colour and radius through tokens.'}</Text><XStack gap="large" mt="small"><YStack gap="none"><Text color="background" fontSize="lg" fontWeight="bold">{variant ? '12' : '24'}</Text><Text color="background" fontSize="xs" textTransform="uppercase">{variant ? 'projects' : 'tokens'}</Text></YStack><YStack gap="none"><Text color="background" fontSize="lg" fontWeight="bold">{variant ? '4.8' : '100%'}</Text><Text color="background" fontSize="xs" textTransform="uppercase">{variant ? 'rating' : 'composable'}</Text></YStack></XStack></YStack></Box>
 ```
 
   </Tab>
@@ -53,21 +43,11 @@ import './styles.css'
   <Tab title="Code">
 
 ```tsx
-import { Box, H3, Text, XStack } from "silva-ui"
-import './styles.css'
+import { Box, H3, Text, XStack, YStack } from "silva-ui"
 
-<Box as="article" p="large" borderRadius="large" class="preview-box-showcase">
-  <div class="preview-box-grid" />
-  <div class="preview-box-content">
-    <Text class="preview-card-eyebrow">WORKSPACE</Text>
-    <H3>Everything in its place</H3>
-    <Text>A focused layout for your next session.</Text>
-    <XStack class="preview-box-stats">
-      <div><strong>12</strong><span>projects</span></div>
-      <div><strong>4.8</strong><span>rating</span></div>
-    </XStack>
-  </div>
-</Box>
+const variant = 1;
+
+<Box as="article" p="large" borderRadius="large" width="64" minHeight="48" overflow="hidden" gradient={{ from: 'blue10', via: 'blue9', to: 'teal9', deg: 135 }} color="background"><YStack gap="small"><Text fontSize="xs" fontWeight="bold" letterSpacing="widest">{variant ? 'WORKSPACE' : 'FOUNDATION'}</Text><H3 color="background">{variant ? 'Everything in its place' : 'Build from one good Box'}</H3><Text color="background" fontSize="xs">{variant ? 'A focused layout for your next session.' : 'Spacing, colour and radius through tokens.'}</Text><XStack gap="large" mt="small"><YStack gap="none"><Text color="background" fontSize="lg" fontWeight="bold">{variant ? '12' : '24'}</Text><Text color="background" fontSize="xs" textTransform="uppercase">{variant ? 'projects' : 'tokens'}</Text></YStack><YStack gap="none"><Text color="background" fontSize="lg" fontWeight="bold">{variant ? '4.8' : '100%'}</Text><Text color="background" fontSize="xs" textTransform="uppercase">{variant ? 'rating' : 'composable'}</Text></YStack></XStack></YStack></Box>
 ```
 
   </Tab>

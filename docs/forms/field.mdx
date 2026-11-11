@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Field, Input, FieldHelper } from "silva-ui"
+import { Field, FieldError, FieldHelper, Input } from "silva-ui"
 
-<Field><Input placeholder="Project name" /><FieldHelper>Choose a clear name.</FieldHelper></Field>
+const variant = 0;
+
+variant ? <Field><Input aria-invalid="true" placeholder="Email" /><FieldError>Enter a valid email address.</FieldError></Field> : <Field><Input placeholder="Project name" /><FieldHelper>Choose a clear name.</FieldHelper></Field>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { Field, Input, FieldHelper } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Field, Input, FieldError } from "silva-ui"
+import { Field, FieldError, FieldHelper, Input } from "silva-ui"
 
-<Field><Input aria-invalid="true" placeholder="Email" /><FieldError>Enter a valid email address.</FieldError></Field>
+const variant = 1;
+
+variant ? <Field><Input aria-invalid="true" placeholder="Email" /><FieldError>Enter a valid email address.</FieldError></Field> : <Field><Input placeholder="Project name" /><FieldHelper>Choose a clear name.</FieldHelper></Field>
 ```
 
   </Tab>

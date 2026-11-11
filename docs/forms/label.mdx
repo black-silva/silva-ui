@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Label, Input } from "silva-ui"
+import { Input, Label, YStack } from "silva-ui"
 
-<><Label htmlFor="email">Email</Label><Input id="email" type="email" /></>
+const variant = 0;
+
+<YStack gap="small" width="64"><Label htmlFor={variant ? 'project-name' : 'email'}>{variant ? 'Project name' : 'Email'}</Label><Input id={variant ? 'project-name' : 'email'} type={variant ? undefined : 'email'} /></YStack>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { Label, Input } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Label, Input } from "silva-ui"
+import { Input, Label, YStack } from "silva-ui"
 
-<><Label htmlFor="project-name">Project name</Label><Input id="project-name" /></>
+const variant = 1;
+
+<YStack gap="small" width="64"><Label htmlFor={variant ? 'project-name' : 'email'}>{variant ? 'Project name' : 'Email'}</Label><Input id={variant ? 'project-name' : 'email'} type={variant ? undefined : 'email'} /></YStack>
 ```
 
   </Tab>

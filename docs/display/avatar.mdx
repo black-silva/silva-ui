@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Avatar, AvatarImage, AvatarFallback } from "silva-ui"
+import { Avatar, AvatarFallback, AvatarImage } from "silva-ui"
 
-<Avatar><AvatarImage src="https://placehold.co/48" alt="BlackSilva" /><AvatarFallback>BS</AvatarFallback></Avatar>
+const variant = 0;
+
+variant ? <Avatar><AvatarFallback>UI</AvatarFallback></Avatar> : <Avatar><AvatarImage src="https://placehold.co/48" alt="BlackSilva" /><AvatarFallback>BS</AvatarFallback></Avatar>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { Avatar, AvatarImage, AvatarFallback } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Avatar, AvatarFallback } from "silva-ui"
+import { Avatar, AvatarFallback, AvatarImage } from "silva-ui"
 
-<Avatar><AvatarFallback>UI</AvatarFallback></Avatar>
+const variant = 1;
+
+variant ? <Avatar><AvatarFallback>UI</AvatarFallback></Avatar> : <Avatar><AvatarImage src="https://placehold.co/48" alt="BlackSilva" /><AvatarFallback>BS</AvatarFallback></Avatar>
 ```
 
   </Tab>

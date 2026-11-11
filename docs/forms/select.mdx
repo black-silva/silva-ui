@@ -22,7 +22,9 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Select } from "silva-ui"
 
-<Select><option>Starter</option><option>Pro</option></Select>
+const variant = 0;
+
+<Select options={variant ? [{ value: 'south-africa', label: 'South Africa' }, { value: 'other', label: 'Other' }] : [{ value: 'starter', label: 'Starter' }, { value: 'pro', label: 'Pro' }]} />
 ```
 
   </Tab>
@@ -43,7 +45,9 @@ import { Select } from "silva-ui"
 ```tsx
 import { Select } from "silva-ui"
 
-<Select><option>South Africa</option><option>Other</option></Select>
+const variant = 1;
+
+<Select options={variant ? [{ value: 'south-africa', label: 'South Africa' }, { value: 'other', label: 'Other' }] : [{ value: 'starter', label: 'Starter' }, { value: 'pro', label: 'Pro' }]} />
 ```
 
   </Tab>

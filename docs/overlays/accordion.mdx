@@ -21,30 +21,21 @@ Two rendered compositions using exported Silva UI components. The code beside ea
 
 ```tsx
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "silva-ui"
-import './styles.css'
 
 function toggleAccordion(event: Event) {
-  const trigger = event.currentTarget as HTMLElement
-  const item = trigger.closest<HTMLElement>('[data-preview-accordion-item]')
-  if (!item) return
-  const open = trigger.getAttribute('data-state') !== 'open'
-  trigger.setAttribute('data-state', open ? 'open' : 'closed')
-  trigger.setAttribute('aria-expanded', String(open))
-  const content = item.querySelector<HTMLElement>('[data-preview-accordion-content]')
-  if (content) {
-    content.hidden = !open
-    content.setAttribute('data-state', open ? 'open' : 'closed')
-  }
+  const trigger = event.currentTarget as HTMLElement;
+  const item = trigger.closest<HTMLElement>('[data-preview-accordion-item]');
+  if (!item) return;
+  const open = trigger.getAttribute('data-state') !== 'open';
+  trigger.setAttribute('data-state', open ? 'open' : 'closed');
+  trigger.setAttribute('aria-expanded', String(open));
+  const content = item.querySelector<HTMLElement>('[data-preview-accordion-content]');
+  if (content) { content.hidden = !open; content.setAttribute('data-state', open ? 'open' : 'closed'); }
 }
 
-<Accordion class="preview-accordion">
-  <AccordionItem value="one" data-preview-accordion-item>
-    <AccordionTrigger data-state="closed" onClick={toggleAccordion}>What is Silva UI?</AccordionTrigger>
-    <AccordionContent data-preview-accordion-content data-state="closed" hidden>
-      Composable UI for Hono JSX.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+const variant = 0;
+
+<Accordion width="64"><AccordionItem value={variant ? 'two' : 'one'} data-preview-accordion-item><AccordionTrigger data-state="closed" onClick={toggleAccordion}>{variant ? 'Is it typed?' : 'What is Silva UI?'}</AccordionTrigger><AccordionContent data-preview-accordion-content data-state="closed" hidden>{variant ? 'Yes, it is TypeScript-first.' : 'Composable UI for Hono JSX.'}</AccordionContent></AccordionItem></Accordion>
 ```
 
   </Tab>
@@ -64,30 +55,21 @@ function toggleAccordion(event: Event) {
 
 ```tsx
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "silva-ui"
-import './styles.css'
 
 function toggleAccordion(event: Event) {
-  const trigger = event.currentTarget as HTMLElement
-  const item = trigger.closest<HTMLElement>('[data-preview-accordion-item]')
-  if (!item) return
-  const open = trigger.getAttribute('data-state') !== 'open'
-  trigger.setAttribute('data-state', open ? 'open' : 'closed')
-  trigger.setAttribute('aria-expanded', String(open))
-  const content = item.querySelector<HTMLElement>('[data-preview-accordion-content]')
-  if (content) {
-    content.hidden = !open
-    content.setAttribute('data-state', open ? 'open' : 'closed')
-  }
+  const trigger = event.currentTarget as HTMLElement;
+  const item = trigger.closest<HTMLElement>('[data-preview-accordion-item]');
+  if (!item) return;
+  const open = trigger.getAttribute('data-state') !== 'open';
+  trigger.setAttribute('data-state', open ? 'open' : 'closed');
+  trigger.setAttribute('aria-expanded', String(open));
+  const content = item.querySelector<HTMLElement>('[data-preview-accordion-content]');
+  if (content) { content.hidden = !open; content.setAttribute('data-state', open ? 'open' : 'closed'); }
 }
 
-<Accordion class="preview-accordion">
-  <AccordionItem value="two" data-preview-accordion-item>
-    <AccordionTrigger data-state="closed" onClick={toggleAccordion}>Is it typed?</AccordionTrigger>
-    <AccordionContent data-preview-accordion-content data-state="closed" hidden>
-      Yes, it is TypeScript-first.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+const variant = 1;
+
+<Accordion width="64"><AccordionItem value={variant ? 'two' : 'one'} data-preview-accordion-item><AccordionTrigger data-state="closed" onClick={toggleAccordion}>{variant ? 'Is it typed?' : 'What is Silva UI?'}</AccordionTrigger><AccordionContent data-preview-accordion-content data-state="closed" hidden>{variant ? 'Yes, it is TypeScript-first.' : 'Composable UI for Hono JSX.'}</AccordionContent></AccordionItem></Accordion>
 ```
 
   </Tab>

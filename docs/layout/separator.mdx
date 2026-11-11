@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { YStack, Text, Separator } from "silva-ui"
+import { Separator, Text, YStack } from "silva-ui"
 
-<YStack><Text>Profile</Text><Separator /><Text>Security</Text></YStack>
+const variant = 0;
+
+<YStack><Text>{variant ? 'Billing' : 'Profile'}</Text><Separator /><Text>{variant ? 'Invoices' : 'Security'}</Text></YStack>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { YStack, Text, Separator } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { YStack, Text, Separator } from "silva-ui"
+import { Separator, Text, YStack } from "silva-ui"
 
-<YStack><Text>Billing</Text><Separator /><Text>Invoices</Text></YStack>
+const variant = 1;
+
+<YStack><Text>{variant ? 'Billing' : 'Profile'}</Text><Separator /><Text>{variant ? 'Invoices' : 'Security'}</Text></YStack>
 ```
 
   </Tab>

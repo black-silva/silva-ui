@@ -20,9 +20,11 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Form, Input, Button } from "silva-ui"
+import { Button, Form, Input } from "silva-ui"
 
-<Form onSubmit={(event) => event.preventDefault()}><Input placeholder="Email" /><Button type="submit">Subscribe</Button></Form>
+const variant = 0;
+
+<Form onSubmit={(event) => event.preventDefault()}><Input placeholder={variant ? 'Search' : 'Email'} /><Button type="submit">{variant ? 'Search' : 'Subscribe'}</Button></Form>
 ```
 
   </Tab>
@@ -41,9 +43,11 @@ import { Form, Input, Button } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Form, Input, Button } from "silva-ui"
+import { Button, Form, Input } from "silva-ui"
 
-<Form onSubmit={(event) => event.preventDefault()}><Input placeholder="Search" /><Button type="submit">Search</Button></Form>
+const variant = 1;
+
+<Form onSubmit={(event) => event.preventDefault()}><Input placeholder={variant ? 'Search' : 'Email'} /><Button type="submit">{variant ? 'Search' : 'Subscribe'}</Button></Form>
 ```
 
   </Tab>

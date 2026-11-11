@@ -20,35 +20,25 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
-import './styles.css'
+import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-interactive" data-preview-control>
-  <Button onClick={(event) => setPreviewOpen(event, true)}>Open account settings</Button>
-  <Sheet open={false}>
-    <SheetOverlay class="preview-overlay" data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} />
-    <SheetContent side="bottom" class="preview-sheet" data-preview-layer hidden>
-      <SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader>
-      <SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>Done</SheetClose></SheetFooter>
-    </SheetContent>
-  </Sheet>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 0;
+
+<Interactive><Button onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Notification settings' : 'Open account settings'}</Button><Sheet open={false}><SheetOverlay data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} /><SheetContent side="bottom" data-preview-layer hidden><SheetHeader><SheetTitle>{variant ? 'Notifications' : 'Account settings'}</SheetTitle><SheetDescription>{variant ? 'Choose what reaches you.' : 'Manage your profile.'}</SheetDescription></SheetHeader><SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>{variant ? 'Save' : 'Done'}</SheetClose></SheetFooter></SheetContent></Sheet></Interactive>
 ```
 
   </Tab>
@@ -67,35 +57,25 @@ function setPreviewOpen(event: Event, open: boolean) {
   <Tab title="Code">
 
 ```tsx
-import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
-import './styles.css'
+import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle, YStack } from "silva-ui"
 
-function previewControl(event: Event) {
-  return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]')
-}
-
+function previewControl(event: Event) { return (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-preview-control]'); }
 function setPreviewOpen(event: Event, open: boolean) {
-  const root = previewControl(event)
-  if (!root) return
-  root.dataset.open = String(open)
-  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => {
-    layer.hidden = !open
-    layer.setAttribute('data-state', open ? 'open' : 'closed')
-  })
-  const toast = root.querySelector<HTMLElement>('[data-preview-toast]')
-  if (toast) toast.hidden = !open
+  const root = previewControl(event);
+  if (!root) return;
+  root.dataset.open = String(open);
+  root.querySelectorAll<HTMLElement>('[data-preview-layer]').forEach((layer) => { layer.hidden = !open; layer.setAttribute('data-state', open ? 'open' : 'closed'); });
+  const toast = root.querySelector<HTMLElement>('[data-preview-toast]');
+  if (toast) toast.hidden = !open;
 }
 
-<div class="preview-interactive" data-preview-control>
-  <Button onClick={(event) => setPreviewOpen(event, true)}>Notification settings</Button>
-  <Sheet open={false}>
-    <SheetOverlay class="preview-overlay" data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} />
-    <SheetContent side="bottom" class="preview-sheet" data-preview-layer hidden>
-      <SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader>
-      <SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>Save</SheetClose></SheetFooter>
-    </SheetContent>
-  </Sheet>
-</div>
+const Interactive = ({ children, menu = false }: { children: any; menu?: boolean }) => (
+  <YStack data-preview-control width="64" gap="small" alignItems="center" justifyContent="center" minHeight={menu ? '40' : undefined} position={menu ? 'relative' : undefined}>{children}</YStack>
+);
+
+const variant = 1;
+
+<Interactive><Button onClick={(event) => setPreviewOpen(event, true)}>{variant ? 'Notification settings' : 'Open account settings'}</Button><Sheet open={false}><SheetOverlay data-preview-layer hidden onClick={(event) => setPreviewOpen(event, false)} /><SheetContent side="bottom" data-preview-layer hidden><SheetHeader><SheetTitle>{variant ? 'Notifications' : 'Account settings'}</SheetTitle><SheetDescription>{variant ? 'Choose what reaches you.' : 'Manage your profile.'}</SheetDescription></SheetHeader><SheetFooter><SheetClose onClick={(event) => setPreviewOpen(event, false)}>{variant ? 'Save' : 'Done'}</SheetClose></SheetFooter></SheetContent></Sheet></Interactive>
 ```
 
   </Tab>

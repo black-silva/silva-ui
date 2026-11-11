@@ -11,13 +11,15 @@ export interface SelectProps extends BaseProps {
   defaultValue?: string | number;
   id?: string;
   onChange?: (e: Event) => void;
+  /** Options rendered by the internal native select and custom listbox. */
+  options?: readonly SelectOption[];
   [key: string]: any;
 }
 
-type SelectOption = {
+export type SelectOption = {
   value: string;
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 function getOptionChildren(children: any): Array<{ value: string; label: string; disabled: boolean }> {
@@ -58,6 +60,7 @@ export function Select({
   onChange,
   name,
   id,
+  options: providedOptions,
   ...rest
 }: SelectProps) {
   const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
@@ -72,7 +75,7 @@ export function Select({
     const nativeSelect = document.getElementById(selectIdValue) as HTMLSelectElement | null;
     if (!nativeSelect) return;
 
-    const childOptions = getOptionChildren(children);
+    const childOptions = providedOptions ?? getOptionChildren(children);
     const nextOptions = [...nativeSelect.options].map((option) => ({
       value: option.value,
       label: option.textContent ?? option.value,
@@ -85,7 +88,7 @@ export function Select({
     if (value === undefined) {
       setSelectedValue(nativeSelect.value);
     }
-  }, [children, selectIdValue, value]);
+  }, [children, providedOptions, selectIdValue, value]);
 
   useEffect(() => {
     if (value !== undefined) setSelectedValue(String(value));
@@ -167,7 +170,11 @@ export function Select({
         aria-hidden="true"
         tabIndex={-1}
       >
-        {children}
+        {providedOptions
+          ? providedOptions.map((option) => (
+            <option value={option.value} disabled={option.disabled}>{option.label}</option>
+          ))
+          : children}
       </select>
       <button
         type="button"
