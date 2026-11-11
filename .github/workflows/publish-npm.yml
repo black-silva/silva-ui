@@ -1,9 +1,16 @@
 name: Publish to npm
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact package version to publish, for example 1.3.2
+        required: true
+        type: string
+      confirm:
+        description: Type PUBLISH to confirm the npm release
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -16,10 +23,14 @@ concurrency:
 jobs:
   publish:
     name: Build and publish
+    if: inputs.confirm == 'PUBLISH'
     runs-on: ubuntu-latest
+    environment: npm-publish
     steps:
-      - name: Check out source
+      - name: Check out source and tags
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -30,7 +41,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Type-check
         run: npm run typecheck
@@ -38,11 +49,18 @@ jobs:
       - name: Build package
         run: npm run build:package
 
-      - name: Read package version
+      - name: Verify approved release version and tag
         id: package
         run: |
-          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
-          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+
+          test "$version" = "${{ inputs.version }}"
+          git rev-parse "v$version^{commit}" >/dev/null
+          test "$(git rev-parse "v$version^{commit}")" = "$(git rev-parse HEAD)"
+
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Check whether version is already published
         id: published
