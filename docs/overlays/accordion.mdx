@@ -20,9 +20,16 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "silva-ui"
 
-<Accordion><AccordionItem value="one"><AccordionTrigger data-state="open">What is Silva UI?</AccordionTrigger><AccordionContent data-state="open">Composable UI for Hono JSX.</AccordionContent></AccordionItem></Accordion>
+<Accordion>
+  <AccordionItem value="one">
+    <AccordionTrigger data-state="closed">What is Silva UI?</AccordionTrigger>
+    <AccordionContent data-state="closed" hidden>
+      Composable UI for Hono JSX.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
 ```
 
   </Tab>
@@ -41,9 +48,16 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "si
   <Tab title="Code">
 
 ```tsx
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "silva-ui"
 
-<Accordion><AccordionItem value="two"><AccordionTrigger data-state="open">Is it typed?</AccordionTrigger><AccordionContent data-state="open">Yes, it is TypeScript-first.</AccordionContent></AccordionItem></Accordion>
+<Accordion>
+  <AccordionItem value="two">
+    <AccordionTrigger data-state="closed">Is it typed?</AccordionTrigger>
+    <AccordionContent data-state="closed" hidden>
+      Yes, it is TypeScript-first.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
 ```
 
   </Tab>

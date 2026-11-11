@@ -20,9 +20,22 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "silva-ui"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle, Button } from "silva-ui"
 
-<AlertDialog open><AlertDialogOverlay /><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Delete project?</AlertDialogTitle><AlertDialogDescription>This cannot be undone.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Delete</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+<Button>Delete project</Button>
+<AlertDialog open={false}>
+  <AlertDialogOverlay hidden />
+  <AlertDialogContent hidden>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete project?</AlertDialogTitle>
+      <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Delete</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
 ```
 
   </Tab>
@@ -41,9 +54,22 @@ import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader,
   <Tab title="Code">
 
 ```tsx
-import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "silva-ui"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle, Button } from "silva-ui"
 
-<AlertDialog open><AlertDialogOverlay /><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Discard changes?</AlertDialogTitle><AlertDialogDescription>Keep your current draft.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Keep editing</AlertDialogCancel><AlertDialogAction>Discard</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+<Button>Discard draft</Button>
+<AlertDialog open={false}>
+  <AlertDialogOverlay hidden />
+  <AlertDialogContent hidden>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Discard changes?</AlertDialogTitle>
+      <AlertDialogDescription>Keep your current draft.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Keep editing</AlertDialogCancel>
+      <AlertDialogAction>Discard</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
 ```
 
   </Tab>

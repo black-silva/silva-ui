@@ -20,9 +20,22 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Card, CardHeader, CardFooter, Text, Button } from "silva-ui"
+import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
 
-<Card><CardHeader>Release</CardHeader><Text>Ready to ship.</Text><CardFooter><Button>Open</Button></CardFooter></Card>
+<Card elevated>
+  <Box>
+    <Text>SHIP FASTER</Text>
+    <H3>Release 1.3</H3>
+  </Box>
+  <CardHeader>
+    <Text>A polished starting point</Text>
+    <Text>Composable Hono JSX, ready for your next idea.</Text>
+  </CardHeader>
+  <CardFooter>
+    <Text>Just published</Text>
+    <Button>View notes</Button>
+  </CardFooter>
+</Card>
 ```
 
   </Tab>
@@ -41,9 +54,22 @@ import { Card, CardHeader, CardFooter, Text, Button } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Card, CardHeader, Text } from "silva-ui"
+import { Box, Button, Card, CardFooter, CardHeader, H3, Text } from "silva-ui"
 
-<Card><CardHeader>Silva UI</CardHeader><Text>Composable components.</Text></Card>
+<Card elevated>
+  <Box>
+    <Text>DESIGN SYSTEM</Text>
+    <H3>Silva UI</H3>
+  </Box>
+  <CardHeader>
+    <Text>The calm way to build</Text>
+    <Text>Typed primitives that stay out of your way.</Text>
+  </CardHeader>
+  <CardFooter>
+    <Text>38 components</Text>
+    <Button variant="outline">Explore</Button>
+  </CardFooter>
+</Card>
 ```
 
   </Tab>

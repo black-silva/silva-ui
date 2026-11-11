@@ -20,9 +20,15 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Popover, PopoverTrigger, PopoverContent } from "silva-ui"
+import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text } from "silva-ui"
 
-<Popover><PopoverTrigger>Popover trigger</PopoverTrigger><PopoverContent data-state="open">Useful context.</PopoverContent></Popover>
+<Popover>
+  <PopoverTrigger><Button variant="outline">Open popover</Button></PopoverTrigger>
+  <PopoverContent data-state="closed">
+    <Text>A little context, right when you need it.</Text>
+    <PopoverClose>Close</PopoverClose>
+  </PopoverContent>
+</Popover>
 ```
 
   </Tab>
@@ -41,9 +47,15 @@ import { Popover, PopoverTrigger, PopoverContent } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "silva-ui"
+import { Button, Popover, PopoverClose, PopoverContent, PopoverTrigger, Text } from "silva-ui"
 
-<Popover><PopoverTrigger>Popover trigger</PopoverTrigger><PopoverContent data-state="open">Helpful text.<PopoverClose>Close</PopoverClose></PopoverContent></Popover>
+<Popover>
+  <PopoverTrigger><Button variant="outline">Show details</Button></PopoverTrigger>
+  <PopoverContent data-state="closed">
+    <Text>This is where supporting detail belongs.</Text>
+    <PopoverClose>Close</PopoverClose>
+  </PopoverContent>
+</Popover>
 ```
 
   </Tab>

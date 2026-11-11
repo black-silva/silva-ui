@@ -20,9 +20,16 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from "silva-ui"
+import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
 
-<Sheet open><SheetOverlay /><SheetContent><SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader><SheetFooter><SheetClose>Done</SheetClose></SheetFooter></SheetContent></Sheet>
+<Button>Open account settings</Button>
+<Sheet open={false}>
+  <SheetOverlay hidden />
+  <SheetContent side="bottom" hidden>
+    <SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader>
+    <SheetFooter><SheetClose>Done</SheetClose></SheetFooter>
+  </SheetContent>
+</Sheet>
 ```
 
   </Tab>
@@ -41,9 +48,16 @@ import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle
   <Tab title="Code">
 
 ```tsx
-import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from "silva-ui"
+import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle } from "silva-ui"
 
-<Sheet open><SheetOverlay /><SheetContent><SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader><SheetFooter><SheetClose>Save</SheetClose></SheetFooter></SheetContent></Sheet>
+<Button>Notification settings</Button>
+<Sheet open={false}>
+  <SheetOverlay hidden />
+  <SheetContent side="bottom" hidden>
+    <SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader>
+    <SheetFooter><SheetClose>Save</SheetClose></SheetFooter>
+  </SheetContent>
+</Sheet>
 ```
 
   </Tab>

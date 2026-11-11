@@ -20,9 +20,16 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
+import { Tab, TabList, TabPanel, Tabs } from "silva-ui"
 
-<Tabs><TabList aria-label="Project"><Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel">Overview</Tab></TabList><TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Project overview</TabPanel></Tabs>
+<Tabs>
+  <TabList aria-label="Project">
+    <Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel">Overview</Tab>
+    <Tab id="activity-tab" value="activity" aria-controls="activity-panel">Activity</Tab>
+  </TabList>
+  <TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Everything is ready for your next release.</TabPanel>
+  <TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>No pending updates. You are all caught up.</TabPanel>
+</Tabs>
 ```
 
   </Tab>
@@ -41,9 +48,16 @@ import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
+import { Tab, TabList, TabPanel, Tabs } from "silva-ui"
 
-<Tabs><TabList aria-label="Project"><Tab id="activity-tab" value="activity" data-active aria-controls="activity-panel">Activity</Tab></TabList><TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab">Recent activity</TabPanel></Tabs>
+<Tabs>
+  <TabList aria-label="Workspace">
+    <Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel">Overview</Tab>
+    <Tab id="activity-tab" value="activity" aria-controls="activity-panel">Activity</Tab>
+  </TabList>
+  <TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Workspace preferences and collaborators.</TabPanel>
+  <TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab" hidden>Three team members are online.</TabPanel>
+</Tabs>
 ```
 
   </Tab>

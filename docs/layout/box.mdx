@@ -20,9 +20,17 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Box, Card, CardHeader, CardFooter, Image, Text, Button } from "silva-ui"
+import { Box, H3, Text, XStack } from "silva-ui"
 
-<Box as="article" p="medium"><Card><Image src="https://placehold.co/640x360" alt="Everyday carry bag" /><CardHeader>Everyday carry bag</CardHeader><Text>R699 · Built for daily essentials.</Text><CardFooter><Button>Add to cart</Button></CardFooter></Card></Box>
+<Box as="article" p="large" borderRadius="large">
+  <Text>FOUNDATION</Text>
+  <H3>Build from one good Box</H3>
+  <Text>Spacing, colour and radius through tokens.</Text>
+  <XStack>
+    <div><strong>24</strong><span>tokens</span></div>
+    <div><strong>100%</strong><span>composable</span></div>
+  </XStack>
+</Box>
 ```
 
   </Tab>
@@ -41,9 +49,17 @@ import { Box, Card, CardHeader, CardFooter, Image, Text, Button } from "silva-ui
   <Tab title="Code">
 
 ```tsx
-import { Box, Card, CardHeader, CardFooter, Image, Text, Button } from "silva-ui"
+import { Box, H3, Text, XStack } from "silva-ui"
 
-<Box as="article" p="medium"><Card><Image src="https://placehold.co/640x360" alt="Studio headphones" /><CardHeader>Studio headphones</CardHeader><Text>R1,999 · Clear sound, all day.</Text><CardFooter><Button variant="outline">View product</Button></CardFooter></Card></Box>
+<Box as="article" p="large" borderRadius="large">
+  <Text>WORKSPACE</Text>
+  <H3>Everything in its place</H3>
+  <Text>A focused layout for your next session.</Text>
+  <XStack>
+    <div><strong>12</strong><span>projects</span></div>
+    <div><strong>4.8</strong><span>rating</span></div>
+  </XStack>
+</Box>
 ```
 
   </Tab>

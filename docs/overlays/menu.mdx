@@ -20,9 +20,12 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Menu, MenuTrigger, MenuContent, MenuItem } from "silva-ui"
+import { Button, Menu, MenuContent, MenuItem, MenuTrigger } from "silva-ui"
 
-<Menu><MenuTrigger>Menu trigger</MenuTrigger><MenuContent data-state="open"><MenuItem>Edit</MenuItem></MenuContent></Menu>
+<Menu>
+  <MenuTrigger><Button variant="outline">Open menu</Button></MenuTrigger>
+  <MenuContent data-state="closed"><MenuItem>Edit</MenuItem></MenuContent>
+</Menu>
 ```
 
   </Tab>
@@ -41,9 +44,17 @@ import { Menu, MenuTrigger, MenuContent, MenuItem } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Menu, MenuTrigger, MenuContent, MenuLabel, MenuGroup, MenuItem, MenuSeparator } from "silva-ui"
+import { Button, Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "silva-ui"
 
-<Menu><MenuTrigger>Menu trigger</MenuTrigger><MenuContent data-state="open"><MenuLabel>Actions</MenuLabel><MenuGroup><MenuItem>Edit</MenuItem></MenuGroup><MenuSeparator /><MenuItem>Delete</MenuItem></MenuContent></Menu>
+<Menu>
+  <MenuTrigger><Button variant="outline">Project actions</Button></MenuTrigger>
+  <MenuContent data-state="closed">
+    <MenuLabel>Actions</MenuLabel>
+    <MenuGroup><MenuItem>Edit</MenuItem></MenuGroup>
+    <MenuSeparator />
+    <MenuItem>Delete</MenuItem>
+  </MenuContent>
+</Menu>
 ```
 
   </Tab>

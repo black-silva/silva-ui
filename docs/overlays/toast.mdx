@@ -20,9 +20,18 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "silva-ui"
+import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
 
-<ToastProvider><Toast><ToastTitle>Saved</ToastTitle><ToastDescription>Your draft is safe.</ToastDescription><ToastClose>Dismiss</ToastClose></Toast></ToastProvider>
+<Button>Show saved toast</Button>
+<ToastProvider position="bottom-center">
+  <div hidden>
+    <Toast variant="default">
+      <ToastTitle>Saved</ToastTitle>
+      <ToastDescription>Your draft is safe.</ToastDescription>
+      <ToastClose>Dismiss</ToastClose>
+    </Toast>
+  </div>
+</ToastProvider>
 ```
 
   </Tab>
@@ -41,9 +50,18 @@ import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "
   <Tab title="Code">
 
 ```tsx
-import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "silva-ui"
+import { Button, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle } from "silva-ui"
 
-<ToastProvider><Toast><ToastTitle>Published</ToastTitle><ToastDescription>Your changes are live.</ToastDescription><ToastClose>Dismiss</ToastClose></Toast></ToastProvider>
+<Button>Show published toast</Button>
+<ToastProvider position="bottom-center">
+  <div hidden>
+    <Toast variant="success">
+      <ToastTitle>Published</ToastTitle>
+      <ToastDescription>Your changes are live.</ToastDescription>
+      <ToastClose>Dismiss</ToastClose>
+    </Toast>
+  </div>
+</ToastProvider>
 ```
 
   </Tab>

@@ -20,9 +20,16 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "silva-ui"
+import { Button, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "silva-ui"
 
-<ContextMenu><ContextMenuTrigger>Context target</ContextMenuTrigger><ContextMenuContent data-state="open" style={{ position: "static" }}><ContextMenuItem>Edit</ContextMenuItem></ContextMenuContent></ContextMenu>
+<ContextMenu>
+  <ContextMenuTrigger>
+    <Button variant="outline">Right-click this card</Button>
+  </ContextMenuTrigger>
+  <ContextMenuContent data-state="closed">
+    <ContextMenuItem>Edit</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
 ```
 
   </Tab>
@@ -41,9 +48,19 @@ import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } 
   <Tab title="Code">
 
 ```tsx
-import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuLabel, ContextMenuGroup, ContextMenuItem, ContextMenuSeparator } from "silva-ui"
+import { Button, ContextMenu, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from "silva-ui"
 
-<ContextMenu><ContextMenuTrigger>Context target</ContextMenuTrigger><ContextMenuContent data-state="open" style={{ position: "static" }}><ContextMenuLabel>Actions</ContextMenuLabel><ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup><ContextMenuSeparator /><ContextMenuItem>Delete</ContextMenuItem></ContextMenuContent></ContextMenu>
+<ContextMenu>
+  <ContextMenuTrigger>
+    <Button variant="outline">Right-click for actions</Button>
+  </ContextMenuTrigger>
+  <ContextMenuContent data-state="closed">
+    <ContextMenuLabel>Actions</ContextMenuLabel>
+    <ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup>
+    <ContextMenuSeparator />
+    <ContextMenuItem>Delete</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
 ```
 
   </Tab>

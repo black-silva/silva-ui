@@ -20,9 +20,12 @@ Two rendered compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "silva-ui"
 
-<Tooltip><TooltipTrigger>Tooltip trigger</TooltipTrigger><TooltipContent data-state="open">Helpful context</TooltipContent></Tooltip>
+<Tooltip>
+  <TooltipTrigger><Button variant="outline">Hover or focus me</Button></TooltipTrigger>
+  <TooltipContent data-state="closed">Helpful context</TooltipContent>
+</Tooltip>
 ```
 
   </Tab>
@@ -41,9 +44,12 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "silva-ui"
 
-<Tooltip><TooltipTrigger>Tooltip trigger</TooltipTrigger><TooltipContent data-state="open">More details</TooltipContent></Tooltip>
+<Tooltip>
+  <TooltipTrigger><Button variant="outline">Hover or focus me</Button></TooltipTrigger>
+  <TooltipContent data-state="closed">More details</TooltipContent>
+</Tooltip>
 ```
 
   </Tab>
