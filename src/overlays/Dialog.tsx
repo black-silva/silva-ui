@@ -5,11 +5,13 @@ import type { BaseProps } from '../core/types';
 
 export interface DialogProps extends BaseProps {
   open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   [key: string]: any;
 }
 
 export function Dialog({
   open = false,
+  onOpenChange,
   class: extraClass,
   children,
   ...rest
@@ -22,13 +24,24 @@ export function Dialog({
     extraClass,
   );
 
+  const renderedChildren = open ? injectCompoundProps(
+    injectCompoundProps(
+      children,
+      (tag) => tag === DialogOverlay || tag === DialogContent,
+      (props) => ({ 'data-state': props['data-state'] ?? state }),
+    ),
+    (tag) => tag === DialogOverlay,
+    (props) => ({
+      onClick: (event: Event) => {
+        (props.onClick as ((event: Event) => void) | undefined)?.(event);
+        if (!event.defaultPrevented) onOpenChange?.(false);
+      },
+    }),
+  ) : null;
+
   return (
     <div {...htmlProps} data-state={state} class={className}>
-      {open ? injectCompoundProps(
-        children,
-        (tag) => tag === DialogOverlay || tag === DialogContent,
-        (props) => ({ 'data-state': props['data-state'] ?? state }),
-      ) : null}
+      {renderedChildren}
     </div>
   );
 }

@@ -32,8 +32,11 @@ globalStyle(`${overlay}[data-state="closed"]`, {
 export const contentBase = style({
   position: 'fixed',
   zIndex: tokens.zIndex.modal,
-  backgroundColor: tokens.colors.background,
+  backgroundColor: tokens.colors.card,
+  borderRadius: tokens.radii.large,
+  boxSizing: 'border-box',
   padding: tokens.space.large,
+  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
   transition: 'transform 300ms ease',
 });
 

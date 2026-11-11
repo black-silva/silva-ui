@@ -57,6 +57,25 @@ test.describe('interactive preview audit', () => {
     await expect(page.getByText('Project settings')).toHaveCount(0);
   });
 
+  for (const overlay of [
+    { example: 'overlay-1', button: 'Open dialog', role: 'dialog' as const },
+    { example: 'overlay-3', button: 'Discard changes', role: 'alertdialog' as const },
+    { example: 'overlay-5', button: 'Open sheet', role: 'dialog' as const },
+  ]) {
+    test(`${overlay.example} has an opaque, bounded panel that its backdrop dismisses`, async ({ page }) => {
+      await page.goto(`?example=${overlay.example}`);
+      await page.getByRole('button', { name: overlay.button }).click();
+      const panel = page.getByRole(overlay.role);
+      await expect(panel).toBeVisible();
+      await expect(panel).toHaveCSS('opacity', '1');
+      await expect(panel).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      const bounds = await panel.boundingBox();
+      expect(bounds?.width).toBeLessThan(page.viewportSize()!.width);
+      await page.mouse.click(8, 8);
+      await expect(panel).toHaveCount(0);
+    });
+  }
+
   test('toast appears and closes', async ({ page }) => {
     await page.goto('?example=overlay-7');
     await page.getByRole('button', { name: 'Save changes' }).click();

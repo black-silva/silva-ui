@@ -54,7 +54,7 @@ function TabsPreview() { const [activeTab, setActiveTab] = useState('profile'); 
 ```tsx
 function DialogPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium">
 <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
-<Dialog open={isOpen}>
+<Dialog open={isOpen} onOpenChange={setIsOpen}>
   <DialogOverlay />
   <DialogContent>
     <DialogHeader>
@@ -90,7 +90,7 @@ function DialogPreview() { const [isOpen, setIsOpen] = useState(false); return <
 ```tsx
 function AlertPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium">
 <Button onClick={() => setIsOpen(true)}>Discard changes</Button>
-<AlertDialog open={isOpen}>
+<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
   <AlertDialogOverlay />
   <AlertDialogContent>
     <AlertDialogHeader>
@@ -153,7 +153,7 @@ function PopoverPreview() { const [open, setOpen] = useState(false); return <Pop
 ```tsx
 function SheetPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium">
 <Button onClick={() => setIsOpen(true)}>Open sheet</Button>
-<Sheet open={isOpen}>
+<Sheet open={isOpen} onOpenChange={setIsOpen}>
   <SheetOverlay />
   <SheetContent side="right">
     <SheetHeader>
