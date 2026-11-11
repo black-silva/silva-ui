@@ -24,11 +24,11 @@ export function Dialog({
 
   return (
     <div {...htmlProps} data-state={state} class={className}>
-      {injectCompoundProps(
+      {open ? injectCompoundProps(
         children,
         (tag) => tag === DialogOverlay || tag === DialogContent,
         (props) => ({ 'data-state': props['data-state'] ?? state }),
-      )}
+      ) : null}
     </div>
   );
 }

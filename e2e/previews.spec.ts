@@ -31,7 +31,7 @@ test.describe('interactive preview audit', () => {
     await page.getByRole('button', { name: 'Open dialog' }).click();
     await expect(page.getByText('Delete project?')).toBeVisible();
     await page.getByText('Cancel').click();
-    await expect(page.getByText('Delete project?')).toBeHidden();
+    await expect(page.getByText('Delete project?')).toHaveCount(0);
   });
 
   test('tabs switch panels', async ({ page }) => {
@@ -46,7 +46,7 @@ test.describe('interactive preview audit', () => {
     await page.getByRole('button', { name: 'Discard changes' }).click();
     await expect(page.getByText('Discard changes?')).toBeVisible();
     await page.getByText('Keep editing').click();
-    await expect(page.getByText('Discard changes?')).toBeHidden();
+    await expect(page.getByText('Discard changes?')).toHaveCount(0);
   });
 
   test('sheet opens and closes', async ({ page }) => {
@@ -54,7 +54,7 @@ test.describe('interactive preview audit', () => {
     await page.getByRole('button', { name: 'Open sheet' }).click();
     await expect(page.getByText('Project settings')).toBeVisible();
     await page.getByText('Done').click();
-    await expect(page.getByText('Project settings')).toBeHidden();
+    await expect(page.getByText('Project settings')).toHaveCount(0);
   });
 
   test('toast appears and closes', async ({ page }) => {
