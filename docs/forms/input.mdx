@@ -5,9 +5,7 @@ description: A token-aware single-line text input that forwards native attribute
 
 # Input
 
-A token-aware single-line text input that forwards native attributes.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Input preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-11-a" title="api-11-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Input } from "silva-ui"
 
-<Input name="email" type="email" placeholder="you@example.com" />
+<Input placeholder="you@example.com" type="email" />
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-11-b" title="api-11-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { Input } from "silva-ui"
 
-<Input type="search" placeholder="Search projects" size="lg" />
+<Input placeholder="Project name" />
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

@@ -5,9 +5,7 @@ description: A visual tooltip composition. Your application owns visibility and 
 
 # Tooltip
 
-A visual tooltip composition. Your application owns visibility and positioning.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-6" title="Tooltip preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-33-a" title="api-33-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
 
-<Tooltip><TooltipTrigger><Button>?</Button></TooltipTrigger><TooltipContent side="top">Helpful context</TooltipContent></Tooltip>
+<Tooltip><TooltipTrigger>Hover me</TooltipTrigger><TooltipContent>Helpful context</TooltipContent></Tooltip>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-33-b" title="api-33-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Tooltip } from "silva-ui"
+import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
 
-<TooltipContent data-state="open">Visible tooltip</TooltipContent>
+<Tooltip><TooltipTrigger>Info</TooltipTrigger><TooltipContent>More details</TooltipContent></Tooltip>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

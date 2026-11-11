@@ -5,9 +5,7 @@ description: A positioned content composition. Your app owns trigger state, plac
 
 # Popover
 
-A positioned content composition. Your app owns trigger state, placement, and dismissal.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,28 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-4" title="Popover preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-29-a" title="api-29-a preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
+
+```tsx
+import { Popover, PopoverTrigger, PopoverContent } from "silva-ui"
+
+<Popover><PopoverTrigger>Open details</PopoverTrigger><PopoverContent>Useful context.</PopoverContent></Popover>
+```
+
+  </Tab>
+</Tabs>
+
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-29-b" title="api-29-b preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +43,11 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "silva-ui"
 
-<Popover><PopoverTrigger><Button>Open filters</Button></PopoverTrigger><PopoverContent side="bottom">Filter controls</PopoverContent></Popover>
+<Popover><PopoverTrigger>Open help</PopoverTrigger><PopoverContent>Helpful text.<PopoverClose>Close</PopoverClose></PopoverContent></Popover>
 ```
 
   </Tab>
 </Tabs>
-
-## Another composition
-
-```tsx
-import { Popover } from "silva-ui"
-
-<PopoverContent side="right" data-state="open">Open content</PopoverContent>
-```
-
 ## Props
 
 | Prop | Type / behaviour |

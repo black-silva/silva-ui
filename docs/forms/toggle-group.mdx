@@ -5,9 +5,7 @@ description: A visual toggle group. Your app owns selection state.
 
 # ToggleGroup
 
-A visual toggle group. Your app owns selection state.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-8" title="ToggleGroup preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-19-a" title="api-19-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { ToggleGroup, ToggleGroupItem } from "silva-ui"
 
-<ToggleGroup type="single"><ToggleGroupItem value="day" data-active="true">Day</ToggleGroupItem><ToggleGroupItem value="week">Week</ToggleGroupItem></ToggleGroup>
+<ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-19-b" title="api-19-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { ToggleGroup } from "silva-ui"
+import { ToggleGroup, ToggleGroupItem } from "silva-ui"
 
-<ToggleGroupItem value="month" disabled>Month</ToggleGroupItem>
+<ToggleGroup><ToggleGroupItem value="grid">Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem></ToggleGroup>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

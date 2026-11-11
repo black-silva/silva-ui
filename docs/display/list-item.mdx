@@ -5,9 +5,7 @@ description: A styled list-row primitive for settings, people, and navigation.
 
 # ListItem
 
-A styled list-row primitive for settings, people, and navigation.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-4" title="ListItem preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-04-a" title="api-04-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { ListItem } from "silva-ui"
 
-<ListItem><strong>BlackSilva</strong><span>Owner</span></ListItem>
+<ListItem title="Release notes" subTitle="Updated today" />
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-04-b" title="api-04-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { ListItem } from "silva-ui"
 
-<ListItem disabled>Unavailable option</ListItem>
+<ListItem title="Documentation" subTitle="Two matched examples" />
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

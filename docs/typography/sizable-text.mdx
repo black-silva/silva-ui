@@ -5,9 +5,7 @@ description: Text with a semantic size that controls font size and line height t
 
 # SizableText
 
-Text with a semantic size that controls font size and line height together.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-5" title="SizableText preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-37-a" title="api-37-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { SizableText } from "silva-ui"
 
-<SizableText size="lg">Readable supporting copy</SizableText>
+<SizableText size="lg">A larger piece of text</SizableText>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-37-b" title="api-37-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { SizableText } from "silva-ui"
 
-<SizableText as="small" size="xs" color="muted">Updated just now</SizableText>
+<SizableText size="sm">A smaller piece of text</SizableText>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

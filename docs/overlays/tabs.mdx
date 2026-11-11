@@ -5,9 +5,7 @@ description: A markup-only tabs family. Your application owns active state and h
 
 # Tabs
 
-A markup-only tabs family. Your application owns active state and hidden panels.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-2" title="Tabs preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-31-a" title="api-31-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 
-<Tabs value="profile"><TabList aria-label="Account sections"><Tab value="profile" data-active="true">Profile</Tab><Tab value="security">Security</Tab></TabList><TabPanel value="profile">Profile settings</TabPanel><TabPanel value="security" hidden>Security settings</TabPanel></Tabs>
+<Tabs><TabList><Tab value="overview">Overview</Tab></TabList><TabPanel value="overview">Project overview</TabPanel></Tabs>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-31-b" title="api-31-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Tabs } from "silva-ui"
+import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 
-<Tab data-active={active === "profile"}>Profile</Tab>
+<Tabs><TabList><Tab value="activity">Activity</Tab></TabList><TabPanel value="activity">Recent activity</TabPanel></Tabs>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

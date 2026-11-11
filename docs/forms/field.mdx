@@ -5,9 +5,7 @@ description: A field wrapper that shows help text or an error below a control. E
 
 # Field
 
-A field wrapper that shows help text or an error below a control. Errors take priority.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Field preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-09-a" title="api-09-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Field, FieldError, FieldHelper } from "silva-ui"
+import { Field, Input, FieldHelper } from "silva-ui"
 
-<Field helperText="We will never share it."><Label for="email">Email</Label><Input id="email" /></Field>
+<Field><Input placeholder="Project name" /><FieldHelper>Choose a clear name.</FieldHelper></Field>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-09-b" title="api-09-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Field } from "silva-ui"
+import { Field, Input, FieldError } from "silva-ui"
 
-<Field error="Enter a valid email address."><Input aria-invalid="true" /></Field>
+<Field><Input aria-invalid="true" placeholder="Email" /><FieldError>Enter a valid email address.</FieldError></Field>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

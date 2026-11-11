@@ -5,9 +5,7 @@ description: A menu family for context actions. Your app attaches the context-me
 
 # ContextMenu
 
-A menu family for context actions. Your app attaches the context-menu event and controls visibility.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-9" title="ContextMenu preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-26-a" title="api-26-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuLabel, ContextMenuGroup } from "silva-ui"
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "silva-ui"
 
-<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent data-state="open"><ContextMenuItem>Rename</ContextMenuItem></ContextMenuContent></ContextMenu>
+<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent><ContextMenuItem>Edit</ContextMenuItem></ContextMenuContent></ContextMenu>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-26-b" title="api-26-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { ContextMenu } from "silva-ui"
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuLabel, ContextMenuGroup, ContextMenuItem, ContextMenuSeparator } from "silva-ui"
 
-<ContextMenuItem disabled>Delete</ContextMenuItem>
+<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent><ContextMenuLabel>Actions</ContextMenuLabel><ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup><ContextMenuSeparator /><ContextMenuItem>Delete</ContextMenuItem></ContextMenuContent></ContextMenu>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

@@ -5,9 +5,7 @@ description: A visual menu composition. Your app owns state, keyboard navigation
 
 # Menu
 
-A visual menu composition. Your app owns state, keyboard navigation, position, and dismissal.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-8" title="Menu preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-28-a" title="api-28-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Menu, MenuTrigger, MenuContent, MenuItem, MenuSeparator, MenuLabel, MenuGroup } from "silva-ui"
+import { Menu, MenuTrigger, MenuContent, MenuItem } from "silva-ui"
 
-<Menu><MenuTrigger>Options</MenuTrigger><MenuContent data-state="open"><MenuItem>Edit</MenuItem><MenuItem disabled>Archive</MenuItem></MenuContent></Menu>
+<Menu><MenuTrigger>Options</MenuTrigger><MenuContent><MenuItem>Edit</MenuItem></MenuContent></Menu>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-28-b" title="api-28-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Menu } from "silva-ui"
+import { Menu, MenuTrigger, MenuContent, MenuLabel, MenuGroup, MenuItem, MenuSeparator } from "silva-ui"
 
-<MenuContent data-state="open"><MenuItem>Duplicate</MenuItem></MenuContent>
+<Menu><MenuTrigger>Options</MenuTrigger><MenuContent><MenuLabel>Actions</MenuLabel><MenuGroup><MenuItem>Edit</MenuItem></MenuGroup><MenuSeparator /><MenuItem>Delete</MenuItem></MenuContent></Menu>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

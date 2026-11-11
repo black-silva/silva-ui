@@ -5,9 +5,7 @@ description: An image avatar with a dependable fallback composition.
 
 # Avatar
 
-An image avatar with a dependable fallback composition.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-2" title="Avatar preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-01-a" title="api-01-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Avatar, AvatarImage, AvatarFallback } from "silva-ui"
 
-<Avatar size="lg"><AvatarImage src="/profile.jpg" alt="Silva UI" /><AvatarFallback>SU</AvatarFallback></Avatar>
+<Avatar><AvatarImage src="https://placehold.co/48" alt="BlackSilva" /><AvatarFallback>BS</AvatarFallback></Avatar>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-01-b" title="api-01-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Avatar } from "silva-ui"
+import { Avatar, AvatarFallback } from "silva-ui"
 
-<Avatar><AvatarFallback>BS</AvatarFallback></Avatar>
+<Avatar><AvatarFallback>UI</AvatarFallback></Avatar>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

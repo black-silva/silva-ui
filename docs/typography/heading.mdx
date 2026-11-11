@@ -5,9 +5,7 @@ description: Semantic heading primitives. Aliases are fixed-level wrappers aroun
 
 # Heading
 
-Semantic heading primitives. Aliases are fixed-level wrappers around Heading.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-2" title="Heading preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-35-a" title="api-35-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Heading, H1, H2, H3, H4, H5, H6 } from "silva-ui"
+import { H1, H2 } from "silva-ui"
 
-<><Heading level={1}>Project overview</Heading><H2>Recent activity</H2></>
+<><H1>Build with confidence</H1><H2>Composable foundations</H2></>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-35-b" title="api-35-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Heading } from "silva-ui"
+import { H3, H4, H5, H6 } from "silva-ui"
 
-<Heading level={3} color="primary">Settings</Heading>
+<><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fine print</H6></>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

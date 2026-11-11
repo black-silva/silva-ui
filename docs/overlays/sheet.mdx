@@ -5,9 +5,7 @@ description: A dialog-like panel that enters from an edge. Your app owns modal i
 
 # Sheet
 
-A dialog-like panel that enters from an edge. Your app owns modal interaction.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-5" title="Sheet preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-30-a" title="api-30-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from "silva-ui"
 
-<Sheet open><SheetContent side="right"><SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader></SheetContent></Sheet>
+<Sheet open><SheetOverlay /><SheetContent><SheetHeader><SheetTitle>Account settings</SheetTitle><SheetDescription>Manage your profile.</SheetDescription></SheetHeader><SheetFooter><SheetClose>Done</SheetClose></SheetFooter></SheetContent></Sheet>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-30-b" title="api-30-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Sheet } from "silva-ui"
+import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from "silva-ui"
 
-<SheetContent side="bottom" data-state="open">Bottom sheet</SheetContent>
+<Sheet open><SheetOverlay /><SheetContent><SheetHeader><SheetTitle>Notifications</SheetTitle><SheetDescription>Choose what reaches you.</SheetDescription></SheetHeader><SheetFooter><SheetClose>Save</SheetClose></SheetFooter></SheetContent></Sheet>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

@@ -5,9 +5,7 @@ description: A horizontal or vertical semantic divider.
 
 # Separator
 
-A horizontal or vertical semantic divider.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-4" title="Separator preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-21-a" title="api-21-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Separator } from "silva-ui"
+import { Text, Separator } from "silva-ui"
 
-<YStack gap="sm"><span>Profile</span><Separator decorative /><span>Security</span></YStack>
+<><Text>Profile</Text><Separator /><Text>Security</Text></>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-21-b" title="api-21-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Separator } from "silva-ui"
+import { Text, Separator } from "silva-ui"
 
-<Separator orientation="vertical" decorative={false} />
+<><Text>Billing</Text><Separator /><Text>Invoices</Text></>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

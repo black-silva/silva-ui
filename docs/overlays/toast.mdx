@@ -5,9 +5,7 @@ description: A static toast composition. Queueing, timeouts, and dismissal belon
 
 # Toast
 
-A static toast composition. Queueing, timeouts, and dismissal belong to the application.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-7" title="Toast preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-32-a" title="api-32-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "silva-ui"
 
-<ToastProvider position="bottom-right"><Toast variant="success"><ToastTitle>Changes saved</ToastTitle><ToastDescription>Your profile is up to date.</ToastDescription></Toast></ToastProvider>
+<ToastProvider><Toast><ToastTitle>Saved</ToastTitle><ToastDescription>Your draft is safe.</ToastDescription><ToastClose>Dismiss</ToastClose></Toast></ToastProvider>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-32-b" title="api-32-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { ToastProvider } from "silva-ui"
+import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "silva-ui"
 
-<Toast variant="error">Something went wrong.</Toast>
+<ToastProvider><Toast><ToastTitle>Published</ToastTitle><ToastDescription>Your changes are live.</ToastDescription><ToastClose>Dismiss</ToastClose></Toast></ToastProvider>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

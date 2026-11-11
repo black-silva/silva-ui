@@ -5,9 +5,7 @@ description: A semantic label primitive for form controls.
 
 # Label
 
-A semantic label primitive for form controls.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Label preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-12-a" title="api-12-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Label } from "silva-ui"
+import { Label, Input } from "silva-ui"
 
-<Label for="email">Email address</Label>
+<><Label htmlFor="email">Email</Label><Input id="email" type="email" /></>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-12-b" title="api-12-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Label } from "silva-ui"
+import { Label, Input } from "silva-ui"
 
-<Label color="muted" fontSize="sm">Optional</Label>
+<><Label htmlFor="project-name">Project name</Label><Input id="project-name" /></>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

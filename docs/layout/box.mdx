@@ -5,9 +5,7 @@ description: The foundation primitive for choosing an element and composing it w
 
 # Box
 
-The foundation primitive for choosing an element and composing it with sprinkles.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-1" title="Box preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-20-a" title="api-20-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Box } from "silva-ui"
+import { Box, Card, CardHeader, CardFooter, Image, Text, Button } from "silva-ui"
 
-<Box as="section" p="lg" borderRadius="lg" backgroundColor="subtle">Content</Box>
+<Box as="article" p="medium"><Card><Image src="https://placehold.co/640x360" alt="Everyday carry bag" /><CardHeader>Everyday carry bag</CardHeader><Text>R699 · Built for daily essentials.</Text><CardFooter><Button>Add to cart</Button></CardFooter></Card></Box>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-20-b" title="api-20-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Box } from "silva-ui"
+import { Box, Card, CardHeader, CardFooter, Image, Text, Button } from "silva-ui"
 
-<Box gradient="primaryToCyan" p="lg" borderRadius="lg">Gradient surface</Box>
+<Box as="article" p="medium"><Card><Image src="https://placehold.co/640x360" alt="Studio headphones" /><CardHeader>Studio headphones</CardHeader><Text>R1,999 · Clear sound, all day.</Text><CardFooter><Button variant="outline">View product</Button></CardFooter></Card></Box>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

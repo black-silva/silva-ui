@@ -5,9 +5,7 @@ description: A markup-only disclosure family. Your application owns expanded sta
 
 # Accordion
 
-A markup-only disclosure family. Your application owns expanded state.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-10" title="Accordion preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-24-a" title="api-24-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
 
-<Accordion type="single"><AccordionItem value="shipping"><AccordionTrigger data-state="open">Shipping</AccordionTrigger><AccordionContent data-state="open">Ships in two days.</AccordionContent></AccordionItem></Accordion>
+<Accordion><AccordionItem value="one"><AccordionTrigger>What is Silva UI?</AccordionTrigger><AccordionContent>Composable UI for Hono JSX.</AccordionContent></AccordionItem></Accordion>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-24-b" title="api-24-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Accordion } from "silva-ui"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
 
-<AccordionContent data-state="closed">Hidden content</AccordionContent>
+<Accordion><AccordionItem value="two"><AccordionTrigger>Is it typed?</AccordionTrigger><AccordionContent>Yes, it is TypeScript-first.</AccordionContent></AccordionItem></Accordion>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

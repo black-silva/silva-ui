@@ -5,9 +5,7 @@ description: A styled semantic form wrapper that forwards native form attributes
 
 # Form
 
-A styled semantic form wrapper that forwards native form attributes.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Form preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-10-a" title="api-10-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Form } from "silva-ui"
+import { Form, Input, Button } from "silva-ui"
 
-<Form method="post"><Input name="email" /><Button type="submit">Subscribe</Button></Form>
+<Form><Input placeholder="Email" /><Button type="submit">Subscribe</Button></Form>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-10-b" title="api-10-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Form } from "silva-ui"
+import { Form, Input, Button } from "silva-ui"
 
-<Form borderRadius="lg" p="md">{/* fields */}</Form>
+<Form><Input placeholder="Search" /><Button type="submit">Search</Button></Form>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

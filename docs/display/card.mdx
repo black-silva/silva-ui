@@ -5,9 +5,7 @@ description: A surface for grouped content, with optional border and elevation.
 
 # Card
 
-A surface for grouped content, with optional border and elevation.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-1" title="Card preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-02-a" title="api-02-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { Card, CardHeader, CardFooter } from "silva-ui"
+import { Card, CardHeader, CardFooter, Text, Button } from "silva-ui"
 
-<Card elevated p="md"><CardHeader>Storage</CardHeader><Paragraph>18 GB of 50 GB used</Paragraph><CardFooter>Manage storage</CardFooter></Card>
+<Card><CardHeader>Release</CardHeader><Text>Ready to ship.</Text><CardFooter><Button>Open</Button></CardFooter></Card>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-02-b" title="api-02-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { Card } from "silva-ui"
+import { Card, CardHeader, Text } from "silva-ui"
 
-<Card bordered={false} backgroundColor="subtle" p="lg">Quiet surface</Card>
+<Card><CardHeader>Silva UI</CardHeader><Text>Composable components.</Text></Card>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

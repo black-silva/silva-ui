@@ -5,9 +5,7 @@ description: Flexbox stacks for horizontal and vertical composition.
 
 # Stacks
 
-Flexbox stacks for horizontal and vertical composition.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,29 +13,41 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-2" title="Stacks preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-22-a" title="api-22-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
   <Tab title="Code">
 
 ```tsx
-import { XStack, YStack } from "silva-ui"
+import { YStack, Text } from "silva-ui"
 
-<YStack gap="md"><XStack justifyContent="between"><span>Account</span><span>Active</span></XStack></YStack>
+<YStack><Text>First</Text><Text>Second</Text></YStack>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-22-b" title="api-22-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
-import { XStack } from "silva-ui"
+import { XStack, Button } from "silva-ui"
 
-<XStack gap="sm" flexWrap="wrap"><Box p="sm">One</Box><Box p="sm">Two</Box></XStack>
+<XStack><Button>Save</Button><Button variant="outline">Cancel</Button></XStack>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |

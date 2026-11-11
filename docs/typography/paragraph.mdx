@@ -5,9 +5,7 @@ description: A semantic paragraph with readable defaults.
 
 # Paragraph
 
-A semantic paragraph with readable defaults.
-
-All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
 
 ## Preview
 
@@ -15,7 +13,7 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-3" title="Paragraph preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-36-a" title="api-36-a preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -24,20 +22,32 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 ```tsx
 import { Paragraph } from "silva-ui"
 
-<Paragraph size="lg" color="muted">Build a clear hierarchy without custom CSS.</Paragraph>
+<Paragraph>Documentation examples stay close to their implementation.</Paragraph>
 ```
 
   </Tab>
 </Tabs>
 
-## Another composition
+## Composition
+
+<Tabs sync={false}>
+  <Tab title="Preview">
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-36-b" title="api-36-b preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { Paragraph } from "silva-ui"
 
-<Paragraph marginBottom="none">Compact final paragraph.</Paragraph>
+<Paragraph>Clear prose makes component APIs easier to adopt.</Paragraph>
 ```
 
+  </Tab>
+</Tabs>
 ## Props
 
 | Prop | Type / behaviour |
