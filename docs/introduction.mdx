@@ -39,24 +39,7 @@ The package has a peer dependency on `hono@^4.13.13`. Components and the stylesh
   <Tab title="Code">
 
 ```tsx
-import "silva-ui/style.css"
-import { Avatar, AvatarFallback, Card, Heading, Paragraph, YStack } from "silva-ui"
-
-export function ProfileCard() {
-  return (
-    <Card elevated p="large" maxWidth={400}>
-      <YStack gap="medium" alignItems="center">
-        <Avatar size="xl">
-          <AvatarFallback>S</AvatarFallback>
-        </Avatar>
-        <YStack gap="xs" alignItems="center">
-          <Heading level={2}>Silva UI</Heading>
-          <Paragraph size="sm" color="muted">Building with Hono JSX.</Paragraph>
-        </YStack>
-      </YStack>
-    </Card>
-  )
-}
+function Intro({ id }
 ```
 
   </Tab>

@@ -23,18 +23,7 @@ Use a gradient name anywhere you would normally set `backgroundColor`.
   <Tab title="Code">
 
 ```tsx
-import { Card, Heading, Paragraph, YStack } from "silva-ui"
-
-export function LaunchCard() {
-  return (
-    <Card backgroundColor="aurora" p="large" borderRadius="xl">
-      <YStack gap="small">
-        <Heading level={2} color="white">Ship with confidence</Heading>
-        <Paragraph color="white">A named gradient without app-owned CSS.</Paragraph>
-      </YStack>
-    </Card>
-  )
-}
+<Card backgroundColor="aurora" p="large" borderRadius="xl"><YStack gap="small"><Heading level={2} color="white">Ship with confidence</Heading><Paragraph color="white">A named gradient without app-owned CSS.</Paragraph></YStack></Card>
 ```
 
   </Tab>
@@ -55,9 +44,7 @@ Set `color` to a gradient name to render text with a clipped gradient fill. Keep
   <Tab title="Code">
 
 ```tsx
-<Heading level={1} color="ocean">
-  Build the next thing
-</Heading>
+<Heading level={1} color="ocean">Build the next thing</Heading>
 ```
 
   </Tab>
@@ -94,18 +81,7 @@ Use `animation` for a prebuilt animation declaration. The component still render
   <Tab title="Code">
 
 ```tsx
-import { Card, Heading, Text, YStack } from "silva-ui"
-
-export function ReleaseNotice() {
-  return (
-    <Card animation="slideUp" p="large" borderRadius="large" bg="card">
-      <YStack gap="xs">
-        <Heading level={2}>Version 1.1 is here</Heading>
-        <Text animation="pulse" color="primary">New visual primitives included</Text>
-      </YStack>
-    </Card>
-  )
-}
+<Card animation="slideUp" p="large" borderRadius="large" bg="card"><YStack gap="xs"><Heading level={2}>Version 1.1 is here</Heading><Text animation="pulse" color="primary">New visual primitives included</Text></YStack></Card>
 ```
 
   </Tab>

@@ -22,13 +22,7 @@ Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. 
   <Tab title="Code">
 
 ```tsx
-import { Box, Text, Theme } from "silva-ui"
-
-<Theme name="midnight">
-  <Box bg="card" color="primary" p="large" borderRadius="large">
-    <Text>Dark themed content</Text>
-  </Box>
-</Theme>
+<Theme name="midnight"><Box bg="card" color="primary" p="large" borderRadius="large"><Text>Dark themed content</Text></Box></Theme>
 ```
 
   </Tab>
@@ -104,22 +98,7 @@ export const brandTheme = createTheme(themeColors, {
   <Tab title="Code">
 
 ```tsx
-import "silva-ui/style.css"
-import { Button, Card, Paragraph, YStack } from "silva-ui"
-import { brandTheme } from "./brand-theme.css"
-
-export function PricingCard() {
-  return (
-    <div class={brandTheme}>
-      <Card bg="card" borderColor="border" bordered p="large">
-        <YStack gap="medium">
-          <Paragraph color="muted">A custom semantic palette.</Paragraph>
-          <Button>Choose plan</Button>
-        </YStack>
-      </Card>
-    </div>
-  )
-}
+<Theme name="midnight"><Card bg="card" borderColor="border" bordered p="large"><YStack gap="medium"><Paragraph color="muted">A custom semantic palette.</Paragraph><Button>Choose plan</Button></YStack></Card></Theme>
 ```
 
   </Tab>

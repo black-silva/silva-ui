@@ -20,8 +20,7 @@ description: Semantic headings, readable body text and accessible links.
   <Tab title="Code">
 
 ```tsx
-<Text as="strong" fontWeight="semibold">Strong emphasis</Text>
-<SizableText size="lg" color="muted">Supporting copy</SizableText>
+<YStack><Text as="strong" fontWeight="semibold">Strong emphasis</Text><SizableText size="lg" color="muted">Supporting copy</SizableText></YStack>
 ```
 
   </Tab>
@@ -42,11 +41,7 @@ description: Semantic headings, readable body text and accessible links.
   <Tab title="Code">
 
 ```tsx
-import { H1, Heading, Paragraph } from "silva-ui"
-
-<H1>Project overview</H1>
-<Heading level={2}>Recent activity</Heading>
-<Paragraph size="md">A short, readable description.</Paragraph>
+<YStack><H1>Project overview</H1><Heading level={2}>Recent activity</Heading><Paragraph size="md">A short, readable description.</Paragraph></YStack>
 ```
 
   </Tab>
@@ -67,9 +62,7 @@ import { H1, Heading, Paragraph } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-<Paragraph color="muted">
-  Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.
-</Paragraph>
+<Paragraph color="muted">Read the <Anchor href="/docs/theming">theming guide</Anchor> to customise the UI.</Paragraph>
 ```
 
   </Tab>

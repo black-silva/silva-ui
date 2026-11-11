@@ -22,13 +22,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<Form action="/subscribe" method="post" gap="medium">
-  <Field helperText="We will only send product updates.">
-    <Label htmlFor="email" required>Email address</Label>
-    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
-  </Field>
-  <Button type="submit">Subscribe</Button>
-</Form>
+<Form action="/subscribe" method="post" gap="medium"><Field helperText="We will only send product updates."><Label htmlFor="email" required>Email address</Label><Input id="email" name="email" type="email" placeholder="you@example.com" required /></Field><Button type="submit">Subscribe</Button></Form>
 ```
 
   </Tab>
@@ -49,10 +43,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<Field>
-  <Label htmlFor="message">Message</Label>
-  <TextArea id="message" rows={5} placeholder="Tell us what you need." />
-</Field>
+<Field><Label htmlFor="message">Message</Label><TextArea id="message" rows={5} placeholder="Tell us what you need." /></Field>
 ```
 
   </Tab>
@@ -73,14 +64,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<Field>
-  <Label htmlFor="workspace">Workspace</Label>
-  <Select id="workspace" name="workspace" defaultValue="silva-ui">
-    <option value="silva-ui">Silva UI</option>
-    <option value="blacksilva">BlackSilva</option>
-    <option value="hono-jsx">Hono JSX</option>
-  </Select>
-</Field>
+<Field><Label htmlFor="workspace">Workspace</Label><Select id="workspace" name="workspace" defaultValue="silva-ui"><option value="silva-ui">Silva UI</option><option value="blacksilva">BlackSilva</option><option value="hono-jsx">Hono JSX</option></Select></Field>
 ```
 
   </Tab>
@@ -108,15 +92,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<YStack gap="medium">
-  <Checkbox name="terms" value="accepted">I agree to the terms</Checkbox>
-  <Switch name="alerts" defaultChecked>Enable alerts</Switch>
-  <RadioGroup name="plan" defaultValue="pro">
-    <RadioGroupItem value="starter">Starter</RadioGroupItem>
-    <RadioGroupItem value="pro">Pro</RadioGroupItem>
-  </RadioGroup>
-  <Progress value={72} max={100} aria-label="Profile completeness" />
-</YStack>
+<YStack gap="medium"><Checkbox name="terms" value="accepted">I agree to the terms</Checkbox><Switch name="alerts" defaultChecked>Enable alerts</Switch><RadioGroup name="plan" defaultValue="pro"><RadioGroupItem value="starter">Starter</RadioGroupItem><RadioGroupItem value="pro">Pro</RadioGroupItem></RadioGroup><Progress value={72} max={100} aria-label="Profile completeness" /></YStack>
 ```
 
   </Tab>
@@ -137,9 +113,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<Switch name="updates" defaultChecked>
-  Enable product updates
-</Switch>
+<Switch name="updates" defaultChecked>Enable product updates</Switch>
 ```
 
   </Tab>
@@ -160,10 +134,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<Field>
-  <Label htmlFor="volume">Volume</Label>
-  <Slider id="volume" name="volume" min={0} max={100} step={1} defaultValue={64} />
-</Field>
+<Field><Label htmlFor="volume">Volume</Label><Slider id="volume" name="volume" min={0} max={100} step={1} defaultValue={64} /></Field>
 ```
 
   </Tab>
@@ -184,11 +155,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<ToggleGroup type="single" aria-label="View mode">
-  <ToggleGroupItem value="grid" data-active>Grid</ToggleGroupItem>
-  <ToggleGroupItem value="list">List</ToggleGroupItem>
-  <ToggleGroupItem value="compact">Compact</ToggleGroupItem>
-</ToggleGroup>
+<ToggleGroup type="single" aria-label="View mode"><ToggleGroupItem value="grid" data-active>Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem><ToggleGroupItem value="compact">Compact</ToggleGroupItem></ToggleGroup>
 ```
 
   </Tab>
@@ -209,11 +176,7 @@ Form components render native elements, then layer the Silva visual system on to
   <Tab title="Code">
 
 ```tsx
-<XStack gap="small">
-  <Button>Save changes</Button>
-  <Button variant="outline">Preview</Button>
-  <Button variant="ghost">Cancel</Button>
-</XStack>
+<XStack gap="small"><Button bg="blue9" color="white">Save changes</Button><Button variant="outline">Preview</Button><Button variant="ghost">Cancel</Button></XStack>
 ```
 
   </Tab>

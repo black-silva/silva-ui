@@ -35,12 +35,7 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
   <Tab title="Code">
 
 ```tsx
-<Card p="large" borderRadius="xl" maxWidth="24" bg="card">
-  <YStack gap="small">
-    <Text fontWeight="semibold">Token-powered styles</Text>
-    <Text color="muted" fontSize="sm">No handwritten CSS needed here.</Text>
-  </YStack>
-</Card>
+<Card p="large" borderRadius="xl" maxWidth="24" bg="card"><YStack gap="small"><Text fontWeight="semibold">Token-powered styles</Text><Text color="muted" fontSize="sm">No handwritten CSS needed here.</Text></YStack></Card>
 ```
 
   </Tab>
@@ -63,13 +58,7 @@ For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and 
   <Tab title="Code">
 
 ```tsx
-<XStack gap="$1.6" p="$2.4" alignItems="center">
-  <Box w="$8" h="$8" borderRadius="$1.2" bg="primary" />
-  <YStack gap="$0.4">
-    <Text fontSize="$2" fontWeight="semibold">Projected scale</Text>
-    <Text fontSize="$1.4" color="muted">Fluid at every viewport width.</Text>
-  </YStack>
-</XStack>
+<XStack gap="$1.6" p="$2.4" alignItems="center"><Box w="$8" h="$8" borderRadius="$1.2" bg="primary" /><YStack gap="$0.4"><Text fontSize="$2" fontWeight="semibold">Projected scale</Text><Text fontSize="$1.4" color="muted">Fluid at every viewport width.</Text></YStack></XStack>
 ```
 
   </Tab>
@@ -94,14 +83,7 @@ A selected set of properties can be conditionally applied using `hover`, `active
   <Tab title="Code">
 
 ```tsx
-<Box
-  bg={{ default: "card", hover: "teal3", focus: "teal4" }}
-  color={{ default: "primary", hover: "teal12" }}
-  p="medium"
-  borderRadius="medium"
->
-  Hover or focus me
-</Box>
+<Box bg={{ default: 'card', hover: 'teal3', focus: 'teal4' }} color={{ default: 'primary', hover: 'teal12' }} p="medium" borderRadius="medium">Hover or focus me</Box>
 ```
 
   </Tab>

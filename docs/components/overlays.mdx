@@ -24,14 +24,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Tabs value={activeTab}>
-  <TabList aria-label="Account settings">
-    <Tab value="profile" data-active={activeTab === "profile"} onClick={() => setActiveTab("profile")}>Profile</Tab>
-    <Tab value="security" data-active={activeTab === "security"} onClick={() => setActiveTab("security")}>Security</Tab>
-  </TabList>
-  <TabPanel value="profile" hidden={activeTab !== "profile"}>Profile content</TabPanel>
-  <TabPanel value="security" hidden={activeTab !== "security"}>Security content</TabPanel>
-</Tabs>
+function TabsPreview() { const [activeTab, setActiveTab] = useState('profile'); return <Tabs value={activeTab}><TabList aria-label="Account settings"><Tab value="profile" data-active={activeTab === 'profile'} onClick={() => setActiveTab('profile')}>Profile</Tab><Tab value="security" data-active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Security</Tab></TabList><TabPanel value="profile" hidden={activeTab !== 'profile'}>Profile content</TabPanel><TabPanel value="security" hidden={activeTab !== 'security'}>Security content</TabPanel></Tabs>; }
 ```
 
   </Tab>
@@ -52,19 +45,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Dialog open={isOpen}>
-  <DialogOverlay />
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Delete project?</DialogTitle>
-      <DialogDescription>This cannot be undone.</DialogDescription>
-    </DialogHeader>
-    <DialogFooter>
-      <DialogClose onClick={() => setIsOpen(false)}>Cancel</DialogClose>
-      <Button onClick={removeProject}>Delete</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+function DialogPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium"><Button onClick={() => setIsOpen(true)}>Open dialog</Button><Dialog open={isOpen}><DialogOverlay /><DialogContent><DialogHeader><DialogTitle>Delete project?</DialogTitle><DialogDescription>This cannot be undone.</DialogDescription></DialogHeader><DialogFooter><DialogClose onClick={() => setIsOpen(false)}>Cancel</DialogClose><Button onClick={() => setIsOpen(false)}>Delete</Button></DialogFooter></DialogContent></Dialog></YStack>; }
 ```
 
   </Tab>
@@ -85,19 +66,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<AlertDialog open={isOpen}>
-  <AlertDialogOverlay />
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Discard changes?</AlertDialogTitle>
-      <AlertDialogDescription>Your unsaved changes will be lost.</AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel onClick={() => setIsOpen(false)}>Keep editing</AlertDialogCancel>
-      <AlertDialogAction onClick={discardChanges}>Discard</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+function AlertPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium"><Button onClick={() => setIsOpen(true)}>Discard changes</Button><AlertDialog open={isOpen}><AlertDialogOverlay /><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Discard changes?</AlertDialogTitle><AlertDialogDescription>Your unsaved changes will be lost.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel onClick={() => setIsOpen(false)}>Keep editing</AlertDialogCancel><AlertDialogAction onClick={() => setIsOpen(false)}>Discard</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></YStack>; }
 ```
 
   </Tab>
@@ -118,15 +87,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Popover>
-  <PopoverTrigger>
-    <Button onClick={() => setOpen(!open)}>Share</Button>
-  </PopoverTrigger>
-  <PopoverContent data-state={open ? "open" : "closed"} side="bottom">
-    Copy a link or invite a collaborator.
-    <PopoverClose onClick={() => setOpen(false)}>Close</PopoverClose>
-  </PopoverContent>
-</Popover>
+function PopoverPreview() { const [open, setOpen] = useState(false); return <Popover><PopoverTrigger><Button onClick={() => setOpen(!open)}>Share</Button></PopoverTrigger><PopoverContent data-state={open ? 'open' : 'closed'} side="bottom">Copy a link or invite a collaborator.<PopoverClose onClick={() => setOpen(false)}>Close</PopoverClose></PopoverContent></Popover>; }
 ```
 
   </Tab>
@@ -147,18 +108,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Sheet open={isOpen}>
-  <SheetOverlay />
-  <SheetContent side="right">
-    <SheetHeader>
-      <SheetTitle>Project settings</SheetTitle>
-      <SheetDescription>Update this project’s defaults.</SheetDescription>
-    </SheetHeader>
-    <SheetFooter>
-      <SheetClose onClick={() => setIsOpen(false)}>Done</SheetClose>
-    </SheetFooter>
-  </SheetContent>
-</Sheet>
+function SheetPreview() { const [isOpen, setIsOpen] = useState(false); return <YStack gap="medium"><Button onClick={() => setIsOpen(true)}>Open sheet</Button><Sheet open={isOpen}><SheetOverlay /><SheetContent side="right"><SheetHeader><SheetTitle>Project settings</SheetTitle><SheetDescription>Update this project’s defaults.</SheetDescription></SheetHeader><SheetFooter><SheetClose onClick={() => setIsOpen(false)}>Done</SheetClose></SheetFooter></SheetContent></Sheet></YStack>; }
 ```
 
   </Tab>
@@ -179,14 +129,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Tooltip>
-  <TooltipTrigger>
-    <Button variant="outline" aria-describedby="save-tip">Save</Button>
-  </TooltipTrigger>
-  <TooltipContent id="save-tip" side="top" data-state={showTip ? "open" : "closed"}>
-    Save this project
-  </TooltipContent>
-</Tooltip>
+function TooltipPreview() { const [showTip, setShowTip] = useState(false); return <Tooltip><TooltipTrigger><Button variant="outline" aria-describedby="save-tip" onMouseEnter={() => setShowTip(true)} onMouseLeave={() => setShowTip(false)} onFocus={() => setShowTip(true)} onBlur={() => setShowTip(false)}>Save</Button></TooltipTrigger><TooltipContent id="save-tip" side="top" data-state={showTip ? 'open' : 'closed'}>Save this project</TooltipContent></Tooltip>; }
 ```
 
   </Tab>
@@ -207,13 +150,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<ToastProvider position="top-right">
-  <Toast variant="success">
-    <ToastTitle>Changes saved</ToastTitle>
-    <ToastDescription>Your project settings are up to date.</ToastDescription>
-    <ToastClose onClick={dismissToast} />
-  </Toast>
-</ToastProvider>
+function ToastPreview() { const [shown, setShown] = useState(false); return <ToastProvider position="top-right"><Button onClick={() => setShown(true)}>Save changes</Button>{shown ? <Toast variant="success"><ToastTitle>Changes saved</ToastTitle><ToastDescription>Your project settings are up to date.</ToastDescription><ToastClose onClick={() => setShown(false)} /></Toast> : null}</ToastProvider>; }
 ```
 
   </Tab>
@@ -234,20 +171,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Menu>
-  <MenuTrigger>
-    <Button variant="outline" onClick={() => setOpen(!open)}>Actions</Button>
-  </MenuTrigger>
-  <MenuContent data-state={open ? "open" : "closed"}>
-    <MenuLabel>Project</MenuLabel>
-    <MenuGroup>
-      <MenuItem onClick={renameProject}>Rename</MenuItem>
-      <MenuItem onClick={duplicateProject}>Duplicate</MenuItem>
-    </MenuGroup>
-    <MenuSeparator />
-    <MenuItem disabled>Archive</MenuItem>
-  </MenuContent>
-</Menu>
+function MenuPreview({ context = false }
 ```
 
   </Tab>
@@ -268,17 +192,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<ContextMenu>
-  <ContextMenuTrigger onContextMenu={openAtPointer}>
-    <Box p="medium" borderWidth={1}>Right-click this project</Box>
-  </ContextMenuTrigger>
-  <ContextMenuContent data-state={open ? "open" : "closed"}>
-    <ContextMenuItem onClick={renameProject}>Rename</ContextMenuItem>
-    <ContextMenuItem onClick={duplicateProject}>Duplicate</ContextMenuItem>
-    <ContextMenuSeparator />
-    <ContextMenuItem disabled>Archive</ContextMenuItem>
-  </ContextMenuContent>
-</ContextMenu>
+function MenuPreview({ context = false }
 ```
 
   </Tab>
@@ -299,16 +213,7 @@ Tabs are stateless. Keep the selected value in application state, set `data-acti
   <Tab title="Code">
 
 ```tsx
-<Accordion type="single">
-  <AccordionItem value="shipping" data-state={openItem === "shipping" ? "open" : "closed"}>
-    <AccordionTrigger onClick={() => setOpenItem("shipping")} data-state={openItem === "shipping" ? "open" : "closed"}>
-      When does my order ship?
-    </AccordionTrigger>
-    <AccordionContent data-state={openItem === "shipping" ? "open" : "closed"}>
-      Orders leave our warehouse in one to two business days.
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+function AccordionPreview() { const [openItem, setOpenItem] = useState(''); return <Accordion type="single"><AccordionItem value="shipping" data-state={openItem === 'shipping' ? 'open' : 'closed'}><AccordionTrigger onClick={() => setOpenItem(openItem === 'shipping' ? '' : 'shipping')} data-state={openItem === 'shipping' ? 'open' : 'closed'}>When does my order ship?</AccordionTrigger><AccordionContent data-state={openItem === 'shipping' ? 'open' : 'closed'}>Orders leave our warehouse in one to two business days.</AccordionContent></AccordionItem></Accordion>; }
 ```
 
   </Tab>

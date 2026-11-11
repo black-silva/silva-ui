@@ -22,9 +22,7 @@ All layout components accept shared sprinkles props such as `p`, `gap`, `bg`, `b
   <Tab title="Code">
 
 ```tsx
-<Box as="section" p="large" bg="card" borderRadius="large">
-  Content
-</Box>
+<Box as="section" p="large" bg="card" borderRadius="large">Content</Box>
 ```
 
   </Tab>
@@ -45,13 +43,7 @@ All layout components accept shared sprinkles props such as `p`, `gap`, `bg`, `b
   <Tab title="Code">
 
 ```tsx
-<YStack gap="large" p="large">
-  <Heading level={2}>Account settings</Heading>
-  <XStack gap="small" alignItems="center" justifyContent="space-between">
-    <Text>Email alerts</Text>
-    <Switch defaultChecked />
-  </XStack>
-</YStack>
+<YStack gap="large" p="large"><Heading level={2}>Account settings</Heading><XStack gap="small" alignItems="center" justifyContent="space-between"><Text>Email alerts</Text><Switch defaultChecked /></XStack></YStack>
 ```
 
   </Tab>
@@ -72,11 +64,7 @@ Use `XGroup` for connected horizontal controls. Its children share borders and o
   <Tab title="Code">
 
 ```tsx
-<XGroup>
-  <Button variant="outline">Day</Button>
-  <Button variant="outline">Week</Button>
-  <Button variant="outline">Month</Button>
-</XGroup>
+<XGroup><Button variant="outline">Day</Button><Button variant="outline">Week</Button><Button variant="outline">Month</Button></XGroup>
 ```
 
   </Tab>
@@ -97,11 +85,7 @@ Use `XGroup` for connected horizontal controls. Its children share borders and o
   <Tab title="Code">
 
 ```tsx
-<XStack gap="medium" alignItems="center">
-  <Text>Overview</Text>
-  <Separator orientation="vertical" decorative height="full" />
-  <Text color="muted">Last updated today</Text>
-</XStack>
+<XStack gap="medium" alignItems="center"><Text>Overview</Text><Separator orientation="vertical" decorative height="full" /><Text color="muted">Last updated today</Text></XStack>
 ```
 
   </Tab>

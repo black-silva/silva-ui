@@ -20,16 +20,7 @@ description: Cards, avatars, images, list items and loading indicators.
   <Tab title="Code">
 
 ```tsx
-<Card bordered elevated p="large">
-  <CardHeader>
-    <Heading level={3}>Storage</Heading>
-    <Paragraph size="sm" color="muted">18 GB of 50 GB used</Paragraph>
-  </CardHeader>
-  <Progress value={36} max={100} aria-label="Storage used" />
-  <CardFooter>
-    <Button variant="outline">Manage storage</Button>
-  </CardFooter>
-</Card>
+<Card bordered elevated p="large"><CardHeader><Heading level={3}>Storage</Heading><Paragraph size="sm" color="muted">18 GB of 50 GB used</Paragraph></CardHeader><Progress value={36} max={100} aria-label="Storage used" /><CardFooter><Button variant="outline">Manage storage</Button></CardFooter></Card>
 ```
 
   </Tab>
@@ -50,12 +41,7 @@ Compose `Avatar` with `AvatarImage` and `AvatarFallback`. `Image` supports `src`
   <Tab title="Code">
 
 ```tsx
-<Avatar size="lg">
-  <AvatarImage src="/avatars/silva.png" alt="Silva profile" />
-  <AvatarFallback>S</AvatarFallback>
-</Avatar>
-
-<Image src="/banner.png" alt="Product banner" width={1200} height={630} loading="lazy" w="full" />
+<YStack gap="medium"><Avatar size="lg"><AvatarImage src={photo} alt="Silva profile" /><AvatarFallback>S</AvatarFallback></Avatar><Image src={photo} alt="Product banner" width={1200} height={630} loading="lazy" w="full" /></YStack>
 ```
 
   </Tab>
@@ -76,12 +62,7 @@ Compose `Avatar` with `AvatarImage` and `AvatarFallback`. `Image` supports `src`
   <Tab title="Code">
 
 ```tsx
-<ListItem
-  icon={<AvatarFallback>BS</AvatarFallback>}
-  title="Account avatar"
-  subTitle="Owner"
-  pressable
-/>
+<ListItem icon={<AvatarFallback>BS</AvatarFallback>} title="Account avatar" subTitle="Owner" pressable />
 ```
 
   </Tab>
@@ -102,10 +83,7 @@ Use `Spinner` for a compact progress indicator or `Loader` for a horizontal inde
   <Tab title="Code">
 
 ```tsx
-<YStack gap="medium">
-  <Spinner size="md" label="Loading profile" />
-  <Loader size="lg" label="Saving your changes" />
-</YStack>
+<YStack gap="medium"><Spinner size="md" label="Loading profile" /><Loader size="lg" label="Saving your changes" /></YStack>
 ```
 
   </Tab>

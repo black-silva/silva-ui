@@ -22,17 +22,7 @@ Use semantic stops when a gradient has a UI role: `primary` and `primaryActive` 
   <Tab title="Code">
 
 ```tsx
-import { Box, Text, Theme } from "silva-ui"
-
-<Theme name="midnight">
-  <Box
-    gradient={{ from: "primary", via: "violet9", to: "cyan9", deg: 135 }}
-    borderRadius="large"
-    p="large"
-  >
-    <Text color="primaryContrast">Theme-aware gradient</Text>
-  </Box>
-</Theme>
+<Theme name="midnight"><Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} borderRadius="large" p="large"><Text color="primaryContrast">Theme-aware gradient</Text></Box></Theme>
 ```
 
   </Tab>
@@ -74,13 +64,7 @@ Token stops compile to Silva UI CSS variables. The gradient does not need to be 
   <Tab title="Code">
 
 ```tsx
-<Theme name="light">
-  <Box gradient={{ from: "primary", to: "primaryHover" }} />
-</Theme>
-
-<Theme name="midnight">
-  <Box gradient={{ from: "primary", to: "primaryHover" }} />
-</Theme>
+<YStack gap="medium"><Theme name="light"><Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" /></Theme><Theme name="midnight"><Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" /></Theme></YStack>
 ```
 
   </Tab>
@@ -103,22 +87,7 @@ A gradient inside a custom theme resolves through that wrapper just like `bg`, `
   <Tab title="Code">
 
 ```tsx
-import { Box } from "silva-ui"
-import { brandTheme } from "./brand-theme.css"
-
-export function BrandBanner() {
-  return (
-    <section class={brandTheme}>
-      <Box
-        gradient={{ from: "primary", to: "primaryActive", deg: 135 }}
-        borderRadius="large"
-        p="large"
-      >
-        Brand-aware banner
-      </Box>
-    </section>
-  )
-}
+<Theme name="midnight"><Box gradient={{ from: 'primary', to: 'primaryActive', deg: 135 }} borderRadius="large" p="large">Brand-aware banner</Box></Theme>
 ```
 
   </Tab>
@@ -137,9 +106,7 @@ export function BrandBanner() {
   <Tab title="Code">
 
 ```tsx
-<Box gradient={{ type: "radial", from: "primary", to: "background" }} />
-
-<Box gradient={{ type: "conic", from: "violet9", to: "cyan9", deg: 45 }} />
+<YStack gap="medium"><Box gradient={{ type: 'radial', from: 'primary', to: 'background' }} p="large" /><Box gradient={{ type: 'conic', from: 'violet9', to: 'cyan9', deg: 45 }} p="large" /></YStack>
 ```
 
   </Tab>
