@@ -84,6 +84,28 @@ test.describe('interactive preview audit', () => {
     await expect(page.getByText('Changes saved')).toBeHidden();
   });
 
+  test('toast is opaque and anchored at the bottom of the preview', async ({ page }) => {
+    await page.goto('?example=overlay-7');
+    await page.getByRole('button', { name: 'Save changes' }).click();
+    const toast = page.getByRole('status');
+    await expect(toast).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(toast).toHaveCSS('opacity', '1');
+    const bounds = await toast.boundingBox();
+    expect(bounds!.y + bounds!.height).toBeGreaterThan(page.viewportSize()!.height - 24);
+  });
+
+  test('context menu is opaque and opens below its trigger', async ({ page }) => {
+    await page.goto('?example=overlay-9');
+    const trigger = page.getByText('Right-click this project');
+    const triggerBounds = await trigger.boundingBox();
+    await trigger.click({ button: 'right' });
+    const menu = page.getByRole('menu');
+    await expect(menu).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(menu).toHaveCSS('opacity', '1');
+    const menuBounds = await menu.boundingBox();
+    expect(menuBounds!.y).toBeGreaterThan(triggerBounds!.y + triggerBounds!.height);
+  });
+
   test('accordion toggles its content', async ({ page }) => {
     await page.goto('?example=overlay-10');
     await page.getByText('When does my order ship?').click();

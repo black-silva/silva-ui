@@ -25,7 +25,7 @@ export const positionVariant = styleVariants({
 /** Base toast item */
 export const toastBase = style({
   position: 'relative',
-  backgroundColor: tokens.colors.background,
+  backgroundColor: tokens.colors.card,
   border: `${tokens.borderWidth[1]} solid ${tokens.colors.border}`,
   borderRadius: tokens.radii.medium,
   padding: tokens.space.medium,

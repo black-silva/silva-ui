@@ -18,7 +18,7 @@ export const content = style({
   left: 'var(--context-menu-x, 0px)',
   top: 'var(--context-menu-y, 0px)',
   minWidth: '160px',
-  backgroundColor: tokens.colors.background,
+  backgroundColor: tokens.colors.card,
   border: `${tokens.borderWidth[1]} solid ${tokens.colors.border}`,
   borderRadius: tokens.radii.medium,
   paddingTop: tokens.space.xs,
