@@ -5,7 +5,7 @@ description: A markup-only tabs family. Your application owns active state and h
 
 # Tabs
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 
-<Tabs><TabList><Tab value="overview">Overview</Tab></TabList><TabPanel value="overview">Project overview</TabPanel></Tabs>
+<Tabs><TabList aria-label="Project"><Tab id="overview-tab" value="overview" data-active aria-controls="overview-panel">Overview</Tab></TabList><TabPanel id="overview-panel" value="overview" aria-labelledby="overview-tab">Project overview</TabPanel></Tabs>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 ```tsx
 import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 
-<Tabs><TabList><Tab value="activity">Activity</Tab></TabList><TabPanel value="activity">Recent activity</TabPanel></Tabs>
+<Tabs><TabList aria-label="Project"><Tab id="activity-tab" value="activity" data-active aria-controls="activity-panel">Activity</Tab></TabList><TabPanel id="activity-panel" value="activity" aria-labelledby="activity-tab">Recent activity</TabPanel></Tabs>
 ```
 
   </Tab>

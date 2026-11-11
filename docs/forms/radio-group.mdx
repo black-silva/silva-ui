@@ -5,7 +5,7 @@ description: A native-radio composition; every item has a required value.
 
 # RadioGroup
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { RadioGroup, RadioGroupItem } from "silva-ui"
 
-<RadioGroup><RadioGroupItem value="starter">Starter</RadioGroupItem><RadioGroupItem value="pro">Pro</RadioGroupItem></RadioGroup>
+<RadioGroup name="plan" defaultValue="starter" aria-label="Plan"><RadioGroupItem value="starter">Starter</RadioGroupItem><RadioGroupItem value="pro">Pro</RadioGroupItem></RadioGroup>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { RadioGroup, RadioGroupItem } from "silva-ui"
 ```tsx
 import { RadioGroup, RadioGroupItem } from "silva-ui"
 
-<RadioGroup><RadioGroupItem value="monthly">Monthly</RadioGroupItem><RadioGroupItem value="yearly">Yearly</RadioGroupItem></RadioGroup>
+<RadioGroup name="billing" defaultValue="monthly" aria-label="Billing interval"><RadioGroupItem value="monthly">Monthly</RadioGroupItem><RadioGroupItem value="yearly">Yearly</RadioGroupItem></RadioGroup>
 ```
 
   </Tab>

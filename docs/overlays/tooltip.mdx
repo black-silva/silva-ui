@@ -5,7 +5,7 @@ description: A visual tooltip composition. Your application owns visibility and 
 
 # Tooltip
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
 
-<Tooltip><TooltipTrigger>Hover me</TooltipTrigger><TooltipContent>Helpful context</TooltipContent></Tooltip>
+<Tooltip><TooltipTrigger>Tooltip trigger</TooltipTrigger><TooltipContent data-state="open">Helpful context</TooltipContent></Tooltip>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
 ```tsx
 import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
 
-<Tooltip><TooltipTrigger>Info</TooltipTrigger><TooltipContent>More details</TooltipContent></Tooltip>
+<Tooltip><TooltipTrigger>Tooltip trigger</TooltipTrigger><TooltipContent data-state="open">More details</TooltipContent></Tooltip>
 ```
 
   </Tab>

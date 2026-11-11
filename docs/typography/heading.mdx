@@ -5,7 +5,7 @@ description: Semantic heading primitives. Aliases are fixed-level wrappers aroun
 
 # Heading
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -20,9 +20,9 @@ Two runnable compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { H1, H2 } from "silva-ui"
+import { YStack, H1, H2 } from "silva-ui"
 
-<><H1>Build with confidence</H1><H2>Composable foundations</H2></>
+<YStack><H1>Build with confidence</H1><H2>Composable foundations</H2></YStack>
 ```
 
   </Tab>
@@ -41,9 +41,9 @@ import { H1, H2 } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { H3, H4, H5, H6 } from "silva-ui"
+import { YStack, H3, H4, H5, H6 } from "silva-ui"
 
-<><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fine print</H6></>
+<YStack><H3>Section</H3><H4>Detail</H4><H5>Note</H5><H6>Fine print</H6></YStack>
 ```
 
   </Tab>

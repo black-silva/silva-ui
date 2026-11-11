@@ -5,7 +5,7 @@ description: A styled semantic form wrapper that forwards native form attributes
 
 # Form
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Form, Input, Button } from "silva-ui"
 
-<Form><Input placeholder="Email" /><Button type="submit">Subscribe</Button></Form>
+<Form onSubmit={(event) => event.preventDefault()}><Input placeholder="Email" /><Button type="submit">Subscribe</Button></Form>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Form, Input, Button } from "silva-ui"
 ```tsx
 import { Form, Input, Button } from "silva-ui"
 
-<Form><Input placeholder="Search" /><Button type="submit">Search</Button></Form>
+<Form onSubmit={(event) => event.preventDefault()}><Input placeholder="Search" /><Button type="submit">Search</Button></Form>
 ```
 
   </Tab>

@@ -5,7 +5,7 @@ description: A positioned content composition. Your app owns trigger state, plac
 
 # Popover
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Popover, PopoverTrigger, PopoverContent } from "silva-ui"
 
-<Popover><PopoverTrigger>Open details</PopoverTrigger><PopoverContent>Useful context.</PopoverContent></Popover>
+<Popover><PopoverTrigger>Popover trigger</PopoverTrigger><PopoverContent data-state="open">Useful context.</PopoverContent></Popover>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "silva-ui"
 ```tsx
 import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "silva-ui"
 
-<Popover><PopoverTrigger>Open help</PopoverTrigger><PopoverContent>Helpful text.<PopoverClose>Close</PopoverClose></PopoverContent></Popover>
+<Popover><PopoverTrigger>Popover trigger</PopoverTrigger><PopoverContent data-state="open">Helpful text.<PopoverClose>Close</PopoverClose></PopoverContent></Popover>
 ```
 
   </Tab>

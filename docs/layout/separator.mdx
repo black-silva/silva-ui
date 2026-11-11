@@ -5,7 +5,7 @@ description: A horizontal or vertical semantic divider.
 
 # Separator
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -20,9 +20,9 @@ Two runnable compositions using exported Silva UI components. The code beside ea
   <Tab title="Code">
 
 ```tsx
-import { Text, Separator } from "silva-ui"
+import { YStack, Text, Separator } from "silva-ui"
 
-<><Text>Profile</Text><Separator /><Text>Security</Text></>
+<YStack><Text>Profile</Text><Separator /><Text>Security</Text></YStack>
 ```
 
   </Tab>
@@ -41,9 +41,9 @@ import { Text, Separator } from "silva-ui"
   <Tab title="Code">
 
 ```tsx
-import { Text, Separator } from "silva-ui"
+import { YStack, Text, Separator } from "silva-ui"
 
-<><Text>Billing</Text><Separator /><Text>Invoices</Text></>
+<YStack><Text>Billing</Text><Separator /><Text>Invoices</Text></YStack>
 ```
 
   </Tab>

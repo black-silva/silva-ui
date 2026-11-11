@@ -5,7 +5,7 @@ description: A visual menu composition. Your app owns state, keyboard navigation
 
 # Menu
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Menu, MenuTrigger, MenuContent, MenuItem } from "silva-ui"
 
-<Menu><MenuTrigger>Options</MenuTrigger><MenuContent><MenuItem>Edit</MenuItem></MenuContent></Menu>
+<Menu><MenuTrigger>Menu trigger</MenuTrigger><MenuContent data-state="open"><MenuItem>Edit</MenuItem></MenuContent></Menu>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Menu, MenuTrigger, MenuContent, MenuItem } from "silva-ui"
 ```tsx
 import { Menu, MenuTrigger, MenuContent, MenuLabel, MenuGroup, MenuItem, MenuSeparator } from "silva-ui"
 
-<Menu><MenuTrigger>Options</MenuTrigger><MenuContent><MenuLabel>Actions</MenuLabel><MenuGroup><MenuItem>Edit</MenuItem></MenuGroup><MenuSeparator /><MenuItem>Delete</MenuItem></MenuContent></Menu>
+<Menu><MenuTrigger>Menu trigger</MenuTrigger><MenuContent data-state="open"><MenuLabel>Actions</MenuLabel><MenuGroup><MenuItem>Edit</MenuItem></MenuGroup><MenuSeparator /><MenuItem>Delete</MenuItem></MenuContent></Menu>
 ```
 
   </Tab>

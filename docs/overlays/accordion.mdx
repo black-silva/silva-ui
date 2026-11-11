@@ -5,7 +5,7 @@ description: A markup-only disclosure family. Your application owns expanded sta
 
 # Accordion
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
 
-<Accordion><AccordionItem value="one"><AccordionTrigger>What is Silva UI?</AccordionTrigger><AccordionContent>Composable UI for Hono JSX.</AccordionContent></AccordionItem></Accordion>
+<Accordion><AccordionItem value="one"><AccordionTrigger data-state="open">What is Silva UI?</AccordionTrigger><AccordionContent data-state="open">Composable UI for Hono JSX.</AccordionContent></AccordionItem></Accordion>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "si
 ```tsx
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
 
-<Accordion><AccordionItem value="two"><AccordionTrigger>Is it typed?</AccordionTrigger><AccordionContent>Yes, it is TypeScript-first.</AccordionContent></AccordionItem></Accordion>
+<Accordion><AccordionItem value="two"><AccordionTrigger data-state="open">Is it typed?</AccordionTrigger><AccordionContent data-state="open">Yes, it is TypeScript-first.</AccordionContent></AccordionItem></Accordion>
 ```
 
   </Tab>

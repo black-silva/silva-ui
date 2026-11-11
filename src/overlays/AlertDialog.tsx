@@ -1,3 +1,4 @@
+import { injectCompoundProps } from '../core/compound';
 import { cls, splitSprinklesProps, toSprinklesClass } from '../core/utils';
 import * as styles from './alertdialog.css';
 import type { BaseProps } from '../core/types';
@@ -23,7 +24,11 @@ export function AlertDialog({
 
   return (
     <div {...htmlProps} data-state={state} class={className}>
-      {children}
+      {injectCompoundProps(
+        children,
+        (tag) => tag === AlertDialogOverlay || tag === AlertDialogContent,
+        (props) => ({ 'data-state': props['data-state'] ?? state }),
+      )}
     </div>
   );
 }

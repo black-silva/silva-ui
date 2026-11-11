@@ -5,7 +5,7 @@ description: A menu family for context actions. Your app attaches the context-me
 
 # ContextMenu
 
-Two runnable compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview.
+Two rendered compositions using exported Silva UI components. The code beside each preview is the implementation rendered by that preview. Components that need application state use an explicit static state here.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Two runnable compositions using exported Silva UI components. The code beside ea
 ```tsx
 import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "silva-ui"
 
-<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent><ContextMenuItem>Edit</ContextMenuItem></ContextMenuContent></ContextMenu>
+<ContextMenu><ContextMenuTrigger>Context target</ContextMenuTrigger><ContextMenuContent data-state="open" style={{ position: "static" }}><ContextMenuItem>Edit</ContextMenuItem></ContextMenuContent></ContextMenu>
 ```
 
   </Tab>
@@ -43,7 +43,7 @@ import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } 
 ```tsx
 import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuLabel, ContextMenuGroup, ContextMenuItem, ContextMenuSeparator } from "silva-ui"
 
-<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent><ContextMenuLabel>Actions</ContextMenuLabel><ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup><ContextMenuSeparator /><ContextMenuItem>Delete</ContextMenuItem></ContextMenuContent></ContextMenu>
+<ContextMenu><ContextMenuTrigger>Context target</ContextMenuTrigger><ContextMenuContent data-state="open" style={{ position: "static" }}><ContextMenuLabel>Actions</ContextMenuLabel><ContextMenuGroup><ContextMenuItem>Edit</ContextMenuItem></ContextMenuGroup><ContextMenuSeparator /><ContextMenuItem>Delete</ContextMenuItem></ContextMenuContent></ContextMenu>
 ```
 
   </Tab>

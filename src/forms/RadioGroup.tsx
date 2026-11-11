@@ -1,3 +1,4 @@
+import { injectCompoundProps } from '../core/compound';
 import { cls, splitSprinklesProps, toSprinklesClass } from '../core/utils';
 import * as styles from './radiogroup.css';
 import type { BaseProps, ComponentSize } from '../core/types';
@@ -32,7 +33,15 @@ export function RadioGroup({
       data-value={value}
       class={className}
     >
-      {children}
+      {injectCompoundProps(
+        children,
+        (tag) => tag === RadioGroupItem,
+        (props) => ({
+          name: props.name ?? name,
+          checked: props.checked ?? (value === undefined ? undefined : props.value === value),
+          defaultChecked: props.defaultChecked ?? (defaultValue === undefined ? undefined : props.value === defaultValue),
+        }),
+      )}
     </div>
   );
 }
