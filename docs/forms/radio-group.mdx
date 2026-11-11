@@ -1,0 +1,40 @@
+---
+title: RadioGroup
+description: A native-radio composition; every item has a required value.
+---
+
+# RadioGroup
+
+A native-radio composition; every item has a required value.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-9" title="RadioGroup preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { RadioGroup, RadioGroupItem } from "silva-ui"
+
+<RadioGroup name="plan"><RadioGroupItem value="starter" defaultChecked>Starter</RadioGroupItem><RadioGroupItem value="pro">Pro</RadioGroupItem></RadioGroup>
+```
+
+## Another composition
+
+```tsx
+import { RadioGroup } from "silva-ui"
+
+<RadioGroupItem value="enterprise" disabled>Enterprise</RadioGroupItem>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | RadioGroup.name/value/defaultValue: `string`; RadioGroupItem.value: `string` **required**; checked/defaultChecked; disabled |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

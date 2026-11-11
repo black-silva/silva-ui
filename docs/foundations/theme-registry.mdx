@@ -1,0 +1,40 @@
+---
+title: Theme registry
+description: Runtime registry utilities for application-owned theme records.
+---
+
+# Theme registry
+
+Runtime registry utilities for application-owned theme records.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Theme registry preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { addTheme, getTheme, getThemes, replaceTheme, updateTheme } from "silva-ui"
+
+addTheme({ name: "brand", values: { /* semantic values */ } })
+```
+
+## Another composition
+
+```tsx
+import { addTheme } from "silva-ui"
+
+const active = getTheme("brand")
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | addTheme/replaceTheme/updateTheme use ThemeMutation; getTheme returns a ThemeRecord |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

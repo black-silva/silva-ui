@@ -1,0 +1,40 @@
+---
+title: Card
+description: A surface for grouped content, with optional border and elevation.
+---
+
+# Card
+
+A surface for grouped content, with optional border and elevation.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-1" title="Card preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Card, CardHeader, CardFooter } from "silva-ui"
+
+<Card elevated p="md"><CardHeader>Storage</CardHeader><Paragraph>18 GB of 50 GB used</Paragraph><CardFooter>Manage storage</CardFooter></Card>
+```
+
+## Another composition
+
+```tsx
+import { Card } from "silva-ui"
+
+<Card bordered={false} backgroundColor="subtle" p="lg">Quiet surface</Card>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | bordered: `boolean` (default `true`); elevated: `boolean` (default `false`); CardHeader/Footer: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

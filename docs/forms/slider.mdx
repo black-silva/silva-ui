@@ -1,0 +1,40 @@
+---
+title: Slider
+description: A styled native range input. Use app state for controlled values.
+---
+
+# Slider
+
+A styled native range input. Use app state for controlled values.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-7" title="Slider preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Slider } from "silva-ui"
+
+<Slider min={0} max={100} defaultValue={64} aria-label="Volume" />
+```
+
+## Another composition
+
+```tsx
+import { Slider } from "silva-ui"
+
+<Slider min={0} max={10} step={1} defaultValue={7} size="lg" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | min/max/step: `number`; value/defaultValue: `number`; disabled: `boolean`; name/id: `string`; size: `ComponentSize`; onInput/onChange: event handler |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

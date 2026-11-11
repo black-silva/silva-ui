@@ -1,0 +1,40 @@
+---
+title: Progress
+description: A visual indicator for known progress.
+---
+
+# Progress
+
+A visual indicator for known progress.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-10" title="Progress preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Progress } from "silva-ui"
+
+<Progress value={72} max={100} aria-label="Profile completion" />
+```
+
+## Another composition
+
+```tsx
+import { Progress } from "silva-ui"
+
+<Progress value={4} max={5} size="sm" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | value: `number`; max: `number` (default `100`); size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

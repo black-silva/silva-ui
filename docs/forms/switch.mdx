@@ -1,0 +1,40 @@
+---
+title: Switch
+description: A native checkbox-style switch for binary preferences.
+---
+
+# Switch
+
+A native checkbox-style switch for binary preferences.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-6" title="Switch preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Switch } from "silva-ui"
+
+<Switch id="alerts" defaultChecked aria-label="Enable alerts" />
+```
+
+## Another composition
+
+```tsx
+import { Switch } from "silva-ui"
+
+<Switch disabled aria-label="Unavailable setting" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | checked/defaultChecked: `boolean`; disabled: `boolean`; onChange; size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

@@ -1,0 +1,40 @@
+---
+title: Tooltip
+description: A visual tooltip composition. Your application owns visibility and positioning.
+---
+
+# Tooltip
+
+A visual tooltip composition. Your application owns visibility and positioning.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-6" title="Tooltip preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Tooltip, TooltipTrigger, TooltipContent } from "silva-ui"
+
+<Tooltip><TooltipTrigger><Button>?</Button></TooltipTrigger><TooltipContent side="top">Helpful context</TooltipContent></Tooltip>
+```
+
+## Another composition
+
+```tsx
+import { Tooltip } from "silva-ui"
+
+<TooltipContent data-state="open">Visible tooltip</TooltipContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Tooltip and trigger: `BaseProps`; TooltipContent.side: `top` | `bottom` | `left` | `right`; data-state |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

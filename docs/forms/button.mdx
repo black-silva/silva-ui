@@ -1,0 +1,40 @@
+---
+title: Button
+description: A styled action control for application actions.
+---
+
+# Button
+
+A styled action control for application actions.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-3" title="Button preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Button } from "silva-ui"
+
+<Button type="button">Save changes</Button>
+```
+
+## Another composition
+
+```tsx
+import { Button } from "silva-ui"
+
+<Button size="sm" backgroundColor="primary">Continue</Button>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | type: `button` \| `submit` \| `reset` (default `button`); variant: `solid` \| `outline` \| `ghost` \| `link`; disabled: `boolean`; size: `ComponentSize`; onClick: event handler |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

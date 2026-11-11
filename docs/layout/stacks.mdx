@@ -1,0 +1,40 @@
+---
+title: Stacks
+description: Flexbox stacks for horizontal and vertical composition.
+---
+
+# Stacks
+
+Flexbox stacks for horizontal and vertical composition.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-2" title="Stacks preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { XStack, YStack } from "silva-ui"
+
+<YStack gap="md"><XStack justifyContent="between"><span>Account</span><span>Active</span></XStack></YStack>
+```
+
+## Another composition
+
+```tsx
+import { XStack } from "silva-ui"
+
+<XStack gap="sm" flexWrap="wrap"><Box p="sm">One</Box><Box p="sm">Two</Box></XStack>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | XStack/YStack: `BaseProps`; gap, alignItems, justifyContent: sprinkle tokens |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

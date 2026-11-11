@@ -1,0 +1,40 @@
+---
+title: ToggleGroup
+description: A visual toggle group. Your app owns selection state.
+---
+
+# ToggleGroup
+
+A visual toggle group. Your app owns selection state.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-8" title="ToggleGroup preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from "silva-ui"
+
+<ToggleGroup type="single"><ToggleGroupItem value="day" data-active="true">Day</ToggleGroupItem><ToggleGroupItem value="week">Week</ToggleGroupItem></ToggleGroup>
+```
+
+## Another composition
+
+```tsx
+import { ToggleGroup } from "silva-ui"
+
+<ToggleGroupItem value="month" disabled>Month</ToggleGroupItem>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | ToggleGroup.type: `single` | `multiple`; ToggleGroupItem.value: `string` **required**; data-active; disabled |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

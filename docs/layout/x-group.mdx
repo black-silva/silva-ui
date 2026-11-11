@@ -1,0 +1,40 @@
+---
+title: XGroup
+description: An inline group that joins adjacent controls visually.
+---
+
+# XGroup
+
+An inline group that joins adjacent controls visually.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-3" title="XGroup preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { XGroup } from "silva-ui"
+
+<XGroup><Button>Day</Button><Button>Week</Button><Button>Month</Button></XGroup>
+```
+
+## Another composition
+
+```tsx
+import { XGroup } from "silva-ui"
+
+<XGroup aria-label="View range">{/* grouped controls */}</XGroup>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | children: `any`; role defaults to `group` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

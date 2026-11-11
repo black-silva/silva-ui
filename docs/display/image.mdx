@@ -1,0 +1,40 @@
+---
+title: Image
+description: An image primitive with the shared styling surface.
+---
+
+# Image
+
+An image primitive with the shared styling surface.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-3" title="Image preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Image } from "silva-ui"
+
+<Image src="/product.png" alt="Product dashboard" borderRadius="lg" />
+```
+
+## Another composition
+
+```tsx
+import { Image } from "silva-ui"
+
+<Image src="/banner.png" alt="" width="full" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | src: `string` **required**; alt: `string`; width/height: HTML or sprinkle sizing |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

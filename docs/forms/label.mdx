@@ -1,0 +1,40 @@
+---
+title: Label
+description: A semantic label primitive for form controls.
+---
+
+# Label
+
+A semantic label primitive for form controls.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Label preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Label } from "silva-ui"
+
+<Label for="email">Email address</Label>
+```
+
+## Another composition
+
+```tsx
+import { Label } from "silva-ui"
+
+<Label color="muted" fontSize="sm">Optional</Label>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | for: `string`; disabled: `boolean` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

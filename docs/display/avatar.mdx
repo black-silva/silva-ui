@@ -1,0 +1,40 @@
+---
+title: Avatar
+description: An image avatar with a dependable fallback composition.
+---
+
+# Avatar
+
+An image avatar with a dependable fallback composition.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-2" title="Avatar preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Avatar, AvatarImage, AvatarFallback } from "silva-ui"
+
+<Avatar size="lg"><AvatarImage src="/profile.jpg" alt="Silva UI" /><AvatarFallback>SU</AvatarFallback></Avatar>
+```
+
+## Another composition
+
+```tsx
+import { Avatar } from "silva-ui"
+
+<Avatar><AvatarFallback>BS</AvatarFallback></Avatar>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Avatar.size: `ComponentSize`; AvatarImage.src: `string` **required**; alt: `string`; AvatarFallback: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

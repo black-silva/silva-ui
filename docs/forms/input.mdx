@@ -1,0 +1,40 @@
+---
+title: Input
+description: A token-aware single-line text input that forwards native attributes.
+---
+
+# Input
+
+A token-aware single-line text input that forwards native attributes.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Input preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Input } from "silva-ui"
+
+<Input name="email" type="email" placeholder="you@example.com" />
+```
+
+## Another composition
+
+```tsx
+import { Input } from "silva-ui"
+
+<Input type="search" placeholder="Search projects" size="lg" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | type: `string`; placeholder: `string`; value/defaultValue: `string \| number`; disabled/required: `boolean`; name/id: `string`; size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

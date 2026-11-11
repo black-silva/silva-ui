@@ -1,0 +1,40 @@
+---
+title: Accordion
+description: A markup-only disclosure family. Your application owns expanded state.
+---
+
+# Accordion
+
+A markup-only disclosure family. Your application owns expanded state.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-10" title="Accordion preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
+
+<Accordion type="single"><AccordionItem value="shipping"><AccordionTrigger data-state="open">Shipping</AccordionTrigger><AccordionContent data-state="open">Ships in two days.</AccordionContent></AccordionItem></Accordion>
+```
+
+## Another composition
+
+```tsx
+import { Accordion } from "silva-ui"
+
+<AccordionContent data-state="closed">Hidden content</AccordionContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Accordion.type: `single` | `multiple`; AccordionItem.value: `string`; Trigger/Content.data-state: `open` | `closed` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

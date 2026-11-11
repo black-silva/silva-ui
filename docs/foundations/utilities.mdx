@@ -1,0 +1,40 @@
+---
+title: Utilities
+description: Low-level helpers used when building custom primitives on top of Silva UI.
+---
+
+# Utilities
+
+Low-level helpers used when building custom primitives on top of Silva UI.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-1" title="Utilities preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { cls, splitSprinklesProps, toSprinklesClass } from "silva-ui"
+
+const className = cls("app-card", toSprinklesClass({ p: "md" }))
+```
+
+## Another composition
+
+```tsx
+import { cls } from "silva-ui"
+
+const { sprinklesProps, rest } = splitSprinklesProps(props)
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | cls: class merger; splitSprinklesProps: separates styling props; toSprinklesClass: resolves generated classes |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

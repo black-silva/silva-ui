@@ -1,0 +1,40 @@
+---
+title: Theme
+description: Scopes a built-in theme to a subtree.
+---
+
+# Theme
+
+Scopes a built-in theme to a subtree.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Theme preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Theme, themes, built-in theme exports } from "silva-ui"
+
+<Theme name="midnight" p="lg"><Button>Save changes</Button></Theme>
+```
+
+## Another composition
+
+```tsx
+import { Theme } from "silva-ui"
+
+<Theme name="emerald"><Text>Scoped themed content</Text></Theme>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | name: `ThemeName`; ThemeProps: `BaseProps`; built-ins: light, dark, emerald, emeraldDark, midnight |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

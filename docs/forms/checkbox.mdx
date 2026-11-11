@@ -1,0 +1,40 @@
+---
+title: Checkbox
+description: A native checkbox with Silva UI styling.
+---
+
+# Checkbox
+
+A native checkbox with Silva UI styling.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-2" title="Checkbox preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Checkbox } from "silva-ui"
+
+<Checkbox id="terms" name="terms" required />
+```
+
+## Another composition
+
+```tsx
+import { Checkbox } from "silva-ui"
+
+<Checkbox defaultChecked aria-label="Enable email alerts" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | checked/defaultChecked: `boolean`; disabled: `boolean`; onChange: event handler; size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

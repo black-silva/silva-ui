@@ -1,0 +1,40 @@
+---
+title: Separator
+description: A horizontal or vertical semantic divider.
+---
+
+# Separator
+
+A horizontal or vertical semantic divider.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=layout-4" title="Separator preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Separator } from "silva-ui"
+
+<YStack gap="sm"><span>Profile</span><Separator decorative /><span>Security</span></YStack>
+```
+
+## Another composition
+
+```tsx
+import { Separator } from "silva-ui"
+
+<Separator orientation="vertical" decorative={false} />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | orientation: `horizontal` | `vertical` (default `horizontal`); decorative: `boolean` (default `true`) |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

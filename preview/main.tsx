@@ -6,7 +6,7 @@ import {
   Checkbox, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger,
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogTitle,
   Field, FieldHelper, Form, H1, H2, Heading, Image, Input, ListItem, Loader, Menu, MenuContent, MenuItem, MenuTrigger,
-  Paragraph, Popover, PopoverClose, PopoverContent, PopoverTrigger, Select, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle,
+  Paragraph, Popover, PopoverClose, PopoverContent, PopoverTrigger, Progress, RadioGroup, RadioGroupItem, Select, Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetTitle,
   Slider, Spinner, Switch, Tab, TabList, TabPanel, Tabs, Text, TextArea, Theme, Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle,
   ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipTrigger, XStack, YStack,
 } from 'silva-ui';
@@ -20,18 +20,21 @@ function Display({ id }: { id: string }) {
   if (id === 'display-1') return stage(<Card class="preview-card"><CardHeader><Heading level={3}>Project status</Heading><Text color="muted">Silva UI preview</Text></CardHeader><Box p="medium"><Text>Cards compose a clear content surface.</Text></Box><CardFooter><Button>Continue</Button></CardFooter></Card>);
   if (id === 'display-2') return stage(<XStack gap="medium"><Avatar><AvatarImage src={photo} alt="Developer writing code" /><AvatarFallback>BS</AvatarFallback></Avatar><YStack><Text>BlackSilva</Text><Text color="muted">Building in public</Text></YStack></XStack>);
   if (id === 'display-3') return stage(<Image class="preview-image" src={photo} alt="Developer writing code on a laptop" />);
-  return stage(stack(<><ListItem title="Release notes" subtitle="Preview app now renders source components" /><XStack gap="medium"><Spinner /><Loader /></XStack></>));
+  return stage(stack(<><ListItem title="Release notes" subTitle="Preview app now renders source components" /><XStack gap="medium"><Spinner /><Loader /></XStack></>));
 }
 
 function Forms({ id }: { id: string }) {
-  const [on, setOn] = useState(false); const [range, setRange] = useState('55');
+  const [on, setOn] = useState(false); const [range, setRange] = useState(55);
   if (id === 'forms-1') return stage(<Form class="preview-stack"><Field><Text>Email address</Text><Input type="email" placeholder="you@example.com" /></Field><Button type="button">Subscribe</Button></Form>);
   if (id === 'forms-2') return stage(stack(<><Checkbox label="Send me release updates" /><TextArea placeholder="Add a note…" /></>));
   if (id === 'forms-3') return stage(<Button variant="outline">Save changes</Button>);
   if (id === 'forms-4') return stage(stack(<><Field><Text>Project name</Text><Input value="Silva UI" /></Field><FieldHelper>Use a clear, memorable name.</FieldHelper></>));
   if (id === 'forms-5') return stage(<Select value="starter"><option value="starter">Starter</option><option value="team">Team</option><option value="business">Business</option></Select>);
   if (id === 'forms-6') return stage(<XStack gap="medium"><Switch checked={on} onChange={(e: any) => setOn(e.currentTarget.checked)} /><Text>{on ? 'Notifications enabled' : 'Notifications disabled'}</Text></XStack>);
-  if (id === 'forms-7') return stage(stack(<><Slider min="0" max="100" value={range} onInput={(e: any) => setRange(e.currentTarget.value)} /><Text>{range}% complete</Text></>));
+  if (id === 'forms-7') return stage(stack(<><Slider min={0} max={100} value={range} onInput={(e: any) => setRange(Number(e.currentTarget.value))} /><Text>{range}% complete</Text></>));
+  if (id === 'forms-8') return stage(<ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="center">Center</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>);
+  if (id === 'forms-9') return stage(<RadioGroup value="pro"><RadioGroupItem value="starter">Starter</RadioGroupItem><RadioGroupItem value="pro">Pro</RadioGroupItem></RadioGroup>);
+  if (id === 'forms-10') return stage(stack(<><Progress value={72} /><Text>72% complete</Text></>));
   return stage(<ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="center">Center</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>);
 }
 

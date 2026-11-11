@@ -1,0 +1,40 @@
+---
+title: TextArea
+description: A token-aware multi-line input that forwards native textarea attributes.
+---
+
+# TextArea
+
+A token-aware multi-line input that forwards native textarea attributes.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-2" title="TextArea preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { TextArea } from "silva-ui"
+
+<TextArea name="message" rows={5} placeholder="Tell us what you need." />
+```
+
+## Another composition
+
+```tsx
+import { TextArea } from "silva-ui"
+
+<TextArea size="lg" defaultValue="Draft message" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | value/defaultValue: `string`; rows: `number`; disabled: `boolean`; size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

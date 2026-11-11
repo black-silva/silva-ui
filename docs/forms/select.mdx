@@ -1,0 +1,40 @@
+---
+title: Select
+description: A styled select control with native option markup.
+---
+
+# Select
+
+A styled select control with native option markup.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-5" title="Select preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Select } from "silva-ui"
+
+<Select name="plan" defaultValue="starter"><option value="starter">Starter</option><option value="pro">Pro</option></Select>
+```
+
+## Another composition
+
+```tsx
+import { Select } from "silva-ui"
+
+<Select aria-label="Visibility"><option>Private</option><option>Public</option></Select>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | value/defaultValue: `string \| number`; name/id: `string`; disabled: `boolean`; onChange: event handler; size: `ComponentSize` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

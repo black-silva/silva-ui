@@ -1,0 +1,40 @@
+---
+title: Form
+description: A styled semantic form wrapper that forwards native form attributes.
+---
+
+# Form
+
+A styled semantic form wrapper that forwards native form attributes.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=forms-1" title="Form preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Form } from "silva-ui"
+
+<Form method="post"><Input name="email" /><Button type="submit">Subscribe</Button></Form>
+```
+
+## Another composition
+
+```tsx
+import { Form } from "silva-ui"
+
+<Form borderRadius="lg" p="md">{/* fields */}</Form>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | action: `string`; method: `string`; onSubmit: event handler |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

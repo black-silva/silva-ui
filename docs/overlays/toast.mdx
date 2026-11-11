@@ -1,0 +1,40 @@
+---
+title: Toast
+description: A static toast composition. Queueing, timeouts, and dismissal belong to the application.
+---
+
+# Toast
+
+A static toast composition. Queueing, timeouts, and dismissal belong to the application.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-7" title="Toast preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { ToastProvider, Toast, ToastTitle, ToastDescription, ToastClose } from "silva-ui"
+
+<ToastProvider position="bottom-right"><Toast variant="success"><ToastTitle>Changes saved</ToastTitle><ToastDescription>Your profile is up to date.</ToastDescription></Toast></ToastProvider>
+```
+
+## Another composition
+
+```tsx
+import { ToastProvider } from "silva-ui"
+
+<Toast variant="error">Something went wrong.</Toast>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | ToastProvider.position: six screen positions; Toast.variant: `default` | `success` | `error` | `warning`; title/description/close: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

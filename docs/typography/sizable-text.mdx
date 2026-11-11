@@ -1,0 +1,40 @@
+---
+title: SizableText
+description: Text with a semantic size that controls font size and line height together.
+---
+
+# SizableText
+
+Text with a semantic size that controls font size and line height together.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-1" title="SizableText preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { SizableText } from "silva-ui"
+
+<SizableText size="lg">Readable supporting copy</SizableText>
+```
+
+## Another composition
+
+```tsx
+import { SizableText } from "silva-ui"
+
+<SizableText as="small" size="xs" color="muted">Updated just now</SizableText>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | size: `xs` | `sm` | `md` | `lg` | `xl` (default `md`); as: `string` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

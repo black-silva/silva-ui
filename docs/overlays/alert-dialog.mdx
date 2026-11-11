@@ -1,0 +1,40 @@
+---
+title: AlertDialog
+description: A destructive-action dialog. AlertDialogContent renders `role="alertdialog"`.
+---
+
+# AlertDialog
+
+A destructive-action dialog. AlertDialogContent renders `role="alertdialog"`.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-3" title="AlertDialog preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel } from "silva-ui"
+
+<AlertDialog open><AlertDialogContent><AlertDialogTitle>Delete project?</AlertDialogTitle><AlertDialogAction>Delete</AlertDialogAction></AlertDialogContent></AlertDialog>
+```
+
+## Another composition
+
+```tsx
+import { AlertDialog } from "silva-ui"
+
+<AlertDialogContent data-state="open">Important confirmation</AlertDialogContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | AlertDialog.open: `boolean`; Overlay/Content.data-state: `open` | `closed`; remaining parts: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

@@ -1,0 +1,40 @@
+---
+title: Dialog
+description: A visual dialog composition. Your app owns portals, focus, Escape handling, and dismissal.
+---
+
+# Dialog
+
+A visual dialog composition. Your app owns portals, focus, Escape handling, and dismissal.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-1" title="Dialog preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Dialog, DialogOverlay, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose } from "silva-ui"
+
+<Dialog open><DialogContent><DialogHeader><DialogTitle>Delete project?</DialogTitle></DialogHeader><DialogFooter><Button>Delete</Button></DialogFooter></DialogContent></Dialog>
+```
+
+## Another composition
+
+```tsx
+import { Dialog } from "silva-ui"
+
+<DialogOverlay data-state="open" /><DialogContent data-state="open">Open dialog content</DialogContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Dialog.open: `boolean` (default `false`); Overlay/Content.data-state: `open` | `closed`; remaining parts: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

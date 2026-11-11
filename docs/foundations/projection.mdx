@@ -1,0 +1,41 @@
+---
+title: Projection tokens
+description: Helpers for the `$n` linear projection token system.
+---
+
+# Projection tokens
+
+Helpers for the `$n` linear projection token system.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=sprinkles-2" title="Projection tokens preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { isProjectionToken, projectionTokenToCss } from "silva-ui"
+
+const isFluid = isProjectionToken("$24")
+const css = projectionTokenToCss("$24")
+```
+
+## Another composition
+
+```tsx
+import { isProjectionToken } from "silva-ui"
+
+<Box width="$240" borderRadius="$16">Fluid surface</Box>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | ProjectionToken: `$${number}`; ProjectionProperty/ProjectionSprinkles: typed sprinkle extensions |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

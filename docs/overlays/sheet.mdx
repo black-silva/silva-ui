@@ -1,0 +1,40 @@
+---
+title: Sheet
+description: A dialog-like panel that enters from an edge. Your app owns modal interaction.
+---
+
+# Sheet
+
+A dialog-like panel that enters from an edge. Your app owns modal interaction.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-5" title="Sheet preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Sheet, SheetOverlay, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from "silva-ui"
+
+<Sheet open><SheetContent side="right"><SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader></SheetContent></Sheet>
+```
+
+## Another composition
+
+```tsx
+import { Sheet } from "silva-ui"
+
+<SheetContent side="bottom" data-state="open">Bottom sheet</SheetContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Sheet.open: `boolean`; SheetContent.side: `top` | `bottom` | `left` | `right`; Overlay/Content.data-state; remaining parts: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

@@ -1,0 +1,40 @@
+---
+title: Text
+description: Inline or block text with the full sprinkles surface.
+---
+
+# Text
+
+Inline or block text with the full sprinkles surface.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-1" title="Text preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Text } from "silva-ui"
+
+<Text as="span" color="muted" fontWeight="medium">Supporting detail</Text>
+```
+
+## Another composition
+
+```tsx
+import { Text } from "silva-ui"
+
+<Text color="primary" fontSize="lg">New message</Text>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | as: `string` (default `span`); colour and typography sprinkle tokens |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

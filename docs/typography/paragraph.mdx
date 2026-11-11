@@ -1,0 +1,40 @@
+---
+title: Paragraph
+description: A semantic paragraph with readable defaults.
+---
+
+# Paragraph
+
+A semantic paragraph with readable defaults.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-3" title="Paragraph preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Paragraph } from "silva-ui"
+
+<Paragraph size="lg" color="muted">Build a clear hierarchy without custom CSS.</Paragraph>
+```
+
+## Another composition
+
+```tsx
+import { Paragraph } from "silva-ui"
+
+<Paragraph marginBottom="none">Compact final paragraph.</Paragraph>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | size: `ComponentSize`; marginBottom defaults to `medium`; lineHeight defaults to `normal` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

@@ -1,0 +1,40 @@
+---
+title: ContextMenu
+description: A menu family for context actions. Your app attaches the context-menu event and controls visibility.
+---
+
+# ContextMenu
+
+A menu family for context actions. Your app attaches the context-menu event and controls visibility.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-9" title="ContextMenu preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuLabel, ContextMenuGroup } from "silva-ui"
+
+<ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent data-state="open"><ContextMenuItem>Rename</ContextMenuItem></ContextMenuContent></ContextMenu>
+```
+
+## Another composition
+
+```tsx
+import { ContextMenu } from "silva-ui"
+
+<ContextMenuItem disabled>Delete</ContextMenuItem>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | ContextMenuContent.data-state: `open` | `closed`; ContextMenuItem.disabled; ContextMenuItem.onClick; other parts: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

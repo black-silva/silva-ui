@@ -1,0 +1,40 @@
+---
+title: ListItem
+description: A styled list-row primitive for settings, people, and navigation.
+---
+
+# ListItem
+
+A styled list-row primitive for settings, people, and navigation.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-4" title="ListItem preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { ListItem } from "silva-ui"
+
+<ListItem><strong>BlackSilva</strong><span>Owner</span></ListItem>
+```
+
+## Another composition
+
+```tsx
+import { ListItem } from "silva-ui"
+
+<ListItem disabled>Unavailable option</ListItem>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | title/subTitle/icon: `any`; pressable: `boolean`; size: `ComponentSize`; onClick: event handler |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

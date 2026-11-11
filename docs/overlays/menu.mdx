@@ -1,0 +1,40 @@
+---
+title: Menu
+description: A visual menu composition. Your app owns state, keyboard navigation, position, and dismissal.
+---
+
+# Menu
+
+A visual menu composition. Your app owns state, keyboard navigation, position, and dismissal.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-8" title="Menu preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Menu, MenuTrigger, MenuContent, MenuItem, MenuSeparator, MenuLabel, MenuGroup } from "silva-ui"
+
+<Menu><MenuTrigger>Options</MenuTrigger><MenuContent data-state="open"><MenuItem>Edit</MenuItem><MenuItem disabled>Archive</MenuItem></MenuContent></Menu>
+```
+
+## Another composition
+
+```tsx
+import { Menu } from "silva-ui"
+
+<MenuContent data-state="open"><MenuItem>Duplicate</MenuItem></MenuContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | MenuContent.data-state: `open` | `closed`; MenuItem.disabled: `boolean`; MenuItem.onClick; other parts: `BaseProps` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

@@ -1,0 +1,40 @@
+---
+title: Tabs
+description: A markup-only tabs family. Your application owns active state and hidden panels.
+---
+
+# Tabs
+
+A markup-only tabs family. Your application owns active state and hidden panels.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-2" title="Tabs preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
+
+<Tabs value="profile"><TabList aria-label="Account sections"><Tab value="profile" data-active="true">Profile</Tab><Tab value="security">Security</Tab></TabList><TabPanel value="profile">Profile settings</TabPanel><TabPanel value="security" hidden>Security settings</TabPanel></Tabs>
+```
+
+## Another composition
+
+```tsx
+import { Tabs } from "silva-ui"
+
+<Tab data-active={active === "profile"}>Profile</Tab>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Tabs.value: `string`; TabList.aria-label: `string`; Tab.data-active: `boolean` | `string`; TabPanel.hidden: `boolean` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

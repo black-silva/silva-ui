@@ -1,0 +1,40 @@
+---
+title: Popover
+description: A positioned content composition. Your app owns trigger state, placement, and dismissal.
+---
+
+# Popover
+
+A positioned content composition. Your app owns trigger state, placement, and dismissal.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-4" title="Popover preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "silva-ui"
+
+<Popover><PopoverTrigger><Button>Open filters</Button></PopoverTrigger><PopoverContent side="bottom">Filter controls</PopoverContent></Popover>
+```
+
+## Another composition
+
+```tsx
+import { Popover } from "silva-ui"
+
+<PopoverContent side="right" data-state="open">Open content</PopoverContent>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Popover and trigger: `BaseProps`; PopoverContent.side: `top` | `bottom` | `left` | `right`; data-state |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

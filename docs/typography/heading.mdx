@@ -1,0 +1,40 @@
+---
+title: Heading
+description: Semantic heading primitives. Aliases are fixed-level wrappers around Heading.
+---
+
+# Heading
+
+Semantic heading primitives. Aliases are fixed-level wrappers around Heading.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-2" title="Heading preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Heading, H1, H2, H3, H4, H5, H6 } from "silva-ui"
+
+<><Heading level={1}>Project overview</Heading><H2>Recent activity</H2></>
+```
+
+## Another composition
+
+```tsx
+import { Heading } from "silva-ui"
+
+<Heading level={3} color="primary">Settings</Heading>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | Heading.level: `1`–`6` (default `1`); H1–H6 take Heading props except `level` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

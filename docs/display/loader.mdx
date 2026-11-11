@@ -1,0 +1,40 @@
+---
+title: Loader
+description: A linear indeterminate loading indicator.
+---
+
+# Loader
+
+A linear indeterminate loading indicator.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=display-4" title="Loader preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Loader } from "silva-ui"
+
+<Loader aria-label="Saving changes" />
+```
+
+## Another composition
+
+```tsx
+import { Loader } from "silva-ui"
+
+<Loader size="sm" color="primary" />
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | size: `ComponentSize`; label: `string` (default `Loading...`) |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

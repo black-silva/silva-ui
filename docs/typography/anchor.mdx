@@ -1,0 +1,40 @@
+---
+title: Anchor
+description: A styled anchor with safe default rel handling for new tabs.
+---
+
+# Anchor
+
+A styled anchor with safe default rel handling for new tabs.
+
+All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprinkles and projection props, theme colours or gradients, `animation`, `class`, and `children`.
+
+## Preview
+
+<Frame>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=typography-1" title="Anchor preview" className="w-full h-80 rounded-xl"></iframe>
+</Frame>
+
+## Basic usage
+
+```tsx
+import { Anchor } from "silva-ui"
+
+<Anchor href="/docs/installation">Install Silva UI</Anchor>
+```
+
+## Another composition
+
+```tsx
+import { Anchor } from "silva-ui"
+
+<Anchor href="https://github.com/black-silva/silva-ui" target="_blank">View the repository</Anchor>
+```
+
+## Props
+
+| Prop | Type / behaviour |
+| --- | --- |
+| API-specific props | href: `string`; target: `string`; rel: `string`; disabled: `boolean` |
+
+For the complete public contract, see [Props reference](/docs/reference/props).

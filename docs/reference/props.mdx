@@ -1,0 +1,116 @@
+---
+title: Props reference
+description: Complete public component prop contracts, including compound component parts.
+---
+
+# Props reference
+
+Use this page as the searchable source of truth for component props. Each API page has a shorter table and working examples.
+
+## Shared `BaseProps`
+
+Every component extends `BaseProps` unless a row says otherwise. It includes all typed `Sprinkles` and projection props, plus the following additions.
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `backgroundColor` | `Sprinkles["backgroundColor"] \| GradientName` | Named gradients are accepted too. |
+| `color` | `Sprinkles["color"] \| GradientName` | Named gradients are accepted too. |
+| `animation` | `AnimationName` | Library-provided enter/attention animation. |
+| `class` | `string` | Merged after generated sprinkles classes. |
+| `children` | `any` | Kept framework-neutral for Hono JSX and similar renderers. |
+
+`ComponentSize` is `xs | sm | md | lg | xl`.
+
+## Layout
+
+| API | Exported props | API-specific props |
+| --- | --- | --- |
+| `Box` | `BoxProps` | `as?: string`, `gradient?: Gradient` |
+| `XStack`, `YStack`, `XGroup` | `XStackProps`, `YStackProps`, `XGroupProps` | `BaseProps` only |
+| `Separator` | `SeparatorProps` | `orientation?: horizontal | vertical`, `decorative?: boolean` |
+
+## Typography
+
+| API | Exported props | API-specific props |
+| --- | --- | --- |
+| `Text` | `TextProps` | `as?: string` plus BaseProps |
+| `SizableText` | `SizableTextProps` | `size?: ComponentSize` |
+| `Paragraph` | `ParagraphProps` | `SizableTextProps`; defaults `size=md`, `marginBottom=medium` |
+| `Heading` | `HeadingProps` | `level?: 1 | 2 | 3 | 4 | 5 | 6` |
+| `H1`–`H6` | no public alias type | `HeadingProps` without `level`; fixed semantic level |
+| `Anchor` | `AnchorProps` | `href?`, `target?`, `rel?`, `disabled?` |
+
+## Forms & input
+
+| API | Exported props | API-specific props |
+| --- | --- | --- |
+| `Button` | `ButtonProps` | `size?`, `variant?: solid \| outline \| ghost \| link`, `disabled?`, `type?`, `onClick?` |
+| `Input` | `InputProps` | `size?`, `type?`, `placeholder?`, `value?`, `defaultValue?`, `disabled?`, `required?`, `name?`, `id?` |
+| `TextArea` | `TextAreaProps` | `size?`, `placeholder?`, `value?`, `defaultValue?`, `disabled?`, `required?`, `name?`, `id?`, `rows?` |
+| `Label` | `LabelProps` | `for?`, `disabled?` |
+| `Form` | `FormProps` | native form props |
+| `Field` | `FieldProps` | `error?: string`, `helperText?: string` |
+| `FieldError`, `FieldHelper` | no dedicated public type | `BaseProps` |
+| `Checkbox` | `CheckboxProps` | native checked/defaultChecked, `disabled?`, `size?` |
+| `RadioGroup` | `RadioGroupProps` | `name?`, `value?`, `defaultValue?` |
+| `RadioGroupItem` | `RadioGroupItemProps` | `value: string` **required**, `name?`, `checked?`, `defaultChecked?`, `disabled?`, `id?`, `size?`, `onChange?` |
+| `Select` | `SelectProps` | `size?`, `disabled?`, `name?`, `value?`, `defaultValue?`, `id?`, `onChange?` |
+| `Slider` | `SliderProps` | `min?`, `max?`, `step?`, `value?`, `defaultValue?`, `disabled?`, `name?`, `id?`, `size?`, `onChange?`, `onInput?` |
+| `Switch` | `SwitchProps` | native checked/defaultChecked, `disabled?`, `size?` |
+| `ToggleGroup` | `ToggleGroupProps` | `type?: single | multiple` |
+| `ToggleGroupItem` | `ToggleGroupItemProps` | `value: string` **required**, `data-active?`, `disabled?`, `onClick?` |
+| `Progress` | `ProgressProps` | `value?`, `max?`, `size?` |
+
+## Display & media
+
+| API | Exported props | API-specific props |
+| --- | --- | --- |
+| `Avatar` | `AvatarProps` | `size?: ComponentSize` |
+| `AvatarImage` | `AvatarImageProps` | `src: string` **required**, `alt?` |
+| `AvatarFallback` | `AvatarFallbackProps` | `BaseProps` |
+| `Card` | `CardProps` | `bordered?: boolean` (default `true`), `elevated?: boolean` (default `false`) |
+| `CardHeader`, `CardFooter` | no dedicated public type | `BaseProps` |
+| `Image` | `ImageProps` | `src: string` **required**, `alt?`, native image props |
+| `ListItem` | `ListItemProps` | `title?`, `subTitle?`, `icon?`, `pressable?`, `size?`, `onClick?` |
+| `Spinner` | `SpinnerProps` | `size?`, `label?` |
+| `Loader` | `LoaderProps` | `size?`, `label?` |
+
+## Overlays & compound elements
+
+These primitives deliberately do not implement portals, focus traps, keyboard interactions, positioning, or state coordination. Build those behaviours in your application and reflect the result with the documented props.
+
+| Family / API | Exported props | API-specific props |
+| --- | --- | --- |
+| `Tabs` | `TabsProps` | `value?` |
+| `TabList` | `TabListProps` | `aria-label?` |
+| `Tab` | `TabProps` | `value?`, `data-active?`, `aria-controls?`, `aria-selected?`, `id?`, `onClick?` |
+| `TabPanel` | `TabPanelProps` | `value?`, `hidden?`, `id?`, `aria-labelledby?` |
+| `Dialog` | `DialogProps` | `open?` |
+| `DialogOverlay` | `DialogOverlayProps` | `data-state?: open | closed` |
+| `DialogContent` | `DialogContentProps` | `data-state?: open | closed` |
+| `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose` | no dedicated public type | `BaseProps` |
+| `AlertDialog` | `AlertDialogProps` | `open?` |
+| `AlertDialogOverlay` / `AlertDialogContent` | dedicated exported props | `data-state?: open | closed` |
+| Alert dialog header/footer/title/description/action/cancel | no dedicated public type | `BaseProps` |
+| `Popover` / `PopoverTrigger` / `PopoverClose` | `PopoverProps` for root | `BaseProps` for trigger/close |
+| `PopoverContent` | `PopoverContentProps` | `side?: top | bottom | left | right`, `data-state?` |
+| `Sheet` | `SheetProps` | `open?` |
+| `SheetOverlay` / `SheetContent` | dedicated exported props | `data-state?`; content also `side?: top | bottom | left | right` |
+| sheet header/footer/title/description/close | no dedicated public type | `BaseProps` |
+| `Tooltip` / `TooltipTrigger` | `TooltipProps` for root | `BaseProps` for trigger |
+| `TooltipContent` | `TooltipContentProps` | `side?: top | bottom | left | right`, `data-state?` |
+| `ToastProvider` | `ToastProviderProps` | `position?: top-right | top-left | bottom-right | bottom-left | top-center | bottom-center` |
+| `Toast` | `ToastProps` | `variant?: default | success | error | warning` |
+| toast title/description/close | no dedicated public type | `BaseProps` |
+| `MenuContent` | `MenuContentProps` | `data-state?` |
+| `MenuItem` | `MenuItemProps` | `disabled?`, `onClick?` |
+| menu root/trigger/separator/label/group | `MenuProps` for root | remaining parts use `BaseProps` |
+| `ContextMenuContent` | `ContextMenuContentProps` | `data-state?` |
+| `ContextMenuItem` | `ContextMenuItemProps` | `disabled?`, `onClick?` |
+| context-menu root/trigger/separator/label/group | `ContextMenuProps` for root | remaining parts use `BaseProps` |
+| `Accordion` | `AccordionProps` | `type?: single | multiple` |
+| `AccordionItem` | `AccordionItemProps` | `value?` |
+| `AccordionTrigger` | `AccordionTriggerProps` | `data-state?`, `onClick?` |
+| `AccordionContent` | `AccordionContentProps` | `data-state?` |
+
+For non-component exports and their types, see [Public exports](/docs/reference/exports).
