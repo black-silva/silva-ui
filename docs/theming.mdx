@@ -22,7 +22,11 @@ Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. 
   <Tab title="Code">
 
 ```tsx
-<Theme name="midnight"><Box bg="card" color="primary" p="large" borderRadius="large"><Text>Dark themed content</Text></Box></Theme>
+<Theme name="midnight">
+  <Box bg="card" color="primary" p="large" borderRadius="large">
+    <Text>Dark themed content</Text>
+  </Box>
+</Theme>
 ```
 
   </Tab>
@@ -98,7 +102,14 @@ export const brandTheme = createTheme(themeColors, {
   <Tab title="Code">
 
 ```tsx
-<Theme name="midnight"><Card bg="card" borderColor="border" bordered p="large"><YStack gap="medium"><Paragraph color="muted">A custom semantic palette.</Paragraph><Button>Choose plan</Button></YStack></Card></Theme>
+<Theme name="midnight">
+  <Card bg="card" borderColor="border" bordered p="large">
+    <YStack gap="medium">
+      <Paragraph color="muted">A custom semantic palette.</Paragraph>
+      <Button>Choose plan</Button>
+    </YStack>
+  </Card>
+</Theme>
 ```
 
   </Tab>

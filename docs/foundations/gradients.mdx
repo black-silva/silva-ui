@@ -22,7 +22,11 @@ Use semantic stops when a gradient has a UI role: `primary` and `primaryActive` 
   <Tab title="Code">
 
 ```tsx
-<Theme name="midnight"><Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} borderRadius="large" p="large"><Text color="primaryContrast">Theme-aware gradient</Text></Box></Theme>
+<Theme name="midnight">
+  <Box gradient={{ from: 'primary', via: 'violet9', to: 'cyan9', deg: 135 }} borderRadius="large" p="large">
+    <Text color="primaryContrast">Theme-aware gradient</Text>
+  </Box>
+</Theme>
 ```
 
   </Tab>
@@ -64,7 +68,14 @@ Token stops compile to Silva UI CSS variables. The gradient does not need to be 
   <Tab title="Code">
 
 ```tsx
-<YStack gap="medium"><Theme name="light"><Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" /></Theme><Theme name="midnight"><Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" /></Theme></YStack>
+<YStack gap="medium">
+  <Theme name="light">
+    <Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" />
+  </Theme>
+  <Theme name="midnight">
+    <Box gradient={{ from: 'primary', to: 'primaryHover' }} p="large" />
+  </Theme>
+</YStack>
 ```
 
   </Tab>
@@ -87,7 +98,9 @@ A gradient inside a custom theme resolves through that wrapper just like `bg`, `
   <Tab title="Code">
 
 ```tsx
-<Theme name="midnight"><Box gradient={{ from: 'primary', to: 'primaryActive', deg: 135 }} borderRadius="large" p="large">Brand-aware banner</Box></Theme>
+<Theme name="midnight">
+  <Box gradient={{ from: 'primary', to: 'primaryActive', deg: 135 }} borderRadius="large" p="large">Brand-aware banner</Box>
+</Theme>
 ```
 
   </Tab>
@@ -106,7 +119,10 @@ A gradient inside a custom theme resolves through that wrapper just like `bg`, `
   <Tab title="Code">
 
 ```tsx
-<YStack gap="medium"><Box gradient={{ type: 'radial', from: 'primary', to: 'background' }} p="large" /><Box gradient={{ type: 'conic', from: 'violet9', to: 'cyan9', deg: 45 }} p="large" /></YStack>
+<YStack gap="medium">
+  <Box gradient={{ type: 'radial', from: 'primary', to: 'background' }} p="large" />
+  <Box gradient={{ type: 'conic', from: 'violet9', to: 'cyan9', deg: 45 }} p="large" />
+</YStack>
 ```
 
   </Tab>
