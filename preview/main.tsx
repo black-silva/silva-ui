@@ -20,6 +20,7 @@ function ApiExample({ api, variant }: { api: string; variant: number }) {
     case 'checkbox': return stage(<Checkbox disabled={!!variant}>{variant ? 'Unavailable option' : 'Send updates'}</Checkbox>);
     case 'field': return stage(variant ? <Field><Input aria-invalid="true" placeholder="Email" /><FieldError>Enter a valid email address.</FieldError></Field> : <Field><Input placeholder="Project name" /><FieldHelper>Choose a clear name.</FieldHelper></Field>);
     case 'form': return stage(<Form onSubmit={(event) => event.preventDefault()}><Input placeholder={variant ? 'Search' : 'Email'} /><Button type="submit">{variant ? 'Search' : 'Subscribe'}</Button></Form>);
+    case 'installation': return stage(<Theme name="emerald" p="large"><YStack gap="medium" maxWidth={400}><H1>Hello, Silva</H1><Paragraph color="muted">Your UI is ready to grow.</Paragraph><Button type="button">Get started</Button></YStack></Theme>);
     case 'input': return stage(<Input placeholder={variant ? 'Project name' : 'you@example.com'} type={variant ? undefined : 'email'} />);
     case 'label': return stage(variant ? <><Label htmlFor="project-name">Project name</Label><Input id="project-name" /></> : <><Label htmlFor="email">Email</Label><Input id="email" type="email" /></>);
     case 'progress': return stage(<Progress value={variant ? 40 : 72} aria-label={variant ? 'Profile completion' : 'Upload progress'} />);
@@ -52,6 +53,7 @@ function ApiExample({ api, variant }: { api: string; variant: number }) {
   }
 }
 const previews: Record<string, () => any> = {
+  'api-installation-a': () => <ApiExample api="installation" variant={0} />,
   'api-01-a': () => <ApiExample api="avatar" variant={0} />,
   'api-01-b': () => <ApiExample api="avatar" variant={1} />,
   'api-02-a': () => <ApiExample api="card" variant={0} />,

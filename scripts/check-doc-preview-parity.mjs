@@ -5,15 +5,27 @@ const root = process.cwd();
 const sections = ['display', 'forms', 'layout', 'overlays', 'typography'];
 const errors = [];
 const docs = [];
+const iframeReferences = [];
 
-for (const section of sections) {
-  const files = (await readdir(path.join(root, 'docs', section))).filter(file => file.endsWith('.mdx')).sort();
-  for (const file of files) {
-    const relative = path.join('docs', section, file);
-    const source = await readFile(path.join(root, relative), 'utf8');
+const walkDocs = async (directory) => {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...await walkDocs(entryPath));
+    else if (entry.name.endsWith('.mdx')) files.push(entryPath);
+  }
+  return files;
+};
+
+for (const filePath of (await walkDocs(path.join(root, 'docs'))).sort()) {
+    const relative = path.relative(root, filePath);
+    const source = await readFile(filePath, 'utf8');
+    for (const [, id] of source.matchAll(/<iframe[^>]+example=([^"&\s]+)/g)) iframeReferences.push({ relative, id });
     const pairs = [...source.matchAll(/<Tab title="Preview">[\s\S]*?<iframe[^>]+example=([^"&]+)[\s\S]*?<\/Tab>\s*<Tab title="Code">[\s\S]*?```tsx\n([\s\S]*?)```[\s\S]*?<\/Tab>/g)];
-    if (pairs.length < 2) errors.push(`${relative}: expected at least two Preview/Code pairs, found ${pairs.length}`);
-    for (const [, id, code] of pairs) {
+    const isComponentApiPage = sections.includes(relative.split('/')[1]);
+    if (isComponentApiPage && pairs.length < 2) errors.push(`${relative}: expected at least two Preview/Code pairs, found ${pairs.length}`);
+    for (const [, id, code] of isComponentApiPage ? pairs : []) {
       if (!code.trim()) errors.push(`${relative}: ${id} has an empty Code snippet`);
       const imported = new Set([...code.matchAll(/import\s*{([^}]+)}/g)].flatMap(match => match[1].split(',').map(name => name.trim())));
       for (const [, component] of code.matchAll(/<([A-Z][A-Za-z0-9]*)\b/g)) {
@@ -22,16 +34,14 @@ for (const section of sections) {
       docs.push({ relative, id, code });
     }
   }
-}
 
 const preview = await readFile(path.join(root, 'preview/main.tsx'), 'utf8');
-for (const { relative, id } of docs) {
-  const pattern = new RegExp(`['"]${id}['"]\\s*:\\s*\\(\\)\\s*=>\\s*<ApiExample\\b`);
-  if (!pattern.test(preview)) errors.push(`${relative}: iframe example ${id} has no preview implementation`);
-}
-
 const implementationIds = [...preview.matchAll(/^\s*['"]([^'"]+)['"]:\s*\(\)\s*=>\s*<ApiExample\b/gm)].map(match => match[1]);
-const documentedIds = new Set(docs.map(item => item.id));
+const implementationIdSet = new Set(implementationIds);
+for (const { relative, id } of iframeReferences) {
+  if (!implementationIdSet.has(id)) errors.push(`${relative}: iframe example ${id} has no preview implementation`);
+}
+const documentedIds = new Set(iframeReferences.map(item => item.id));
 for (const id of implementationIds) if (!documentedIds.has(id)) errors.push(`preview/main.tsx: ${id} has no documentation iframe`);
 
 const compoundFamilies = {

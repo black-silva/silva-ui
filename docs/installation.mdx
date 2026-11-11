@@ -39,7 +39,7 @@ See [Create a Silva UI app](/docs/setup/create-silva-ui) for starter choices, su
   <Tab title="Preview">
 
 <Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=install-2" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
+  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=api-installation-a" title="Rendered Silva UI preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
   </Tab>
@@ -48,14 +48,14 @@ See [Create a Silva UI app](/docs/setup/create-silva-ui) for starter choices, su
 ```tsx
 import { Hono } from "hono"
 import "silva-ui/style.css"
-import { Button, Heading, Paragraph, Theme, YStack } from "silva-ui"
+import { Button, H1, Paragraph, Theme, YStack } from "silva-ui"
 
 const app = new Hono()
 
 app.get("/", (c) => c.html(
   <Theme name="emerald" p="large">
     <YStack gap="medium" maxWidth={400}>
-      <Heading level={1}>Hello, Silva</Heading>
+      <H1>Hello, Silva</H1>
       <Paragraph color="muted">Your UI is ready to grow.</Paragraph>
       <Button type="button">Get started</Button>
     </YStack>
