@@ -11,17 +11,24 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 
 ## Preview
 
+<Tabs sync={false}>
+  <Tab title="Preview">
+
 <Frame>
   <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-2" title="Tabs preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
-## Basic usage
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { Tabs, TabList, Tab, TabPanel } from "silva-ui"
 
 <Tabs value="profile"><TabList aria-label="Account sections"><Tab value="profile" data-active="true">Profile</Tab><Tab value="security">Security</Tab></TabList><TabPanel value="profile">Profile settings</TabPanel><TabPanel value="security" hidden>Security settings</TabPanel></Tabs>
 ```
+
+  </Tab>
+</Tabs>
 
 ## Another composition
 

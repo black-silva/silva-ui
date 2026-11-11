@@ -11,16 +11,6 @@ Silva UI components resolve CSS variables from the nearest theme scope. Use a bu
 
 Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. Theme scopes can nest, so a local section can use a different palette without changing the rest of the page.
 
-<Tabs sync={false}>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-1" title="Built-in theme preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
-  <Tab title="Code">
-
 ```tsx
 import { Box, Text, Theme } from "silva-ui"
 
@@ -30,9 +20,6 @@ import { Box, Text, Theme } from "silva-ui"
   </Box>
 </Theme>
 ```
-
-  </Tab>
-</Tabs>
 
 ## Semantic tokens first
 
@@ -93,16 +80,6 @@ export const brandTheme = createTheme(themeColors, {
 
 ### 3. Apply the custom scope
 
-<Tabs sync={false}>
-  <Tab title="Preview">
-
-<Frame>
-  <iframe src="https://black-silva.github.io/silva-ui/previews/?example=theming-2" title="Custom theme preview" className="w-full h-80 rounded-xl"></iframe>
-</Frame>
-
-  </Tab>
-  <Tab title="Code">
-
 ```tsx
 import "silva-ui/style.css"
 import { Button, Card, Paragraph, YStack } from "silva-ui"
@@ -121,9 +98,6 @@ export function PricingCard() {
   )
 }
 ```
-
-  </Tab>
-</Tabs>
 
 The wrapper provides `primary`, `card`, `border`, and the other variables. Any nested Silva UI component resolves them from that wrapper. You can put it inside a built-in `Theme` or make it the outer application scope.
 

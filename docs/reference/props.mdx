@@ -1,116 +1,128 @@
 ---
 title: Props reference
-description: Complete public component prop contracts, including compound component parts.
+description: Usable public props for every Silva UI component and compound part.
 ---
 
 # Props reference
 
-Use this page as the searchable source of truth for component props. Each API page has a shorter table and working examples.
+This is the practical prop reference. Component-specific props are listed below, while the shared styling props work on every primitive unless the component calls out an exception.
 
-## Shared `BaseProps`
+## Shared props on every component
 
-Every component extends `BaseProps` unless a row says otherwise. It includes all typed `Sprinkles` and projection props, plus the following additions.
+All primitives accept these props in addition to the props in their own row. They are forwarded with the remaining valid HTML attributes, including relevant event handlers such as `onClick`, `onChange`, `onInput`, `onFocus`, `onBlur`, `onKeyDown`, and ARIA/data attributes.
 
-| Prop | Type | Notes |
+| Prop group | Props you can use | What it does |
 | --- | --- | --- |
-| `backgroundColor` | `Sprinkles["backgroundColor"] \| GradientName` | Named gradients are accepted too. |
-| `color` | `Sprinkles["color"] \| GradientName` | Named gradients are accepted too. |
-| `animation` | `AnimationName` | Library-provided enter/attention animation. |
-| `class` | `string` | Merged after generated sprinkles classes. |
-| `children` | `any` | Kept framework-neutral for Hono JSX and similar renderers. |
+| Content and escape hatches | `children`, `class` | Render nested content; append CSS classes after generated styles. |
+| Colour and visual treatment | `color`, `backgroundColor`, `borderColor`, `borderWidth`, `borderStyle`, `borderRadius`, `opacity`, `animation` | Use theme colour tokens; `color` and `backgroundColor` also accept named gradients. |
+| Layout | `display`, `flexDirection`, `alignItems`, `justifyContent`, `flexWrap`, `flexGrow`, `flexShrink`, `alignSelf`, `gap` | Build flex and grid arrangements without application CSS. |
+| Spacing | `p`, `px`, `py`, `pt`, `pr`, `pb`, `pl`, `m`, `mx`, `my`, `mt`, `mr`, `mb`, `ml` | Padding and margin aliases; long forms such as `paddingTop` also work. |
+| Sizing | `w`, `h`, `width`, `height`, `minWidth`, `minHeight`, `maxWidth`, `maxHeight` | Token sizes and fluid projection values such as `$4`. |
+| Type | `fontSize`, `fontWeight`, `lineHeight`, `textAlign`, `textDecoration`, `textTransform`, `letterSpacing`, `whiteSpace`, `wordBreak` | Token-driven text presentation. |
+| Position and overflow | `position`, `top`, `right`, `bottom`, `left`, `zIndex`, `overflow`, `overflowX`, `overflowY`, `visibility` | Position surfaces and control clipped content. |
+| Interaction and media | `cursor`, `pointerEvents`, `userSelect`, `objectFit` | Interaction affordances and image fitting. |
 
-`ComponentSize` is `xs | sm | md | lg | xl`.
+`ComponentSize` means `xs | sm | md | lg | xl`. Projection-capable spacing, sizing, `fontSize`, `borderRadius`, and position props accept a fluid `$n` token as well as regular token values.
 
 ## Layout
 
-| API | Exported props | API-specific props |
+| Component | Component props | Common / native props |
 | --- | --- | --- |
-| `Box` | `BoxProps` | `as?: string`, `gradient?: Gradient` |
-| `XStack`, `YStack`, `XGroup` | `XStackProps`, `YStackProps`, `XGroupProps` | `BaseProps` only |
-| `Separator` | `SeparatorProps` | `orientation?: horizontal | vertical`, `decorative?: boolean` |
+| `Box` | `as?: string`; `gradient?: Gradient` | Shared props, especially layout, spacing, sizing, colours, `class`, and `children`; native props for the chosen element. |
+| `XStack` | No component-specific props | Shared flex, gap, spacing, sizing, colours, `class`, and `children`; normal container attributes. |
+| `YStack` | No component-specific props | Shared flex, gap, spacing, sizing, colours, `class`, and `children`; normal container attributes. |
+| `XGroup` | No component-specific props | Shared layout and spacing props; `class`, `children`, and normal container attributes. |
+| `Separator` | `orientation?: "horizontal" | "vertical"`; `decorative?: boolean` (default `true`) | Shared size, colour, margin, and `class`; use `decorative={false}` to expose separator semantics. |
 
 ## Typography
 
-| API | Exported props | API-specific props |
+| Component | Component props | Common / native props |
 | --- | --- | --- |
-| `Text` | `TextProps` | `as?: string` plus BaseProps |
-| `SizableText` | `SizableTextProps` | `size?: ComponentSize` |
-| `Paragraph` | `ParagraphProps` | `SizableTextProps`; defaults `size=md`, `marginBottom=medium` |
-| `Heading` | `HeadingProps` | `level?: 1 | 2 | 3 | 4 | 5 | 6` |
-| `H1`–`H6` | no public alias type | `HeadingProps` without `level`; fixed semantic level |
-| `Anchor` | `AnchorProps` | `href?`, `target?`, `rel?`, `disabled?` |
+| `Text` | `as?: string` | Shared type, colour, spacing, sizing, layout, `class`, `children`; attributes for the rendered element. |
+| `SizableText` | `size?: ComponentSize` | `Text` shared props plus `size`; `class`, `children`, and native text-element attributes. |
+| `Paragraph` | `size?: ComponentSize` (defaults to `md`) | Shared type, colour, spacing, sizing, `class`, `children`; native paragraph attributes. |
+| `Heading` | `level?: 1 | 2 | 3 | 4 | 5 | 6` | Shared type, colour, spacing, sizing, `class`, `children`; native heading attributes. |
+| `H1` through `H6` | Fixed semantic heading level | The same shared props as `Heading`, including `fontSize`, `color`, spacing, `class`, and `children`. |
+| `Anchor` | `href?: string`; `target?: string`; `rel?: string`; `disabled?: boolean` | Shared type, colour, spacing, `class`, `children`; native link attributes and events. `_blank` gets `noopener noreferrer` when `rel` is absent. |
 
-## Forms & input
+## Forms and input
 
-| API | Exported props | API-specific props |
+| Component | Component props | Common / native props |
 | --- | --- | --- |
-| `Button` | `ButtonProps` | `size?`, `variant?: solid \| outline \| ghost \| link`, `disabled?`, `type?`, `onClick?` |
-| `Input` | `InputProps` | `size?`, `type?`, `placeholder?`, `value?`, `defaultValue?`, `disabled?`, `required?`, `name?`, `id?` |
-| `TextArea` | `TextAreaProps` | `size?`, `placeholder?`, `value?`, `defaultValue?`, `disabled?`, `required?`, `name?`, `id?`, `rows?` |
-| `Label` | `LabelProps` | `for?`, `disabled?` |
-| `Form` | `FormProps` | native form props |
-| `Field` | `FieldProps` | `error?: string`, `helperText?: string` |
-| `FieldError`, `FieldHelper` | no dedicated public type | `BaseProps` |
-| `Checkbox` | `CheckboxProps` | native checked/defaultChecked, `disabled?`, `size?` |
-| `RadioGroup` | `RadioGroupProps` | `name?`, `value?`, `defaultValue?` |
-| `RadioGroupItem` | `RadioGroupItemProps` | `value: string` **required**, `name?`, `checked?`, `defaultChecked?`, `disabled?`, `id?`, `size?`, `onChange?` |
-| `Select` | `SelectProps` | `size?`, `disabled?`, `name?`, `value?`, `defaultValue?`, `id?`, `onChange?` |
-| `Slider` | `SliderProps` | `min?`, `max?`, `step?`, `value?`, `defaultValue?`, `disabled?`, `name?`, `id?`, `size?`, `onChange?`, `onInput?` |
-| `Switch` | `SwitchProps` | native checked/defaultChecked, `disabled?`, `size?` |
-| `ToggleGroup` | `ToggleGroupProps` | `type?: single | multiple` |
-| `ToggleGroupItem` | `ToggleGroupItemProps` | `value: string` **required**, `data-active?`, `disabled?`, `onClick?` |
-| `Progress` | `ProgressProps` | `value?`, `max?`, `size?` |
+| `Button` | `type?: "button" | "submit" | "reset"`; `variant?: "solid" | "outline" | "ghost" | "link"`; `size?: ComponentSize`; `disabled?: boolean` | Shared colour, spacing, layout, `class`, `children`; button attributes and events including `onClick`, `onFocus`, and `onBlur`. |
+| `Input` | `size?: ComponentSize` | Shared styling props and normal input attributes: `type`, `name`, `id`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`, `max`, `step`, `onInput`, `onChange`. |
+| `TextArea` | `size?: ComponentSize` | Shared styling props and textarea attributes: `name`, `id`, `value`, `defaultValue`, `placeholder`, `rows`, `cols`, `disabled`, `required`, `readOnly`, `onInput`, `onChange`. |
+| `Label` | `htmlFor?: string`; `size?: ComponentSize`; `required?: boolean` | Shared type, colour, spacing, `class`, `children`; label attributes and events. |
+| `Form` | No component-specific props | Shared layout, spacing, colour, `class`, `children`; form attributes such as `action`, `method`, `noValidate`, and `onSubmit`. |
+| `Field` | `error?: string`; `helperText?: string` | Shared layout, spacing, colour, `class`, `children`; container attributes. |
+| `FieldError` | No component-specific props | Shared type, colour, spacing, `class`, `children`; container attributes. |
+| `FieldHelper` | No component-specific props | Shared type, colour, spacing, `class`, `children`; container attributes. |
+| `Checkbox` | `label?: string`; `size?: ComponentSize` | Shared styling props plus checkbox attributes: `checked`, `defaultChecked`, `disabled`, `name`, `value`, `id`, `required`, `onChange`. |
+| `RadioGroup` | `name?: string`; `value?: string`; `defaultValue?: string` | Shared layout, gap, spacing, `class`, `children`; group attributes and events. Application state controls which item is checked. |
+| `RadioGroupItem` | `value: string` **required**; `name?: string`; `size?: ComponentSize` | Shared styling props plus radio attributes: `checked`, `defaultChecked`, `disabled`, `id`, `required`, `onChange`. |
+| `Select` | `size?: ComponentSize` | Shared styling props plus select attributes: `name`, `id`, `value`, `defaultValue`, `disabled`, `required`, `multiple`, `onChange`, and option `children`. |
+| `Slider` | `size?: ComponentSize` | Shared styling props plus range attributes: `min`, `max`, `step`, `value`, `defaultValue`, `disabled`, `name`, `id`, `onInput`, `onChange`. |
+| `Switch` | `size?: ComponentSize` | Shared styling props plus checkbox-like attributes: `checked`, `defaultChecked`, `disabled`, `name`, `value`, `id`, `required`, `onChange`. |
+| `ToggleGroup` | `type?: "single" | "multiple"` | Shared layout, gap, spacing, `class`, `children`; container attributes. Your app owns active-state coordination. |
+| `ToggleGroupItem` | `value: string` **required**; `data-active?: boolean | string`; `disabled?: boolean` | Shared styling props, `class`, `children`, and button events such as `onClick`. |
+| `Progress` | `value?: number`; `max?: number`; `size?: ComponentSize` | Shared size, colour, spacing, `class`; progress attributes including `aria-label` and `aria-valuetext`. |
 
-## Display & media
+## Display and media
 
-| API | Exported props | API-specific props |
+| Component | Component props | Common / native props |
 | --- | --- | --- |
-| `Avatar` | `AvatarProps` | `size?: ComponentSize` |
-| `AvatarImage` | `AvatarImageProps` | `src: string` **required**, `alt?` |
-| `AvatarFallback` | `AvatarFallbackProps` | `BaseProps` |
-| `Card` | `CardProps` | `bordered?: boolean` (default `true`), `elevated?: boolean` (default `false`) |
-| `CardHeader`, `CardFooter` | no dedicated public type | `BaseProps` |
-| `Image` | `ImageProps` | `src: string` **required**, `alt?`, native image props |
-| `ListItem` | `ListItemProps` | `title?`, `subTitle?`, `icon?`, `pressable?`, `size?`, `onClick?` |
-| `Spinner` | `SpinnerProps` | `size?`, `label?` |
-| `Loader` | `LoaderProps` | `size?`, `label?` |
+| `Avatar` | `size?: ComponentSize` | Shared sizing, colour, spacing, `class`, `children`; container attributes. |
+| `AvatarImage` | `src: string` **required**; `alt?: string` | Shared sizing, object fitting, `class`; native image attributes such as `loading`, `width`, `height`, and `onError`. |
+| `AvatarFallback` | No component-specific props | Shared type, colour, sizing, spacing, `class`, `children`; container attributes. |
+| `Card` | `bordered?: boolean` (default `true`); `elevated?: boolean` (default `false`) | Shared layout, spacing, sizing, colours, `class`, `children`; container attributes. |
+| `CardHeader` | No component-specific props | Shared layout, gap, spacing, colour, `class`, `children`; container attributes. |
+| `CardFooter` | No component-specific props | Shared layout, gap, spacing, colour, `class`, `children`; container attributes. |
+| `Image` | `src: string` **required**; `alt?: string` | Shared sizing, object fitting, border radius, `class`; native image attributes such as `loading`, `width`, `height`, and `onError`. |
+| `ListItem` | `title?: string`; `subTitle?: string`; `icon?: any`; `pressable?: boolean`; `size?: ComponentSize` | Shared layout, spacing, colour, `class`, `children`; when `pressable`, use `onClick`, keyboard handlers, and ARIA attributes as needed. |
+| `Spinner` | `size?: ComponentSize`; `label?: string` | Shared colour, spacing, `class`; use `aria-label` when the label should be announced. |
+| `Loader` | `size?: ComponentSize`; `label?: string` | Shared colour, spacing, sizing, `class`; use `aria-label` for loading context. |
 
-## Overlays & compound elements
+## Overlays and compound elements
 
-These primitives deliberately do not implement portals, focus traps, keyboard interactions, positioning, or state coordination. Build those behaviours in your application and reflect the result with the documented props.
+These are visual primitives. Your application owns portals, focus trapping, Escape handling, positioning, and state coordination. Pass `data-state="open" | "closed"` to the parts that animate or hide.
 
-| Family / API | Exported props | API-specific props |
+| Component | Component props | Common / native props |
 | --- | --- | --- |
-| `Tabs` | `TabsProps` | `value?` |
-| `TabList` | `TabListProps` | `aria-label?` |
-| `Tab` | `TabProps` | `value?`, `data-active?`, `aria-controls?`, `aria-selected?`, `id?`, `onClick?` |
-| `TabPanel` | `TabPanelProps` | `value?`, `hidden?`, `id?`, `aria-labelledby?` |
-| `Dialog` | `DialogProps` | `open?` |
-| `DialogOverlay` | `DialogOverlayProps` | `data-state?: open | closed` |
-| `DialogContent` | `DialogContentProps` | `data-state?: open | closed` |
-| `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose` | no dedicated public type | `BaseProps` |
-| `AlertDialog` | `AlertDialogProps` | `open?` |
-| `AlertDialogOverlay` / `AlertDialogContent` | dedicated exported props | `data-state?: open | closed` |
-| Alert dialog header/footer/title/description/action/cancel | no dedicated public type | `BaseProps` |
-| `Popover` / `PopoverTrigger` / `PopoverClose` | `PopoverProps` for root | `BaseProps` for trigger/close |
-| `PopoverContent` | `PopoverContentProps` | `side?: top | bottom | left | right`, `data-state?` |
-| `Sheet` | `SheetProps` | `open?` |
-| `SheetOverlay` / `SheetContent` | dedicated exported props | `data-state?`; content also `side?: top | bottom | left | right` |
-| sheet header/footer/title/description/close | no dedicated public type | `BaseProps` |
-| `Tooltip` / `TooltipTrigger` | `TooltipProps` for root | `BaseProps` for trigger |
-| `TooltipContent` | `TooltipContentProps` | `side?: top | bottom | left | right`, `data-state?` |
-| `ToastProvider` | `ToastProviderProps` | `position?: top-right | top-left | bottom-right | bottom-left | top-center | bottom-center` |
-| `Toast` | `ToastProps` | `variant?: default | success | error | warning` |
-| toast title/description/close | no dedicated public type | `BaseProps` |
-| `MenuContent` | `MenuContentProps` | `data-state?` |
-| `MenuItem` | `MenuItemProps` | `disabled?`, `onClick?` |
-| menu root/trigger/separator/label/group | `MenuProps` for root | remaining parts use `BaseProps` |
-| `ContextMenuContent` | `ContextMenuContentProps` | `data-state?` |
-| `ContextMenuItem` | `ContextMenuItemProps` | `disabled?`, `onClick?` |
-| context-menu root/trigger/separator/label/group | `ContextMenuProps` for root | remaining parts use `BaseProps` |
-| `Accordion` | `AccordionProps` | `type?: single | multiple` |
-| `AccordionItem` | `AccordionItemProps` | `value?` |
-| `AccordionTrigger` | `AccordionTriggerProps` | `data-state?`, `onClick?` |
-| `AccordionContent` | `AccordionContentProps` | `data-state?` |
+| `Tabs` | `value?: string` | Shared layout, spacing, `class`, `children`; your state selects the active tab. |
+| `TabList` | `aria-label?: string` | Shared layout, gap, spacing, `class`, `children`; tablist ARIA attributes. |
+| `Tab` | `value?: string`; `data-active?: boolean | string`; `aria-controls?: string`; `aria-selected?: boolean`; `id?: string` | Shared styling, `class`, `children`; button attributes and `onClick`. |
+| `TabPanel` | `value?: string`; `hidden?: boolean`; `id?: string`; `aria-labelledby?: string` | Shared layout, spacing, `class`, `children`; region attributes. |
+| `Dialog` | `open?: boolean` | Shared `class` and `children`; the root exposes `data-state`. |
+| `DialogOverlay` | `data-state?: "open" | "closed"` | Shared background colour, opacity, position, `class`; overlay click and ARIA attributes. |
+| `DialogContent` | `data-state?: "open" | "closed"` | Shared layout, size, spacing, background colour, `class`, `children`; dialog ARIA attributes. |
+| `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose` | No component-specific props | Shared layout/type/spacing/colour props, `class`, `children`; `DialogClose` also accepts button events. |
+| `AlertDialog` | `open?: boolean` | Shared `class` and `children`; the root exposes `data-state`. |
+| `AlertDialogOverlay`, `AlertDialogContent` | `data-state?: "open" | "closed"` | Same shared overlay/content styling props as `Dialog`; content has alert-dialog ARIA semantics. |
+| `AlertDialogHeader`, `AlertDialogFooter`, `AlertDialogTitle`, `AlertDialogDescription` | No component-specific props | Shared layout/type/spacing/colour props, `class`, `children`. |
+| `AlertDialogAction`, `AlertDialogCancel` | No component-specific props | Shared styling, `class`, `children`; button attributes and `onClick`. |
+| `Popover` | No component-specific props | Shared `class`, `children`; your application owns open state. |
+| `PopoverTrigger`, `PopoverClose` | No component-specific props | Shared styling, `class`, `children`; button attributes and events. |
+| `PopoverContent` | `side?: "top" | "bottom" | "left" | "right"`; `data-state?: "open" | "closed"` | Shared layout, spacing, background colour, position, `class`, `children`. |
+| `Sheet` | `open?: boolean` | Shared `class` and `children`; the root exposes `data-state`. |
+| `SheetOverlay` | `data-state?: "open" | "closed"` | Shared overlay styling, `class`, and events. |
+| `SheetContent` | `side?: "top" | "bottom" | "left" | "right"`; `data-state?: "open" | "closed"` | Shared layout, size, spacing, background colour, `class`, `children`; dialog ARIA attributes. |
+| `SheetHeader`, `SheetFooter`, `SheetTitle`, `SheetDescription` | No component-specific props | Shared layout/type/spacing/colour props, `class`, `children`. |
+| `SheetClose` | No component-specific props | Shared styling, `class`, `children`; button attributes and `onClick`. |
+| `Tooltip`, `TooltipTrigger` | No component-specific props | Shared `class`, `children`; trigger events such as `onMouseEnter`, `onMouseLeave`, `onFocus`, and `onBlur`. |
+| `TooltipContent` | `side?: "top" | "bottom" | "left" | "right"`; `data-state?: "open" | "closed"` | Shared colour, spacing, position, `class`, `children`. |
+| `ToastProvider` | `position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center"` | Shared spacing, `class`, `children`; it is a fixed toast viewport. |
+| `Toast` | `variant?: "default" | "success" | "error" | "warning"` | Shared layout, spacing, background colour, `class`, `children`; role is `status` with polite live announcements. |
+| `ToastTitle`, `ToastDescription` | No component-specific props | Shared type, colour, spacing, `class`, `children`. |
+| `ToastClose` | No component-specific props | Shared styling, `class`, `children`; button attributes and `onClick`. |
+| `Menu` / `ContextMenu` | No component-specific props | Shared `class`, `children`; your app owns the open state and placement. |
+| `MenuTrigger` / `ContextMenuTrigger` | No component-specific props | Shared styling, `class`, `children`; trigger events such as `onClick` or `onContextMenu`. |
+| `MenuContent` / `ContextMenuContent` | `data-state?: "open" | "closed"` | Shared layout, spacing, background colour, position, `class`, `children`. |
+| `MenuItem` / `ContextMenuItem` | `disabled?: boolean` | Shared styling, `class`, `children`; item events such as `onClick`. |
+| `MenuSeparator` / `ContextMenuSeparator` | No component-specific props | Shared size, colour, spacing, `class`; separator ARIA attributes. |
+| `MenuLabel` / `ContextMenuLabel` / `MenuGroup` / `ContextMenuGroup` | No component-specific props | Shared layout/type/spacing/colour props, `class`, `children`. |
+| `Accordion` | `type?: "single" | "multiple"` | Shared layout, spacing, `class`, `children`; your app owns expanded-item state. |
+| `AccordionItem` | `value?: string` | Shared layout, spacing, `class`, `children`. |
+| `AccordionTrigger` | `data-state?: "open" | "closed"` | Shared styling, `class`, `children`; button attributes and `onClick`. |
+| `AccordionContent` | `data-state?: "open" | "closed"` | Shared layout, spacing, `class`, `children`; region attributes. |
 
-For non-component exports and their types, see [Public exports](/docs/reference/exports).
+For the exact export names and TypeScript aliases, see [Public exports](/docs/reference/exports).

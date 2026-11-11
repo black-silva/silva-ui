@@ -11,17 +11,24 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 
 ## Preview
 
+<Tabs sync={false}>
+  <Tab title="Preview">
+
 <Frame>
   <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-9" title="ContextMenu preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
-## Basic usage
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuLabel, ContextMenuGroup } from "silva-ui"
 
 <ContextMenu><ContextMenuTrigger>Right-click target</ContextMenuTrigger><ContextMenuContent data-state="open"><ContextMenuItem>Rename</ContextMenuItem></ContextMenuContent></ContextMenu>
 ```
+
+  </Tab>
+</Tabs>
 
 ## Another composition
 

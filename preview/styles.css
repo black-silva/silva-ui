@@ -4,16 +4,24 @@
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 280px; background: #f8fafc; }
 #root { min-height: 100vh; }
-.preview { min-height: 100vh; display: grid; place-items: center; padding: 24px; overflow: hidden; }
+.preview { min-height: 100vh; display: grid; place-items: center; padding: 20px; overflow: hidden; }
 .preview > * { width: min(100%, 680px); }
-.preview-stage { width: 100%; min-height: 210px; display: grid; place-items: center; }
+.preview-stage { width: 100%; min-height: 250px; display: grid; place-items: center; }
 .preview-stack { width: min(100%, 520px); }
 .preview-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .preview-card { width: min(100%, 380px); }
-.preview-image { width: 220px; height: 112px; object-fit: cover; border-radius: 12px; }
-.preview-gradient { color: white; width: min(100%, 460px); min-height: 130px; display: grid; place-items: center; border-radius: 16px; font-weight: 700; }
-.preview-gradient.radial { background: radial-gradient(circle at 20% 20%, #dbeafe, #6366f1 44%, #312e81); }
-.preview-gradient.conic { background: conic-gradient(from 180deg, #10b981, #0ea5e9, #8b5cf6, #10b981); }
+.preview-image { width: min(100%, 260px); height: 132px; object-fit: cover; border-radius: 12px; }
+.preview-textarea { width: min(100%, 440px); }
+.preview-separator { width: min(100%, 420px); }
+.preview-heading { width: min(100%, 480px); }
+.preview-heading h1 { margin: 0; font-size: clamp(1.75rem, 7vw, 2.5rem); line-height: 1.1; }
+.preview-heading h2 { margin: 0; font-size: clamp(1.05rem, 4vw, 1.5rem); line-height: 1.25; }
+.preview-accordion { width: min(100%, 460px); }
+.preview-overlay { background: rgba(15, 23, 42, 0.48) !important; }
+.preview-modal { background: #ffffff !important; border: 1px solid #d7dee9; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3) !important; }
+.preview-alert { border-color: #f0b7b7; }
+.preview-sheet { background: #ffffff !important; border: 1px solid #d7dee9; border-bottom: 0; box-shadow: 0 -16px 48px rgba(15, 23, 42, 0.25) !important; }
 .preview-menu { position: relative; min-height: 150px; display: grid; place-items: center; }
 .preview-note { margin: 0; color: #64748b; font-size: 14px; }
 .preview-fallback { padding: 18px; border: 1px dashed #cbd5e1; border-radius: 12px; color: #475569; }
+@media (max-width: 420px) { .preview { padding: 14px; } .preview-stage { min-height: 220px; } }

@@ -11,17 +11,24 @@ All components accept [BaseProps](/docs/reference/props#shared-baseprops): sprin
 
 ## Preview
 
+<Tabs sync={false}>
+  <Tab title="Preview">
+
 <Frame>
   <iframe src="https://black-silva.github.io/silva-ui/previews/?example=overlay-10" title="Accordion preview" className="w-full h-80 rounded-xl"></iframe>
 </Frame>
 
-## Basic usage
+  </Tab>
+  <Tab title="Code">
 
 ```tsx
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "silva-ui"
 
 <Accordion type="single"><AccordionItem value="shipping"><AccordionTrigger data-state="open">Shipping</AccordionTrigger><AccordionContent data-state="open">Ships in two days.</AccordionContent></AccordionItem></Accordion>
 ```
+
+  </Tab>
+</Tabs>
 
 ## Another composition
 
