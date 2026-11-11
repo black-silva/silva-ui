@@ -19,7 +19,7 @@ test.describe('preview smoke audit', () => {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(`?example=${example}`);
-      await expect(page.locator('#root')).not.toBeEmpty();
+      await expect(page.locator('#root > *').first()).toBeAttached();
       expect(errors).toEqual([]);
     });
   }
@@ -61,6 +61,8 @@ test.describe('interactive preview audit', () => {
     await page.goto('?example=overlay-7');
     await page.getByRole('button', { name: 'Save changes' }).click();
     await expect(page.getByText('Changes saved')).toBeVisible();
+    await page.getByRole('button', { name: 'Close' }).click();
+    await expect(page.getByText('Changes saved')).toBeHidden();
   });
 
   test('accordion toggles its content', async ({ page }) => {

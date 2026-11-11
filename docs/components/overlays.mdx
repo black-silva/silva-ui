@@ -212,12 +212,14 @@ function TooltipPreview() { const [showTip, setShowTip] = useState(false); retur
   <Tab title="Code">
 
 ```tsx
-function ToastPreview() { const [shown, setShown] = useState(false); return <ToastProvider position="top-right">
-<Button onClick={() => setShown(true)}>Save changes</Button>{shown ? <Toast variant="success">
+function ToastPreview() { const [shown, setShown] = useState(false); return <>
+<Button onClick={() => setShown(true)}>Save changes</Button>
+<ToastProvider position="top-right">{shown ? <Toast variant="success">
   <ToastTitle>Changes saved</ToastTitle>
   <ToastDescription>Your project settings are up to date.</ToastDescription>
   <ToastClose onClick={() => setShown(false)} />
-</Toast> : null}</ToastProvider>; }
+</Toast> : null}</ToastProvider>
+</>; }
 ```
 
   </Tab>

@@ -24,6 +24,7 @@ globalStyle(`${overlay}[data-state="open"]`, {
 
 globalStyle(`${overlay}[data-state="closed"]`, {
   opacity: 0,
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 
@@ -76,6 +77,7 @@ globalStyle(`${contentBase}${sideVariant.bottom}[data-state="open"]`, {
 });
 globalStyle(`${contentBase}${sideVariant.bottom}[data-state="closed"]`, {
   transform: 'translateY(100%)',
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 
@@ -84,6 +86,7 @@ globalStyle(`${contentBase}${sideVariant.top}[data-state="open"]`, {
 });
 globalStyle(`${contentBase}${sideVariant.top}[data-state="closed"]`, {
   transform: 'translateY(-100%)',
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 
@@ -92,6 +95,7 @@ globalStyle(`${contentBase}${sideVariant.left}[data-state="open"]`, {
 });
 globalStyle(`${contentBase}${sideVariant.left}[data-state="closed"]`, {
   transform: 'translateX(-100%)',
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 
@@ -100,6 +104,7 @@ globalStyle(`${contentBase}${sideVariant.right}[data-state="open"]`, {
 });
 globalStyle(`${contentBase}${sideVariant.right}[data-state="closed"]`, {
   transform: 'translateX(100%)',
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 

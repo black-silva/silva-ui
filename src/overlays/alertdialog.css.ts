@@ -24,6 +24,7 @@ globalStyle(`${overlay}[data-state="open"]`, {
 
 globalStyle(`${overlay}[data-state="closed"]`, {
   opacity: 0,
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 
@@ -49,6 +50,7 @@ globalStyle(`${content}[data-state="open"]`, {
 
 globalStyle(`${content}[data-state="closed"]`, {
   opacity: 0,
+  visibility: 'hidden',
   pointerEvents: 'none',
 });
 

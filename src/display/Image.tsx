@@ -13,6 +13,8 @@ export interface ImageProps extends BaseProps {
 export function Image({
   src,
   alt = '',
+  width,
+  height,
   loading = 'lazy',
   class: extraClass,
   ...rest
@@ -28,6 +30,8 @@ export function Image({
       {...htmlProps}
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       loading={loading}
       class={className || undefined}
     />
