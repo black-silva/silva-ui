@@ -12,7 +12,7 @@ function ApiExample({ api, variant }: { api: string; variant: number }) {
   switch (api) {
     case 'avatar': return stage(variant ? <Avatar><AvatarFallback>UI</AvatarFallback></Avatar> : <Avatar><AvatarImage src="https://placehold.co/48" alt="BlackSilva" /><AvatarFallback>BS</AvatarFallback></Avatar>);
     case 'card': return stage(<Card><CardHeader>{variant ? 'Silva UI' : 'Release'}</CardHeader><Text>{variant ? 'Composable components.' : 'Ready to ship.'}</Text>{!variant && <CardFooter><Button>Open</Button></CardFooter>}</Card>);
-    case 'image': return stage(<Image src={variant ? 'https://placehold.co/320x180' : 'https://placehold.co/640x360'} alt={variant ? 'Small placeholder preview' : 'Placeholder preview'} />);
+    case 'image': return stage(<Image class="preview-image" src={variant ? 'https://placehold.co/320x180' : 'https://placehold.co/640x360'} alt={variant ? 'Small placeholder preview' : 'Placeholder preview'} />);
     case 'listItem': return stage(<ListItem title={variant ? 'Documentation' : 'Release notes'} subTitle={variant ? 'Two matched examples' : 'Updated today'} />);
     case 'loader': return stage(<Loader size={variant ? 'lg' : undefined} />);
     case 'spinner': return stage(<Spinner size={variant ? 'lg' : undefined} />);
@@ -30,7 +30,7 @@ function ApiExample({ api, variant }: { api: string; variant: number }) {
     case 'switch': return stage(<Switch checked={!variant} />);
     case 'textArea': return stage(<TextArea placeholder={variant ? 'Leave a comment' : 'Write release notes'} rows={3} />);
     case 'toggleGroup': return stage(variant ? <ToggleGroup><ToggleGroupItem value="grid">Grid</ToggleGroupItem><ToggleGroupItem value="list">List</ToggleGroupItem></ToggleGroup> : <ToggleGroup><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>);
-    case 'box': return stage(<Box as="article" p="medium"><Card><Image src="https://placehold.co/640x360" alt={variant ? 'Studio headphones' : 'Everyday carry bag'} /><CardHeader>{variant ? 'Studio headphones' : 'Everyday carry bag'}</CardHeader><Text>{variant ? 'R1,999 · Clear sound, all day.' : 'R699 · Built for daily essentials.'}</Text><CardFooter><Button variant={variant ? 'outline' : undefined}>{variant ? 'View product' : 'Add to cart'}</Button></CardFooter></Card></Box>);
+    case 'box': return stage(<Box as="article" p="medium"><Card><Image class="preview-image" src="https://placehold.co/640x360" alt={variant ? 'Studio headphones' : 'Everyday carry bag'} /><CardHeader>{variant ? 'Studio headphones' : 'Everyday carry bag'}</CardHeader><Text>{variant ? 'R1,999 · Clear sound, all day.' : 'R699 · Built for daily essentials.'}</Text><CardFooter><Button variant={variant ? 'outline' : undefined}>{variant ? 'View product' : 'Add to cart'}</Button></CardFooter></Card></Box>);
     case 'separator': return stage(<YStack><Text>{variant ? 'Billing' : 'Profile'}</Text><Separator /><Text>{variant ? 'Invoices' : 'Security'}</Text></YStack>);
     case 'stacks': return stage(variant ? <XStack><Button>Save</Button><Button variant="outline">Cancel</Button></XStack> : <YStack><Text>First</Text><Text>Second</Text></YStack>);
     case 'xGroup': return stage(<XGroup><Button>{variant ? 'Grid' : 'Day'}</Button><Button>{variant ? 'List' : 'Week'}</Button></XGroup>);
@@ -131,5 +131,9 @@ const previews: Record<string, () => any> = {
   'api-38-a': () => <ApiExample api="text" variant={0} />,
   'api-38-b': () => <ApiExample api="text" variant={1} />,
 };
-function App() { const id = new URLSearchParams(window.location.search).get('example') || 'api-01-a'; return <Theme name="light">{(previews[id] || previews['api-01-a'])()}</Theme>; }
+function App() {
+  const id = new URLSearchParams(window.location.search).get('example') || 'api-01-a';
+  const Preview = previews[id];
+  return <Theme name="light">{Preview ? <Preview /> : stage(<div class="preview-fallback">Unknown preview: {id}</div>)}</Theme>;
+}
 render(<App />, document.getElementById('root')!);

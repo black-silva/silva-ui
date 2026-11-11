@@ -10,7 +10,7 @@ body { margin: 0; min-width: 280px; background: #f8fafc; }
 .preview-stack { width: min(100%, 520px); }
 .preview-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .preview-card { width: min(100%, 380px); }
-.preview-image { width: min(100%, 260px); height: 132px; object-fit: cover; border-radius: 12px; }
+.preview-image { width: 100%; max-width: 260px; height: 132px; object-fit: cover; border-radius: 12px; }
 .preview-textarea { width: min(100%, 440px); }
 .preview-separator { width: min(100%, 420px); }
 .preview-heading { width: min(100%, 480px); }
