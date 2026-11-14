@@ -1,5 +1,5 @@
 import { cls } from './utils';
-import { accentContrast, cssNamedColors, mixColor, themeBaseVariable, themeColorVariable, themeContrastVariable, type ColorShade, type CSSNamedColor } from './colors';
+import { accentContrast, mixColor, themeBaseVariable, themeColorVariable, themeContrastVariable, type ColorShade, type CSSNamedColor } from './colors';
 import { themeColors, themes, type ThemeName } from './theme.css';
 import { darkColors, lightColors, themeTemplates } from './themes';
 import type { BaseProps } from './types';
@@ -22,7 +22,6 @@ function getDynamicColorTheme(name: string): ThemeStyle | undefined {
 
   const mode = match[1] ?? 'light';
   const colorName = match[2].toLowerCase();
-  if (!(cssNamedColors as readonly string[]).includes(colorName)) return undefined;
   const isDark = mode === 'dark';
   const scale = Array.from({ length: 10 }, (_, index) =>
     mixColor(`var(${themeColorVariable})`, (index + 1) as ColorShade, `var(${themeBaseVariable})`),
@@ -89,8 +88,6 @@ export function Theme({
 }: ThemeProps) {
   const namedThemeClass = (themes as Record<string, string>)[name] || (typeof name === 'string' && name.startsWith('theme_') ? name : undefined);
   const dynamicStyle = !namedThemeClass && typeof name === 'string' ? getDynamicColorTheme(name) : undefined;
-  // Reapply named token variables at this scope without serializing all 1,628
-  // tokens into every dynamic Theme's inline style.
   const themeClass = namedThemeClass ?? (dynamicStyle ? themes[name.startsWith('dark-') ? 'dark' : 'light'] : undefined);
   const isDark = name === 'dark' || name === 'emerald-dark' || name === 'midnight'
     || name.startsWith('dark-') || name.startsWith('dark_')
@@ -102,13 +99,11 @@ export function Theme({
       [themeContrastVariable]: accentContrast(accentColor, isDark),
     } : {}),
   };
-  const styleText = Object.keys(themeStyle).length
-    ? [
-      typeof inlineStyle === 'string'
-        ? inlineStyle
-        : Object.entries(inlineStyle ?? {}).map(([property, value]) => `${property.startsWith('--') ? property : property.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}:${value}`).join(';'),
-      ...Object.entries(themeStyle).map(([property, value]) => `${property}:${value}`),
-    ].filter(Boolean).join(';')
+  // Preserve object styles so Hono handles numeric units and client updates.
+  const mergedStyle = Object.keys(themeStyle).length
+    ? typeof inlineStyle === 'string'
+      ? [inlineStyle, ...Object.entries(themeStyle).map(([property, value]) => `${property}:${value}`)].filter(Boolean).join(';')
+      : { ...(inlineStyle ?? {}), ...themeStyle }
     : inlineStyle;
   const Component = Tag as any;
 
@@ -116,7 +111,7 @@ export function Theme({
     <Component
       {...rest}
       data-theme={name}
-      style={styleText}
+      style={mergedStyle}
       class={cls(themeClass, extraClass)}
     >
       {children}

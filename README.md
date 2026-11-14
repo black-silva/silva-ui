@@ -162,10 +162,18 @@ The palette provides typed scales for 148 CSS named colours, each with stops
 `1`–`10`. A stop mixes the literal named colour with the theme base in linear
 sRGB: `blue6` uses 60% blue, while `blue10` uses 100% blue. Built-in light
 scopes use a white base and dark scopes use black; these colours do not preserve
-the old Radix ramps. `colorScales` and `darkColorScales` expose ten-element
-arrays (index 0 is stop 1); `colorTokens` and `darkColorTokens` expose mix
-strings, including unnumbered aliases such as `blue` for `blue1`. Numbered
-tokens work with sprinkles and `themeColors` exposes the variable contract.
+the old Radix ramps. `colorScales` and `darkColorScales` lazily provide
+ten-element arrays (index 0 is stop 1); `colorTokens` and `darkColorTokens`
+lazily provide mix strings, with `blue` as an alias for `blue1`. These
+accessors are not enumerable catalogues: spreading them or using `Object.keys`
+does not yield the palette. No runtime named-colour catalogue is exported.
+
+Named colours are resolved on demand by component `color`, `backgroundColor`,
+`bg`, and `borderColor` props, including their state conditions. Direct
+`sprinkles()` accepts semantic colour tokens, not named palette tokens;
+`themeColors` and `tokens.colors` now contain semantic keys only. For a CSS
+value outside component props, use `namedColorTokenToCss('blue6')` or
+`colorTokens.blue6` instead of `themeColors.blue6`.
 
 Use tokens such as `bg="blue6"` or `borderColor="teal4"` when a hue is
 intentional. Semantic names such as `background`, `card`, `primary`, `muted`,
@@ -177,9 +185,11 @@ values such as `primary` and `ring`, but `blue6` still uses blue, not the accent
 assuming a stop is accessible.
 
 **Breaking migration:** numbered stops `11` and `12` and the predefined Radix
-ramps are removed. Do not silently clamp old indices to 10: choose semantic
-tokens for text and surfaces, or deliberately select and contrast-test a new
-stop or explicit colour for each use. Old Radix-only names and alpha ramps
+ramps are removed; the named-token resolver throws for invalid numbered shades.
+`createThemes` and `applyThemeTemplate` now throw for zero, non-integer or
+out-of-range palette indices instead of clamping them. Choose semantic tokens
+for text and surfaces, or deliberately select and contrast-test a new stop or
+explicit colour for each use. Old Radix-only names and alpha ramps
 such as `grass` and `blackA4` have no automatic equivalent; audit and replace
 them explicitly, using a custom theme or explicit colour where required. See
 the [migration guide](docs/theming.mdx#palette-migration) for details and
@@ -193,8 +203,8 @@ scope. For application-specific semantic colours, see the
 [custom theme guide](docs/theming.mdx#custom-themes-with-createtheme).
 
 `Theme` can be nested to switch a subtree back to any built-in theme. For inline styles, use the exported contract values such as
-`themeColors.background` or `themeColors.blue6`; Vanilla Extract can then keep
-the variable names consistent through production builds.
+`themeColors.background`; Vanilla Extract can then keep semantic variable names
+consistent through production builds.
 
 Silva UI follows Tamagui's palette/template model. The exported `createThemes` helper composes named palettes and
 templates into theme records, and built-in themes include generated surface
@@ -225,7 +235,9 @@ with `light-` or `dark-`:
 </Theme>
 ```
 
-These names are resolved from palette data at runtime and scoped to that
-`Theme` subtree. Built-in names such as `dark`, `emerald`, and `midnight`
+These names are resolved on demand and scoped to that `Theme` subtree. Runtime
+parsing does not verify that an alphabetic name is a real CSS colour; invalid
+names may generate invalid CSS, so validate untrusted names before use.
+Built-in names such as `dark`, `emerald`, and `midnight`
 continue to use their precompiled theme classes. Palette names include `red`,
 `blue`, `green`, and `purple`.

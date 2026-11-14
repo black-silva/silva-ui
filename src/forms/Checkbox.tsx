@@ -26,13 +26,14 @@ export function Checkbox({
   children,
   ...rest
 }: CheckboxProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
+  const { sprinklesProps, rest: htmlProps, dynamicColorStyle } = splitSprinklesProps(rest);
 
   const resolvedSize = (size === 'xs' ? 'sm' : size === 'xl' ? 'lg' : size) as 'sm' | 'md' | 'lg';
   const sizeClass = styles.sizeVariant[resolvedSize] || styles.sizeVariant.md;
 
   return (
     <label
+      style={dynamicColorStyle}
       class={cls(styles.root, toSprinklesClass(sprinklesProps), extraClass)}
       data-disabled={disabled ? 'true' : undefined}
     >

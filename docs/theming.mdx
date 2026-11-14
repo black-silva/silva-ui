@@ -49,13 +49,17 @@ Choose semantic tokens when a colour describes a UI role rather than a specific 
 
 The palette provides typed scales for 148 CSS named colours. Each has stops `1`–`10`: stop `n` mixes `n * 10%` of the literal named colour with the theme base using `color-mix(in srgb-linear, ...)`. For example, `blue6` is `color-mix(in srgb-linear, blue 60%, var(--silva-theme-base, white))` in `colorTokens`; `blue10` uses 100% blue. The built-in light and emerald scopes use a white base; dark, emerald-dark and midnight use black. A scope's `--silva-theme-base` takes precedence over the fallback in the exported values. These mixes do not preserve the old Radix colours.
 
-Use `bg="blue6"` or `borderColor="teal4"` on components, and `themeColors.blue6` for the CSS-variable contract. The public exports are:
+Use `bg="blue6"` or `borderColor="teal4"` on components. Named tokens are resolved on demand for `color`, `backgroundColor`, `bg`, and `borderColor`, including `default`, `hover`, `active`, and `focus` conditions (`focus` means `:focus-visible`). Semantic tokens take precedence: `white` and `black` are semantic colours on components, while `white1` and `black1` are named-scale mixes. Direct `sprinkles()` only has the semantic colour contract: `sprinkles({ backgroundColor: 'blue6' })` is no longer supported. Use a component prop, or obtain a CSS value for your own styles. If integrating `splitSprinklesProps` manually, apply both its returned `rest.style` and the class from `toSprinklesClass(sprinklesProps)` to the styled element; the class alone cannot supply the dynamic colour variables. The returned `dynamicColorStyle` also exposes those variables for components whose styled wrapper differs from the element receiving `rest`.
 
-- `cssNamedColors`: the readonly list of supported names; `CSSNamedColor`, `ColorShade` (`1`–`10`) and `ColorTokenName`: TypeScript types.
-- `colorTokens` and `darkColorTokens`: records of CSS mix strings keyed by name and numbered token, with white and black fallback bases respectively. In these records an unnumbered name such as `blue` equals `blue1`.
-- `colorScales` and `darkColorScales`: records keyed by colour, each containing ten mix strings in order. Array index `0` is stop `1`; index `9` is stop `10`.
-- `themeColors`: the CSS-variable contract used by components. The semantic `white` and `black` values override the same-named unnumbered palette aliases in this contract; numbered `white1` and `black1` remain scale tokens.
+The public exports are:
+
+- `CSSNamedColor`, `ColorShade` (`1`–`10`) and `ColorTokenName`: TypeScript types. The old `cssNamedColors` runtime array is no longer exported; there is no runtime catalogue of all colour names.
+- `namedColorTokenToCss('blue6')`: a CSS mix string using `var(--silva-theme-base, white)`. An unnumbered name such as `blue` resolves to stop 1. It returns `undefined` when the token does not match its lowercase alphabetic name and optional numeric suffix format, and throws `RangeError` for numeric suffixes outside `1`–`10`, including `11`, `12`, `0` and leading-zero forms.
+- `colorTokens.blue6` and `darkColorTokens.blue6`: lazy accessors for CSS mix strings with white and black fallback bases respectively; `colorTokens.blue` equals `colorTokens.blue1`. `colorScales.blue` and `darkColorScales.blue` lazily produce ten-element arrays, where index `0` is stop `1` and index `9` is stop `10`. These proxy accessors are **not enumerable catalogues**: `Object.keys`, `Object.entries` and object spread do not list or copy palette keys. Access individual keys instead.
+- `themeColors` and `tokens.colors`: semantic keys only. `themeColors.blue6` and other named palette keys are no longer in the variable contract; use `namedColorTokenToCss('blue6')` or `colorTokens.blue6` for a CSS value instead. Semantic keys such as `themeColors.background`, `themeColors.white` and `themeColors.black` remain.
 - `themeColorVariable` and `themeBaseVariable`: the strings `--silva-theme-color` and `--silva-theme-base`.
+
+TypeScript checks typed component props and `accentColor`, but `namedColorTokenToCss` accepts a string and only checks its shape and shade, not whether its alphabetic name is a real CSS colour. The lazy accessors have the same limitation for names supplied without type checking. For example, `namedColorTokenToCss('notacolor6')` returns a mix expression that the browser cannot use as a valid colour. Validate untrusted input against your own allowlist; do not rely on the helper or browser CSS parsing as application-level validation. `gradientToCss` resolves named tokens in the same way, so an unnumbered `blue` there means stop 1, not literal 100% blue; use `blue10` or an explicit CSS colour value if needed.
 
 ### Accent, named tokens and theme scopes
 
@@ -63,16 +67,16 @@ Use `bg="blue6"` or `borderColor="teal4"` on components, and `themeColors.blue6`
 
 Named scale tokens do **not** change hue with the accent: `blue6` always mixes literal `blue` with the scope's base, even under `accentColor="red"`. Switching light/dark changes the base, so the same named token can look different; stop 10 is the named colour in either mode. Built-in nested themes establish their own accent and base, while built-in surface variants inherit the parent accent and set their mode's base.
 
-`Theme` also accepts CSS named colours as dynamic names: `red` and `light-red` select light mode, while `dark-blue` selects dark mode. A dynamic theme uses its selected colour for the semantic surface template as well as the primary accent; an `accentColor` prop overrides that colour. Built-in names take precedence over dynamic names (for example, `light` and `dark`). `Theme` defaults to `light`, renders a `div` by default (`as` changes the element), and scopes the result to its subtree. Unknown names are not generated palette themes. Switching the `name` or `accentColor` updates that scope in the browser.
+`Theme` also accepts CSS named colours as dynamic names: `red` and `light-red` select light mode, while `dark-blue` selects dark mode. A dynamic theme uses its selected colour for the semantic surface template as well as the primary accent; an `accentColor` prop overrides that colour. Built-in names take precedence over dynamic names (for example, `light` and `dark`). `Theme` defaults to `light`, renders a `div` by default (`as` changes the element), and scopes the result to its subtree. The runtime accepts alphabetic dynamic names without checking a colour catalogue, so an unknown name such as `notacolor` can generate invalid CSS instead of being rejected. `name` also accepts arbitrary strings for theme classes; validate untrusted dynamic names with your own allowlist. Switching the `name` or `accentColor` updates that scope in the browser.
 
 ## Palette migration
 
 This is a **breaking change** for code that relies on the old palette data or colours:
 
-1. Search component props, gradients, custom theme contracts, theme templates, palette array indices, and CSS-variable references for stops `11` and `12`. These stops are removed; they are not aliases for stop `10` and must not be silently clamped. Use a semantic text or surface token where appropriate, or choose an explicit colour or a stop from `1`–`10` after checking the actual result in both light and dark themes. In particular, neither `blue11` nor `blue12` has a universally safe replacement.
+1. Search component props, gradients, custom theme contracts, theme templates, palette array indices, and CSS-variable references for stops `11` and `12`. These stops are invalid, not aliases for stop `10`; `namedColorTokenToCss('blue11')` and `namedColorTokenToCss('blue12')` throw `RangeError`, as do lazy token accesses and component or gradient paths that resolve these tokens. Use a semantic text or surface token where appropriate, or choose an explicit colour or a stop from `1`–`10` after checking the actual result in both light and dark themes. Neither `blue11` nor `blue12` has a universally safe replacement.
 2. The old non-CSS names `amber`, `bronze`, `grass`, `mauve`, `mint`, `sage`, `sand`, `sky` and `slate` are removed, including their unnumbered aliases and numbered tokens. Audit palette keys and dynamic theme names too. Similar CSS names such as `skyblue` or `slategray` are not visual replacements. Even names retained by both systems, such as `blue` and `tomato`, have different scale values; review all uses, not just removed names.
 3. The old alpha ramps and aliases, including `blackA`, `whiteA`, `blackA4` and `whiteA4`, are removed; any old hue alpha keys such as `blueA4` are also gone. Mixing an opaque named colour with an opaque base is not an alpha ramp. Preserve transparency with a deliberately selected translucent CSS value, for example `rgba(0, 0, 0, 0.071)` in a custom semantic theme value or a gradient stop, then test it over its actual backgrounds. Do not assume the old alpha or visual appearance is preserved.
-4. Review custom `createThemes` palettes and templates for the new ten-stop scales. Scale arrays are zero-based, while `applyThemeTemplate` uses positive 1-based indices and negative indices from the end; it clamps out-of-range values. Note that the built-in `themePalettes.light` and `.dark` also include transparent entries at both ends, so they have 12 entries despite having only ten colour stops. Update indices and overrides deliberately rather than relying on clamping.
+4. Review custom `createThemes` palettes and templates for the new ten-stop scales. Scale arrays are zero-based; `applyThemeTemplate` uses positive 1-based indices and negative indices from the end (`-1` is the last entry). Zero, non-integer and out-of-range indices now throw `RangeError` instead of being clamped. A non-nullish explicit value for a template key bypasses index resolution for that key. The internal built-in light and dark palettes include transparent entries at both ends, so they have 12 entries despite having only ten colour stops. Update indices and overrides deliberately rather than relying on clamping.
 5. Check text, icons, borders, focus indicators and interactive states against their actual adjacent backgrounds in each theme, including hover and disabled states. Check `primaryContrast` whenever the accent changes: the automatic black-or-white selection does not guarantee adequate contrast in every state. Use your applicable WCAG contrast requirements; stop numbers alone do not guarantee contrast.
 
 ### Browser compatibility
@@ -101,14 +105,13 @@ export default defineConfig({
 
 ### 2. Create the theme in a CSS module
 
-Use a `*.css.ts` file so Vanilla Extract can compile it. Spreading the Silva UI exports fills the complete token contract, then your semantic overrides define the brand.
+Use a `*.css.ts` file so Vanilla Extract can compile it. Spreading `lightColors` fills the semantic token contract, then your overrides define the brand. Do not spread `colorTokens`: its lazy keys are not enumerable and the contract no longer includes named palette keys.
 
 ```ts src/brand-theme.css.ts
 import { createTheme } from "@vanilla-extract/css"
-import { colorTokens, lightColors, themeColors } from "silva-ui"
+import { lightColors, themeColors } from "silva-ui"
 
 export const brandTheme = createTheme(themeColors, {
-  ...colorTokens,
   ...lightColors,
   primary: "#7c3aed",
   primaryHover: "#6d28d9",
@@ -153,14 +156,13 @@ The preview above shows a built-in `midnight` scope; it does not apply the custo
 
 ### Dark custom theme
 
-Start a dark version from the dark defaults. Put the wrapper with this class inside a dark `Theme` scope so its palette mixes inherit a dark theme base; spreading `darkColorTokens` alone does not override an inherited light base.
+Start a dark version from the dark semantic defaults. Put the wrapper with this class inside a dark `Theme` scope so named-colour mixes inherit a dark theme base. The custom semantic class itself does not change `--silva-theme-base`.
 
 ```ts src/brand-dark-theme.css.ts
 import { createTheme } from "@vanilla-extract/css"
-import { darkColorTokens, darkColors, themeColors } from "silva-ui"
+import { darkColors, themeColors } from "silva-ui"
 
 export const brandDarkTheme = createTheme(themeColors, {
-  ...darkColorTokens,
   ...darkColors,
   primary: "#a78bfa",
   primaryHover: "#c4b5fd",

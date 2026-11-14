@@ -63,7 +63,7 @@ export function Select({
   options: providedOptions,
   ...rest
 }: SelectProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
+  const { sprinklesProps, rest: htmlProps, dynamicColorStyle } = splitSprinklesProps(rest);
   const resolvedSize = (size === 'xs' ? 'sm' : size === 'xl' ? 'lg' : size) as 'sm' | 'md' | 'lg';
   const selectIdValue = id ?? `silva-select-${++selectId}`;
   const [options, setOptions] = useState<SelectOption[]>([]);
@@ -158,7 +158,7 @@ export function Select({
   };
 
   return (
-    <div id={`${selectIdValue}-root`} class={cls(styles.wrapper, toSprinklesClass(sprinklesProps), extraClass)}>
+    <div style={dynamicColorStyle} id={`${selectIdValue}-root`} class={cls(styles.wrapper, toSprinklesClass(sprinklesProps), extraClass)}>
       <select
         {...htmlProps}
         id={selectIdValue}

@@ -1,9 +1,8 @@
 import { createGlobalTheme, createThemeContract, globalStyle, style } from '@vanilla-extract/css';
-import { accentContrast, colorTokenContract, colorTokens, themeBaseVariable, themeColorVariable, themeContrastVariable, type CSSNamedColor } from '../colors';
+import { accentContrast, themeBaseVariable, themeColorVariable, themeContrastVariable, type CSSNamedColor } from '../colors';
 import { allThemeDefinitions, lightColors } from '../themes';
 
 const themeContract = {
-  ...colorTokenContract,
   primary: '',
   primaryHover: '',
   primaryActive: '',
@@ -29,7 +28,6 @@ const themeContract = {
 export const themeColors = createThemeContract(themeContract);
 
 const defaultThemeValues: { [Key in keyof typeof themeContract]: string } = {
-  ...colorTokens,
   ...lightColors,
 };
 
@@ -37,14 +35,6 @@ createGlobalTheme(':root', themeColors, defaultThemeValues);
 globalStyle(':root', { vars: { [themeColorVariable]: 'deepskyblue', [themeBaseVariable]: 'white' } });
 globalStyle('html, body', { margin: 0, minHeight: '100%' });
 
-// All palette values use the same expression in both modes. Redeclare them at
-// each theme boundary so CSS resolves the base in that scope, rather than at an
-// ancestor. Share one rule instead of copying 1,628 declarations per theme.
-const paletteVars = Object.fromEntries(
-  Object.entries(colorTokens)
-    .filter(([name]) => !(name in lightColors))
-    .map(([name, value]) => [themeColors[name as keyof typeof themeColors], value]),
-);
 const semanticVars = (values: typeof lightColors) => Object.fromEntries(
   Object.entries(values).map(([name, value]) => [themeColors[name as keyof typeof themeColors], value]),
 );
@@ -60,11 +50,6 @@ export const themes = Object.fromEntries(
     return [name, className];
   }),
 ) as { [Name in keyof typeof allThemeDefinitions]: string };
-
-const themeSelectors = Object.entries(themes)
-  .flatMap(([name, className]) => [`[data-theme="${name}"]`, `.${className}`])
-  .join(', ');
-globalStyle(themeSelectors, { vars: paletteVars });
 
 const themeInputs: Record<string, { color: CSSNamedColor; base: string }> = {
   light: { color: 'deepskyblue', base: 'white' },

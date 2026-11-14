@@ -1,38 +1,153 @@
 /** CSS Color Level 4 named colors (excluding transparent and currentColor). */
-export const cssNamedColors = [
-  'aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure',
-  'beige', 'bisque', 'black', 'blanchedalmond', 'blue',
-  'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse',
-  'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson',
-  'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray',
-  'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen',
-  'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen',
-  'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet',
-  'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue',
-  'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro',
-  'ghostwhite', 'gold', 'goldenrod', 'gray', 'green',
-  'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred',
-  'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush',
-  'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan',
-  'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink',
-  'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey',
-  'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen',
-  'magenta', 'maroon', 'mediumaquamarine', 'mediumblue', 'mediumorchid',
-  'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise',
-  'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin',
-  'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab',
-  'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen',
-  'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru',
-  'pink', 'plum', 'powderblue', 'purple', 'rebeccapurple',
-  'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon',
-  'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver',
-  'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow',
-  'springgreen', 'steelblue', 'tan', 'teal', 'thistle',
-  'tomato', 'turquoise', 'violet', 'wheat', 'white',
-  'whitesmoke', 'yellow', 'yellowgreen',
-] as const;
-
-export type CSSNamedColor = (typeof cssNamedColors)[number];
+export type CSSNamedColor =
+  'aliceblue' |
+  'antiquewhite' |
+  'aqua' |
+  'aquamarine' |
+  'azure' |
+  'beige' |
+  'bisque' |
+  'black' |
+  'blanchedalmond' |
+  'blue' |
+  'blueviolet' |
+  'brown' |
+  'burlywood' |
+  'cadetblue' |
+  'chartreuse' |
+  'chocolate' |
+  'coral' |
+  'cornflowerblue' |
+  'cornsilk' |
+  'crimson' |
+  'cyan' |
+  'darkblue' |
+  'darkcyan' |
+  'darkgoldenrod' |
+  'darkgray' |
+  'darkgreen' |
+  'darkgrey' |
+  'darkkhaki' |
+  'darkmagenta' |
+  'darkolivegreen' |
+  'darkorange' |
+  'darkorchid' |
+  'darkred' |
+  'darksalmon' |
+  'darkseagreen' |
+  'darkslateblue' |
+  'darkslategray' |
+  'darkslategrey' |
+  'darkturquoise' |
+  'darkviolet' |
+  'deeppink' |
+  'deepskyblue' |
+  'dimgray' |
+  'dimgrey' |
+  'dodgerblue' |
+  'firebrick' |
+  'floralwhite' |
+  'forestgreen' |
+  'fuchsia' |
+  'gainsboro' |
+  'ghostwhite' |
+  'gold' |
+  'goldenrod' |
+  'gray' |
+  'green' |
+  'greenyellow' |
+  'grey' |
+  'honeydew' |
+  'hotpink' |
+  'indianred' |
+  'indigo' |
+  'ivory' |
+  'khaki' |
+  'lavender' |
+  'lavenderblush' |
+  'lawngreen' |
+  'lemonchiffon' |
+  'lightblue' |
+  'lightcoral' |
+  'lightcyan' |
+  'lightgoldenrodyellow' |
+  'lightgray' |
+  'lightgreen' |
+  'lightgrey' |
+  'lightpink' |
+  'lightsalmon' |
+  'lightseagreen' |
+  'lightskyblue' |
+  'lightslategray' |
+  'lightslategrey' |
+  'lightsteelblue' |
+  'lightyellow' |
+  'lime' |
+  'limegreen' |
+  'linen' |
+  'magenta' |
+  'maroon' |
+  'mediumaquamarine' |
+  'mediumblue' |
+  'mediumorchid' |
+  'mediumpurple' |
+  'mediumseagreen' |
+  'mediumslateblue' |
+  'mediumspringgreen' |
+  'mediumturquoise' |
+  'mediumvioletred' |
+  'midnightblue' |
+  'mintcream' |
+  'mistyrose' |
+  'moccasin' |
+  'navajowhite' |
+  'navy' |
+  'oldlace' |
+  'olive' |
+  'olivedrab' |
+  'orange' |
+  'orangered' |
+  'orchid' |
+  'palegoldenrod' |
+  'palegreen' |
+  'paleturquoise' |
+  'palevioletred' |
+  'papayawhip' |
+  'peachpuff' |
+  'peru' |
+  'pink' |
+  'plum' |
+  'powderblue' |
+  'purple' |
+  'rebeccapurple' |
+  'red' |
+  'rosybrown' |
+  'royalblue' |
+  'saddlebrown' |
+  'salmon' |
+  'sandybrown' |
+  'seagreen' |
+  'seashell' |
+  'sienna' |
+  'silver' |
+  'skyblue' |
+  'slateblue' |
+  'slategray' |
+  'slategrey' |
+  'snow' |
+  'springgreen' |
+  'steelblue' |
+  'tan' |
+  'teal' |
+  'thistle' |
+  'tomato' |
+  'turquoise' |
+  'violet' |
+  'wheat' |
+  'white' |
+  'whitesmoke' |
+  'yellow' |
+  'yellowgreen';
 export type ColorShade = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 export type ColorTokenName = `${CSSNamedColor}${ColorShade}` | CSSNamedColor;
 
@@ -64,34 +179,42 @@ export function accentContrast(color: CSSNamedColor, isDark: boolean): string {
 
 /** Shade 1 is 10% color; shade 10 is 100% color. */
 export function mixColor(color: string, shade: ColorShade, base: string): string {
+  if (!Number.isInteger(shade) || shade < 1 || shade > 10) throw new RangeError(`Invalid color shade ${shade}: use 1–10`);
   return `color-mix(in srgb-linear, ${color} ${shade * 10}%, ${base})`;
 }
 
-function createPaletteTokens(base: string) {
-  const tokens: Record<string, string> = {};
-  const scales: Record<string, string[]> = {};
-  for (const color of cssNamedColors) {
-    const scale = Array.from({ length: 10 }, (_, index) =>
-      mixColor(color, (index + 1) as ColorShade, base),
-    );
-    scales[color] = scale;
-    tokens[color] = scale[0];
-    scale.forEach((value, index) => { tokens[`${color}${index + 1}`] = value; });
+/** Resolve a named palette token on demand. No list of names is shipped at runtime.
+ * Types enforce valid names; at runtime CSS validates the color identifier. */
+export function namedColorTokenToCss(token: string): string | undefined {
+  const match = /^([a-z]+)([0-9]+)?$/.exec(token);
+  if (!match) return undefined;
+  const shade = match[2] === undefined ? 1 : Number(match[2]);
+  if (match[2] !== undefined && (!/^(?:[1-9]|10)$/.test(match[2]))) {
+    throw new RangeError(`Invalid color shade in "${token}": use 1–10`);
   }
-  return {
-    tokens: tokens as Record<ColorTokenName, string>,
-    scales: scales as Record<CSSNamedColor, string[]>,
-  };
+  return mixColor(match[1], shade as ColorShade, `var(${themeBaseVariable}, white)`);
 }
 
-// Named tokens always use their own literal CSS color, never the accent hue.
-// The variable is resolved on each theme scope, allowing light/dark switches.
-const light = createPaletteTokens(`var(${themeBaseVariable}, white)`);
-const dark = createPaletteTokens(`var(${themeBaseVariable}, black)`);
-export const colorTokens = light.tokens;
-export const darkColorTokens = dark.tokens;
-export const colorScales = light.scales;
-export const darkColorScales = dark.scales;
-export const colorTokenContract = Object.fromEntries(
-  Object.keys(colorTokens).map((name) => [name, '']),
-) as Record<ColorTokenName, ''>;
+// Compatibility accessors construct values only when requested. These are not
+// enumerable token catalogues, and their keys cannot be used as sprinkles classes.
+function lazyTokens(base: string): Record<ColorTokenName, string> {
+  return new Proxy({} as Record<ColorTokenName, string>, {
+    get(_target, key) {
+      if (typeof key !== 'string') return undefined;
+      const value = namedColorTokenToCss(key);
+      return value?.replace(`var(${themeBaseVariable}, white)`, base);
+    },
+  });
+}
+function lazyScales(base: string): Record<CSSNamedColor, string[]> {
+  return new Proxy({} as Record<CSSNamedColor, string[]>, {
+    get(_target, key) {
+      if (typeof key !== 'string' || !/^[a-z]+$/.test(key)) return undefined;
+      return Array.from({ length: 10 }, (_, i) => mixColor(key, (i + 1) as ColorShade, base));
+    },
+  });
+}
+export const colorTokens = lazyTokens(`var(${themeBaseVariable}, white)`);
+export const darkColorTokens = lazyTokens(`var(${themeBaseVariable}, black)`);
+export const colorScales = lazyScales(`var(${themeBaseVariable}, white)`);
+export const darkColorScales = lazyScales(`var(${themeBaseVariable}, black)`);
