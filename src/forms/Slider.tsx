@@ -30,13 +30,13 @@ export function Slider({
   class: extraClass,
   ...rest
 }: SliderProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
+  const { sprinklesProps, rest: htmlProps, dynamicColorStyle } = splitSprinklesProps(rest);
 
   const resolvedSize = (size === 'xs' ? 'sm' : size === 'xl' ? 'lg' : size) as 'sm' | 'md' | 'lg';
   const sizeClass = styles.sizeVariant[resolvedSize] || styles.sizeVariant.md;
 
   return (
-    <div class={cls(styles.root, toSprinklesClass(sprinklesProps), extraClass)}>
+    <div style={dynamicColorStyle} class={cls(styles.root, toSprinklesClass(sprinklesProps), extraClass)}>
       <input
         {...htmlProps}
         type="range"

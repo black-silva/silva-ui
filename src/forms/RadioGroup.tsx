@@ -70,7 +70,7 @@ export function RadioGroupItem({
   children,
   ...rest
 }: RadioGroupItemProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
+  const { sprinklesProps, rest: htmlProps, dynamicColorStyle } = splitSprinklesProps(rest);
 
   const resolvedSize = (size === 'xs' ? 'sm' : size === 'xl' ? 'lg' : size) as 'sm' | 'md' | 'lg';
   const sizeClass = styles.sizeVariant[resolvedSize] || styles.sizeVariant.md;
@@ -78,6 +78,7 @@ export function RadioGroupItem({
 
   return (
     <label
+      style={dynamicColorStyle}
       class={cls(styles.item, toSprinklesClass(sprinklesProps), extraClass)}
       data-disabled={disabled ? 'true' : undefined}
     >

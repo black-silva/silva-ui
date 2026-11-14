@@ -1,15 +1,8 @@
-import { createGlobalTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
-import { colorTokenContract, colorTokens, darkColorTokens } from '../colors';
-import { buildThemeSet } from '../theme-builder';
-import {
-  allThemeDefinitions,
-  darkThemeNames,
-  lightColors,
-} from '../themes';
-import { createTheme } from '../create-theme';
+import { createGlobalTheme, createThemeContract, globalStyle, style } from '@vanilla-extract/css';
+import { accentContrast, themeBaseVariable, themeColorVariable, themeContrastVariable, type CSSNamedColor } from '../colors';
+import { allThemeDefinitions, lightColors } from '../themes';
 
 const themeContract = {
-  ...colorTokenContract,
   primary: '',
   primaryHover: '',
   primaryActive: '',
@@ -35,42 +28,46 @@ const themeContract = {
 export const themeColors = createThemeContract(themeContract);
 
 const defaultThemeValues: { [Key in keyof typeof themeContract]: string } = {
-  ...colorTokens,
   ...lightColors,
 };
 
 createGlobalTheme(':root', themeColors, defaultThemeValues);
-globalStyle('html, body', {
-  margin: 0,
-  minHeight: '100%',
-});
+globalStyle(':root', { vars: { [themeColorVariable]: 'deepskyblue', [themeBaseVariable]: 'white' } });
+globalStyle('html, body', { margin: 0, minHeight: '100%' });
 
-const themedValues = Object.fromEntries(
-  Object.entries(allThemeDefinitions).map(([name, values]) => [
-    name,
-    {
-      ...(
-        darkThemeNames.has(name) ||
-        name.startsWith('dark_') ||
-        name.startsWith('emerald-dark_') ||
-        name.startsWith('midnight_')
-          ? darkColorTokens
-          : colorTokens
-      ),
-      ...values,
-    },
-  ]),
-) as { [Name in keyof typeof allThemeDefinitions]: typeof defaultThemeValues };
-
-for (const [name, values] of Object.entries(themedValues)) {
-  createGlobalTheme(`[data-theme="${name}"]`, themeColors, values);
-}
-
-export const themes = buildThemeSet(
-  (values) => createTheme(themeColors, values),
-  defaultThemeValues,
-  themedValues,
+const semanticVars = (values: typeof lightColors) => Object.fromEntries(
+  Object.entries(values).map(([name, value]) => [themeColors[name as keyof typeof themeColors], value]),
 );
+
+// Classes and data-theme selectors have the same semantic values, but palette
+// declarations are shared below. This also avoids copying the whole contract
+// into both versions of each theme.
+export const themes = Object.fromEntries(
+  Object.entries(allThemeDefinitions).map(([name, values]) => {
+    const vars = semanticVars(values);
+    const className = style({ vars });
+    globalStyle(`[data-theme="${name}"]`, { vars });
+    return [name, className];
+  }),
+) as { [Name in keyof typeof allThemeDefinitions]: string };
+
+const themeInputs: Record<string, { color: CSSNamedColor; base: string }> = {
+  light: { color: 'deepskyblue', base: 'white' },
+  dark: { color: 'deepskyblue', base: 'black' },
+  emerald: { color: 'seagreen', base: 'white' },
+  'emerald-dark': { color: 'seagreen', base: 'black' },
+  midnight: { color: 'slateblue', base: 'black' },
+};
+for (const [name, className] of Object.entries(themes)) {
+  const inputs = themeInputs[name.split('_')[0]];
+  if (!inputs) continue;
+  globalStyle(`[data-theme="${name}"], .${className}`, {
+    // Surface themes inherit the selected accent from their parent scope.
+    vars: name.includes('_')
+      ? { [themeBaseVariable]: inputs.base }
+      : { [themeColorVariable]: inputs.color, [themeBaseVariable]: inputs.base, [themeContrastVariable]: accentContrast(inputs.color, inputs.base === 'black') },
+  });
+}
 
 export const lightTheme = themes.light;
 export const darkTheme = themes.dark;
