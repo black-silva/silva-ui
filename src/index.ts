@@ -14,8 +14,8 @@ export type { Gradient, GradientColor } from './core/gradient';
 export type { BaseProps, ComponentSize } from './core/types';
 export { gradients, animations } from './core/visuals.css';
 export type { GradientName, AnimationName } from './core/visuals.css';
-export { colorScales, darkColorScales, colorTokens, darkColorTokens } from './core/colors';
-export type { ColorTokenName } from './core/colors';
+export { colorScales, darkColorScales, colorTokens, darkColorTokens, cssNamedColors, themeColorVariable, themeBaseVariable } from './core/colors';
+export type { ColorTokenName, ColorShade, CSSNamedColor } from './core/colors';
 
 export {
   themeColors,

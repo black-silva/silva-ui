@@ -34,7 +34,7 @@ Available names are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`. 
 
 ## Semantic tokens first
 
-Choose semantic tokens when a colour describes a UI role rather than a specific hue. A `primary` button or `card` surface can change with the active theme without changing component code. Use Radix scale tokens such as `violet9` only when the hue itself is intentional, for example a decorative accent.
+Choose semantic tokens when a colour describes a UI role rather than a specific hue. A `primary` button or `card` surface can change with the active theme without changing component code. Use named-colour scale tokens such as `violet9` only when the hue itself is intentional, for example a decorative accent.
 
 | Role | Tokens | Use for |
 | --- | --- | --- |
@@ -43,7 +43,41 @@ Choose semantic tokens when a colour describes a UI role rather than a specific 
 | Content | `muted`, `white`, `black`, `transparent` | Supporting text and explicit utility colours |
 | Focus and feedback | `ring`, `info`, `success`, `warning`, `error`, `destructive` | Focus indicators and status messaging |
 
-`themeColors` is the full CSS-variable contract behind these values. `colorTokens` and `darkColorTokens` provide the Radix scale defaults; `lightColors` and `darkColors` provide the semantic defaults for a theme.
+`themeColors` is the CSS-variable contract behind these values. `colorTokens` and `darkColorTokens` provide light and dark scale defaults; `lightColors` and `darkColors` provide semantic defaults for a theme.
+
+## Named-colour scales
+
+The palette provides typed scales for 148 CSS named colours. Each has stops `1`–`10`: stop `n` mixes `n * 10%` of the literal named colour with the theme base using `color-mix(in srgb-linear, ...)`. For example, `blue6` is `color-mix(in srgb-linear, blue 60%, var(--silva-theme-base, white))` in `colorTokens`; `blue10` uses 100% blue. The built-in light and emerald scopes use a white base; dark, emerald-dark and midnight use black. A scope's `--silva-theme-base` takes precedence over the fallback in the exported values. These mixes do not preserve the old Radix colours.
+
+Use `bg="blue6"` or `borderColor="teal4"` on components, and `themeColors.blue6` for the CSS-variable contract. The public exports are:
+
+- `cssNamedColors`: the readonly list of supported names; `CSSNamedColor`, `ColorShade` (`1`–`10`) and `ColorTokenName`: TypeScript types.
+- `colorTokens` and `darkColorTokens`: records of CSS mix strings keyed by name and numbered token, with white and black fallback bases respectively. In these records an unnumbered name such as `blue` equals `blue1`.
+- `colorScales` and `darkColorScales`: records keyed by colour, each containing ten mix strings in order. Array index `0` is stop `1`; index `9` is stop `10`.
+- `themeColors`: the CSS-variable contract used by components. The semantic `white` and `black` values override the same-named unnumbered palette aliases in this contract; numbered `white1` and `black1` remain scale tokens.
+- `themeColorVariable` and `themeBaseVariable`: the strings `--silva-theme-color` and `--silva-theme-base`.
+
+### Accent, named tokens and theme scopes
+
+`<Theme name="light" accentColor="rebeccapurple">` changes the scope's semantic accent. `accentColor` is typed as a `CSSNamedColor`, not an arbitrary hex or CSS colour. Built-in themes use it for `primary`, `primaryHover`, `primaryActive` and `ring` (stops 9, 10, 8 and 8 respectively); other semantic values retain their theme defaults. A black or white `primaryContrast` is selected for the accent, but accessibility is not guaranteed. Defaults are `deepskyblue` for light/dark, `seagreen` for emerald/emerald-dark and `slateblue` for midnight.
+
+Named scale tokens do **not** change hue with the accent: `blue6` always mixes literal `blue` with the scope's base, even under `accentColor="red"`. Switching light/dark changes the base, so the same named token can look different; stop 10 is the named colour in either mode. Built-in nested themes establish their own accent and base, while built-in surface variants inherit the parent accent and set their mode's base.
+
+`Theme` also accepts CSS named colours as dynamic names: `red` and `light-red` select light mode, while `dark-blue` selects dark mode. A dynamic theme uses its selected colour for the semantic surface template as well as the primary accent; an `accentColor` prop overrides that colour. Built-in names take precedence over dynamic names (for example, `light` and `dark`). `Theme` defaults to `light`, renders a `div` by default (`as` changes the element), and scopes the result to its subtree. Unknown names are not generated palette themes. Switching the `name` or `accentColor` updates that scope in the browser.
+
+## Palette migration
+
+This is a **breaking change** for code that relies on the old palette data or colours:
+
+1. Search component props, gradients, custom theme contracts, theme templates, palette array indices, and CSS-variable references for stops `11` and `12`. These stops are removed; they are not aliases for stop `10` and must not be silently clamped. Use a semantic text or surface token where appropriate, or choose an explicit colour or a stop from `1`–`10` after checking the actual result in both light and dark themes. In particular, neither `blue11` nor `blue12` has a universally safe replacement.
+2. The old non-CSS names `amber`, `bronze`, `grass`, `mauve`, `mint`, `sage`, `sand`, `sky` and `slate` are removed, including their unnumbered aliases and numbered tokens. Audit palette keys and dynamic theme names too. Similar CSS names such as `skyblue` or `slategray` are not visual replacements. Even names retained by both systems, such as `blue` and `tomato`, have different scale values; review all uses, not just removed names.
+3. The old alpha ramps and aliases, including `blackA`, `whiteA`, `blackA4` and `whiteA4`, are removed; any old hue alpha keys such as `blueA4` are also gone. Mixing an opaque named colour with an opaque base is not an alpha ramp. Preserve transparency with a deliberately selected translucent CSS value, for example `rgba(0, 0, 0, 0.071)` in a custom semantic theme value or a gradient stop, then test it over its actual backgrounds. Do not assume the old alpha or visual appearance is preserved.
+4. Review custom `createThemes` palettes and templates for the new ten-stop scales. Scale arrays are zero-based, while `applyThemeTemplate` uses positive 1-based indices and negative indices from the end; it clamps out-of-range values. Note that the built-in `themePalettes.light` and `.dark` also include transparent entries at both ends, so they have 12 entries despite having only ten colour stops. Update indices and overrides deliberately rather than relying on clamping.
+5. Check text, icons, borders, focus indicators and interactive states against their actual adjacent backgrounds in each theme, including hover and disabled states. Check `primaryContrast` whenever the accent changes: the automatic black-or-white selection does not guarantee adequate contrast in every state. Use your applicable WCAG contrast requirements; stop numbers alone do not guarantee contrast.
+
+### Browser compatibility
+
+The new scales require browser support for `color-mix()` with `srgb-linear`. Check the [MDN compatibility table](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/color-mix#browser_compatibility) and test the browsers and embedded webviews you support. Older browsers may ignore unsupported colour values; do not assume Silva UI supplies an automatic fallback. If you support them, provide and test an explicit fallback theme or styles, and use `@supports (color: color-mix(in srgb-linear, red 50%, white))` to progressively enhance where appropriate. CSS custom properties can defer invalid-value detection until use, so verify the computed styles rather than relying only on an earlier declaration.
 
 ## Custom themes with `createTheme`
 
@@ -115,11 +149,11 @@ export const brandTheme = createTheme(themeColors, {
   </Tab>
 </Tabs>
 
-The wrapper provides `primary`, `card`, `border`, and the other variables. Any nested Silva UI component resolves them from that wrapper. You can put it inside a built-in `Theme` or make it the outer application scope.
+The preview above shows a built-in `midnight` scope; it does not apply the custom class created in step 2. To use that class, add it to a wrapper around your components. Nested Silva UI components resolve `primary`, `card`, `border`, and the other variables from the wrapper. The scope also inherits its palette's theme-base input from its surroundings, so use an appropriate built-in `Theme` around the wrapper when selecting light or dark mode.
 
 ### Dark custom theme
 
-Start a dark version from the dark defaults.
+Start a dark version from the dark defaults. Put the wrapper with this class inside a dark `Theme` scope so its palette mixes inherit a dark theme base; spreading `darkColorTokens` alone does not override an inherited light base.
 
 ```ts src/brand-dark-theme.css.ts
 import { createTheme } from "@vanilla-extract/css"

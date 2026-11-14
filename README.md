@@ -141,8 +141,7 @@ from your application entry point.
 ## Colors and themes
 
 Theme styling is generated at build time with Vanilla Extract. `Theme` scopes the
-selected theme to a subtree, so nested themes override their parent without
-runtime style injection:
+selected theme to a subtree, so nested themes override their parent:
 
 ```tsx
 import { Box, Text, Theme } from 'silva-ui';
@@ -159,28 +158,39 @@ import { Box, Text, Theme } from 'silva-ui';
 </Theme>;
 ```
 
-Color ramps are exported as `colorScales` and are also registered as sprinkles
-color tokens. They follow the Tamagui/Radix convention: the same numbered token
-has a light-palette value in light themes and a dark-palette value in dark
-themes. The referenced `colors` source provides 28 hue ramps plus `blackA` and
-`whiteA`, each with 12 numbered stops.
+The palette provides typed scales for 148 CSS named colours, each with stops
+`1`–`10`. A stop mixes the literal named colour with the theme base in linear
+sRGB: `blue6` uses 60% blue, while `blue10` uses 100% blue. Built-in light
+scopes use a white base and dark scopes use black; these colours do not preserve
+the old Radix ramps. `colorScales` and `darkColorScales` expose ten-element
+arrays (index 0 is stop 1); `colorTokens` and `darkColorTokens` expose mix
+strings, including unnumbered aliases such as `blue` for `blue1`. Numbered
+tokens work with sprinkles and `themeColors` exposes the variable contract.
 
-For example, `color="blue12"` is dark on light themes and light on dark themes;
-`bg="blue6"` adapts with the rest of the ramp. Use tokens such as `bg="blue6"`,
-`color="gray11"`, `borderColor="teal4"`, or alpha tokens such as
-`backgroundColor="blackA4"`. Semantic names such as `background`, `card`,
-`primary`, `muted`, and `border` also adapt to the active theme and are
-preferred when a semantic role is clearer than a specific hue.
+Use tokens such as `bg="blue6"` or `borderColor="teal4"` when a hue is
+intentional. Semantic names such as `background`, `card`, `primary`, `muted`,
+and `border` remain theme-aware and are preferred when the UI role is clearer.
+`<Theme name="light" accentColor="rebeccapurple">` changes semantic accent
+values such as `primary` and `ring`, but `blue6` still uses blue, not the accent.
+`accentColor` accepts CSS named colours and selects a black or white
+`primaryContrast`. Check text, focus and component contrast in every theme rather than
+assuming a stop is accessible.
+
+**Breaking migration:** numbered stops `11` and `12` and the predefined Radix
+ramps are removed. Do not silently clamp old indices to 10: choose semantic
+tokens for text and surfaces, or deliberately select and contrast-test a new
+stop or explicit colour for each use. Old Radix-only names and alpha ramps
+such as `grass` and `blackA4` have no automatic equivalent; audit and replace
+them explicitly, using a custom theme or explicit colour where required. See
+the [migration guide](docs/theming.mdx#palette-migration) for details and
+browser compatibility.
 
 Built-in themes are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`.
 Their semantic values are defined in `src/core/themes`; the token contract and
-CSS variables are in `src/core/theme`; `src/core/theme-builder` combines theme
-definitions with the palette tokens. To add a theme, add a complete semantic
-color map to `themeDefinitions` in `src/core/themes` and register dark variants
-in `darkThemeNames` there so their ramps reverse. The theme class and
-`data-theme` selector are generated from those maps. Add a switcher control in
-`example/App.tsx` if you want it available in the demo. Theme classes and CSS
-variables are emitted at build time.
+CSS variables are in `src/core/theme`. Theme classes and `data-theme` selectors
+are emitted at build time; switching `Theme` in the browser changes the active
+scope. For application-specific semantic colours, see the
+[custom theme guide](docs/theming.mdx#custom-themes-with-createtheme).
 
 `Theme` can be nested to switch a subtree back to any built-in theme. For inline styles, use the exported contract values such as
 `themeColors.background` or `themeColors.blue6`; Vanilla Extract can then keep
@@ -215,8 +225,7 @@ with `light-` or `dark-`:
 </Theme>
 ```
 
-These names are resolved from the existing color ramps at runtime and scoped
-to that `Theme` subtree. Built-in names such as `dark`, `emerald`, and
-`midnight` continue to use their precompiled theme classes. Supported palette
-names are the exported color scales, including `red`, `blue`, `green`,
-`purple`, and the other Radix scales.
+These names are resolved from palette data at runtime and scoped to that
+`Theme` subtree. Built-in names such as `dark`, `emerald`, and `midnight`
+continue to use their precompiled theme classes. Palette names include `red`,
+`blue`, `green`, and `purple`.
