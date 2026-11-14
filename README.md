@@ -138,6 +138,13 @@ export function SignupCard() {
 The published package includes prebuilt CSS. Import `silva-ui/style.css` once
 from your application entry point.
 
+Choose one sizing approach consistently wherever the relevant props support it.
+Mixing named fixed tokens, numeric size tokens, and viewport-projected `$n`
+tokens in a layout can cause breakages across browsers and screen sizes. For
+apps designed to scale with screen width, prefer `$n` on supported props and
+test across target screens. Component `size` variants are separate fixed recipes.
+See the [sizing guide](https://blacksilva.com/silva-ui/docs/foundations/sprinkles#choose-a-sizing-approach).
+
 ## Colors and themes
 
 Theme styling is generated at build time with Vanilla Extract. `Theme` scopes the
