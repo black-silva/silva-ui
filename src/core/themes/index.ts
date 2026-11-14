@@ -204,7 +204,7 @@ export const nestedThemeDefinitions = Object.fromEntries(
       return [`${name}_${surfaceName}`, { ...values, ...nestedValues, secondary: values.secondary }];
     });
   }),
-) as Record<string, typeof lightColors>;
+) as Record<`${keyof typeof themeDefinitions}_${typeof surfaceThemeNames[number]}`, typeof lightColors>;
 
 export const allThemeDefinitions = {
   ...themeDefinitions,

@@ -40,6 +40,7 @@
     "typecheck": "tsc --noEmit",
     "test:palette:unit": "node --test e2e/palette-migration.unit.mjs",
     "test:palette:types": "tsc --ignoreConfig --noEmit --strict --skipLibCheck --module ESNext --moduleResolution bundler --target ES2022 --jsx react-jsx --jsxImportSource hono/jsx e2e/palette-migration.types.test.ts",
+    "test:palette:package-types": "tsc --ignoreConfig --noEmit --strict --module ESNext --moduleResolution bundler --target ES2022 --jsx react-jsx --jsxImportSource hono/jsx e2e/palette-package-consumer.types.test.ts",
     "test:palette:browser": "node e2e/run-palette-browser.test-runner.mjs",
     "test:palette": "npm run test:palette:unit && npm run test:palette:types && npm run test:palette:browser",
     "docs:sync-previews": "node scripts/sync-preview-snippets.mjs",

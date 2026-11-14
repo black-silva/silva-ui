@@ -75,4 +75,4 @@ export const emeraldTheme = themes.emerald;
 export const emeraldDarkTheme = themes['emerald-dark'];
 export const midnightTheme = themes.midnight;
 
-export type ThemeName = keyof typeof themes;
+export type ThemeName = keyof typeof themes | CSSNamedColor | `light-${CSSNamedColor}` | `dark-${CSSNamedColor}`;

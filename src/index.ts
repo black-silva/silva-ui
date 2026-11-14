@@ -57,7 +57,7 @@ export {
 } from './core/theme/index';
 export type { ThemeMutation, ThemeRecord } from './core/theme/index';
 
-export { Theme } from './core/Theme';
+export { Theme, createThemeScope } from './core/Theme';
 export type { ThemeProps } from './core/Theme';
 
 // ============================================================================
