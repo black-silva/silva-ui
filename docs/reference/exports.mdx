@@ -9,9 +9,11 @@ Import components from `silva-ui`. Types are exported from the same root entry p
 
 ## Core
 
-`Theme`, `tokens`, `sprinkles`, `cls`, `splitSprinklesProps`, `toSprinklesClass`, `gradients`, `animations`, `colorScales`, `darkColorScales`, `colorTokens`, `darkColorTokens`.
+`Theme`, `createThemeScope`, `tokens`, `sprinkles`, `cls`, `splitSprinklesProps`, `toSprinklesClass`, `gradients`, `animations`, `colorScales`, `darkColorScales`, `colorTokens`, `darkColorTokens`, `namedColorTokenToCss`, `themeColorVariable`, `themeBaseVariable`. The named-colour types are `CSSNamedColor`, `ColorShade` and `ColorTokenName`; `CSSNamedColor` is type-only, with no exported runtime catalogue. See [named-colour scales](/docs/theming#named-colour-scales) for lazy accessor and validation limits.
 
-Theme data and helpers: `themeColors`, `lightTheme`, `darkTheme`, `emeraldTheme`, `emeraldDarkTheme`, `midnightTheme`, `themes`, `themeDefinitions`, `addTheme`, `getTheme`, `getThemes`, `replaceTheme`, `updateTheme`, `applyThemeTemplate`, `buildThemeSet`, `createThemes`.
+Theme data and helpers: `themeColors`, `lightColors`, `darkColors`, `emeraldColors`, `emeraldDarkColors`, `midnightColors`, `lightTheme`, `darkTheme`, `emeraldTheme`, `emeraldDarkTheme`, `midnightTheme`, `themes`, `themeDefinitions`, `addTheme`, `getTheme`, `getThemes`, `replaceTheme`, `updateTheme`, `applyThemeTemplate`, `buildThemeSet`, `createThemes`.
+
+`ThemeName` is a type for built-in names (including surface variants), CSS named colours, and `light-${CSSNamedColor}` / `dark-${CSSNamedColor}`; it excludes shade names and arbitrary class strings. Legacy `name` class strings beginning with `theme_` remain supported at runtime for JavaScript compatibility, but not by the TypeScript `ThemeName` type. `createThemeScope` binds custom Vanilla Extract classes to literal keys in a locally typed component, which also accepts `ThemeName`. It does not extend the global `Theme` type. In a custom scope, `accentColor` changes the accent and contrast inputs, not fixed semantic class values; only values referencing the inputs respond. `createThemes` and the mutable theme registry handle value records; they do not create or apply classes or register types. See [custom themes](/docs/theming#custom-themes-with-createtheme) for the full workflow and mode handling. Validate untrusted names yourself: runtime parsing is not a complete CSS colour validator.
 
 ## Layout and typography
 

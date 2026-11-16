@@ -22,7 +22,7 @@ Every component extends `BaseProps`, which includes the generated `Sprinkles` ty
 
 ## Fixed tokens
 
-Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, `screenW`, and a scale from `0` to `64`.
+Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. Radius values range from `none` to `full`. Size aliases include `full`, `half`, `fit`, `screenH`, and `screenW`; the numeric size scale has discrete entries from `0` to `64`.
 
 <Tabs sync={false}>
   <Tab title="Preview">
@@ -45,6 +45,12 @@ Spacing uses `none`, `xs`, `small`, `medium`, `large`, `xl`, `2xl`, and `auto`. 
 
   </Tab>
 </Tabs>
+
+## Choose a sizing approach
+
+Choose one sizing approach consistently across your application wherever the relevant props support it. Named fixed tokens such as `fontSize="sm"`, numeric fixed size tokens such as `w={10}`, and projected tokens such as `w="$4"` use different scales and are not interchangeable. Avoid mixing these approaches within a layout: changing proportions and overlapping styles can lead to layout breakages across browsers and screen sizes.
+
+For applications designed to scale with screen width, prefer `$n` on supported sizing props and test the result across your target screen sizes and browsers. Values are relative to viewport width, so very narrow or wide screens can produce text and controls that are too small or too large. Fixed size variants such as `<Button size="sm">` are separate component recipes, not projection tokens, and do not accept `size="$4"`; component defaults can also use fixed sizes.
 
 ## Semantic size tokens
 
@@ -79,6 +85,10 @@ For example, `$4` resolves to `40px` at a 1000px viewport, `20px` at 500px, and 
 Projection tokens currently use the viewport only. They do not establish or inherit container sizing contexts; parent-to-child projection is intentionally reserved for a later sizing phase.
 </Note>
 
+Projection tokens are supported as direct values on spacing, dimensions, `fontSize`, `borderRadius`, and position props, including their supported aliases. They are not available for every prop or inside interaction-condition objects. Overlapping projected and fixed props can have unexpected precedence because projection values are applied inline. The low-level `sprinkles()` utility does not perform projection conversion.
+
+Support also depends on the component. On `Image`, `width` and `height` are native attributes; use `w` and `h` for projected dimensions. On `Checkbox`, `Switch`, `RadioGroupItem`, and `Select`, projected styles are passed to the native input or select rather than the visible wrapper or indicator, so do not rely on them to scale the visible control. Their fixed `size` variants remain available.
+
 ## Interaction conditions
 
 A selected set of properties can be conditionally applied using `hover`, `active` and `focus` values. Use the `default` branch for the resting state and add only the conditions the component needs.
@@ -94,7 +104,7 @@ A selected set of properties can be conditionally applied using `hover`, `active
   <Tab title="Code">
 
 ```tsx
-<Box bg={{ default: 'card', hover: 'teal3', focus: 'teal4' }} color={{ default: 'primary', hover: 'teal12' }} p="medium" borderRadius="medium">Hover or focus me</Box>
+<Box bg={{ default: 'card', hover: 'teal3', focus: 'teal4' }} color="secondary" p="medium" borderRadius="medium">Hover or focus me</Box>
 ```
 
   </Tab>

@@ -1,4 +1,5 @@
 import { themeColors } from './theme.css';
+import { namedColorTokenToCss } from './colors';
 
 /** A theme token or any valid CSS colour value. */
 export type GradientColor = keyof typeof themeColors | (string & {});
@@ -24,7 +25,12 @@ export interface Gradient {
 }
 
 function resolveColor(color: GradientColor): string {
-  return themeColors[color as keyof typeof themeColors] ?? color;
+  const semantic = themeColors[color as keyof typeof themeColors];
+  if (semantic) return semantic;
+  // Named palette tokens, including the unnumbered shade-1 alias, are
+  // resolved on demand. CSS-wide keywords and currentColor remain literal.
+  if (/^(?:inherit|initial|unset|revert|revert-layer|currentcolor)$/i.test(color)) return color;
+  return namedColorTokenToCss(color) ?? color;
 }
 
 /** Creates a CSS `background-image` value from a theme-aware gradient. */

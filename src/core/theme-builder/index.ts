@@ -29,7 +29,10 @@ export type CreatedThemes = Record<string, ThemeValues>;
 
 function resolvePaletteValue(palette: ThemePalette, index: number) {
   const resolvedIndex = index < 0 ? palette.length + index : index - 1;
-  return palette[Math.max(0, Math.min(palette.length - 1, resolvedIndex))] ?? '';
+  if (!Number.isInteger(index) || index === 0 || resolvedIndex < 0 || resolvedIndex >= palette.length) {
+    throw new RangeError(`Palette index ${index} is outside the available range`);
+  }
+  return palette[resolvedIndex];
 }
 
 export function applyThemeTemplate(

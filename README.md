@@ -20,6 +20,8 @@ A Hono JSX UI component library with framework-neutral styling and Tamagui-inspi
 
 Read the [Silva UI documentation](https://blacksilva.com/silva-ui) for installation, theming, foundations, components, and API guidance.
 
+Try the [palette playground](https://black-silva.github.io/silva-ui-palette-playground/) to explore named colours, shades, themes, and gradients. It is a deployed snapshot of this palette branch; see the [playground README](./examples/palette-playground/README.md) to run it locally.
+
 AI tools can use the [full Silva UI reference](https://blacksilva.com/silva-ui/llms-full.txt) for the complete published documentation in one file.
 
 Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for
@@ -138,11 +140,17 @@ export function SignupCard() {
 The published package includes prebuilt CSS. Import `silva-ui/style.css` once
 from your application entry point.
 
+Choose one sizing approach consistently wherever the relevant props support it.
+Mixing named fixed tokens, numeric size tokens, and viewport-projected `$n`
+tokens in a layout can cause breakages across browsers and screen sizes. For
+apps designed to scale with screen width, prefer `$n` on supported props and
+test across target screens. Component `size` variants are separate fixed recipes.
+See the [sizing guide](https://blacksilva.com/silva-ui/docs/foundations/sprinkles#choose-a-sizing-approach).
+
 ## Colors and themes
 
 Theme styling is generated at build time with Vanilla Extract. `Theme` scopes the
-selected theme to a subtree, so nested themes override their parent without
-runtime style injection:
+selected theme to a subtree, so nested themes override their parent:
 
 ```tsx
 import { Box, Text, Theme } from 'silva-ui';
@@ -159,32 +167,64 @@ import { Box, Text, Theme } from 'silva-ui';
 </Theme>;
 ```
 
-Color ramps are exported as `colorScales` and are also registered as sprinkles
-color tokens. They follow the Tamagui/Radix convention: the same numbered token
-has a light-palette value in light themes and a dark-palette value in dark
-themes. The referenced `colors` source provides 28 hue ramps plus `blackA` and
-`whiteA`, each with 12 numbered stops.
+The palette provides typed scales for 148 CSS named colours, each with stops
+`1`–`10`. A stop mixes the literal named colour with the theme base in linear
+sRGB: `blue6` uses 60% blue, while `blue10` uses 100% blue. Built-in light
+scopes use a white base and dark scopes use black; these colours do not preserve
+the old Radix ramps. `colorScales` and `darkColorScales` lazily provide
+ten-element arrays (index 0 is stop 1); `colorTokens` and `darkColorTokens`
+lazily provide mix strings, with `blue` as an alias for `blue1`. These
+accessors are not enumerable catalogues: spreading them or using `Object.keys`
+does not yield the palette. No runtime named-colour catalogue is exported.
 
-For example, `color="blue12"` is dark on light themes and light on dark themes;
-`bg="blue6"` adapts with the rest of the ramp. Use tokens such as `bg="blue6"`,
-`color="gray11"`, `borderColor="teal4"`, or alpha tokens such as
-`backgroundColor="blackA4"`. Semantic names such as `background`, `card`,
-`primary`, `muted`, and `border` also adapt to the active theme and are
-preferred when a semantic role is clearer than a specific hue.
+Named colours are resolved on demand by component `color`, `backgroundColor`,
+`bg`, and `borderColor` props, including their state conditions. Direct
+`sprinkles()` accepts semantic colour tokens, not named palette tokens;
+`themeColors` and `tokens.colors` now contain semantic keys only. For a CSS
+value outside component props, use `namedColorTokenToCss('blue6')` or
+`colorTokens.blue6` instead of `themeColors.blue6`.
 
-Built-in themes are `light`, `dark`, `emerald`, `emerald-dark`, and `midnight`.
+Use tokens such as `bg="blue6"` or `borderColor="teal4"` when a hue is
+intentional. Semantic names such as `background`, `card`, `primary`, `muted`,
+and `border` remain theme-aware and are preferred when the UI role is clearer.
+`<Theme name="light" accentColor="rebeccapurple">` changes semantic accent
+values such as `primary` and `ring`, but `blue6` still uses blue, not the accent.
+`accentColor` accepts CSS named colours and selects a black or white contrast
+input. Built-in semantic values use these inputs; fixed values in a custom
+semantic class do not. Check text, focus and component contrast in every theme
+rather than assuming a stop is accessible.
+
+**Breaking migration:** numbered stops `11` and `12` and the predefined Radix
+ramps are removed; the named-token resolver throws for invalid numbered shades.
+`createThemes` and `applyThemeTemplate` now throw for zero, non-integer or
+out-of-range palette indices instead of clamping them. Choose semantic tokens
+for text and surfaces, or deliberately select and contrast-test a new stop or
+explicit colour for each use. Old Radix-only names and alpha ramps
+such as `grass` and `blackA4` have no automatic equivalent; audit and replace
+them explicitly, using a custom theme or explicit colour where required. See
+the [migration guide](docs/theming.mdx#palette-migration) for details and
+browser compatibility.
+
+Built-in base themes are `light`, `dark`, `emerald`, `emerald-dark`, and
+`midnight`; each also has `surface1` and `surface2` variants such as
+`dark_surface1`. The exported `ThemeName` type accepts these names, CSS named
+colours, and `light-${CSSNamedColor}` / `dark-${CSSNamedColor}`; it does not
+accept shade tokens such as `red5`, arbitrary strings, or generated class names.
+This is a TypeScript breaking change: replace `name={darkTheme}` with
+`name="dark"`, and apply other classes explicitly with `class` or use a custom
+scope below. For JavaScript compatibility, legacy `name={classString}` values
+whose string starts with `theme_` remain supported at runtime; this exception
+does not make arbitrary class strings valid `ThemeName` values in TypeScript.
+
 Their semantic values are defined in `src/core/themes`; the token contract and
-CSS variables are in `src/core/theme`; `src/core/theme-builder` combines theme
-definitions with the palette tokens. To add a theme, add a complete semantic
-color map to `themeDefinitions` in `src/core/themes` and register dark variants
-in `darkThemeNames` there so their ramps reverse. The theme class and
-`data-theme` selector are generated from those maps. Add a switcher control in
-`example/App.tsx` if you want it available in the demo. Theme classes and CSS
-variables are emitted at build time.
+CSS variables are in `src/core/theme`. Theme classes and `data-theme` selectors
+are emitted at build time; switching `Theme` in the browser changes the active
+scope. For application-specific semantic colours, see the
+[custom theme guide](docs/theming.mdx#custom-themes-with-createtheme).
 
 `Theme` can be nested to switch a subtree back to any built-in theme. For inline styles, use the exported contract values such as
-`themeColors.background` or `themeColors.blue6`; Vanilla Extract can then keep
-the variable names consistent through production builds.
+`themeColors.background`; Vanilla Extract can then keep semantic variable names
+consistent through production builds.
 
 Silva UI follows Tamagui's palette/template model. The exported `createThemes` helper composes named palettes and
 templates into theme records, and built-in themes include generated surface
@@ -202,7 +242,7 @@ import { Card, Theme } from 'silva-ui';
 ```
 
 Palette themes can also be selected without registering or prebuilding a
-custom theme. Pass a supported color scale directly to `Theme`, or prefix it
+custom theme. Pass an unnumbered CSS named colour to `Theme`, or prefix it
 with `light-` or `dark-`:
 
 ```tsx
@@ -215,8 +255,67 @@ with `light-` or `dark-`:
 </Theme>
 ```
 
-These names are resolved from the existing color ramps at runtime and scoped
-to that `Theme` subtree. Built-in names such as `dark`, `emerald`, and
-`midnight` continue to use their precompiled theme classes. Supported palette
-names are the exported color scales, including `red`, `blue`, `green`,
-`purple`, and the other Radix scales.
+These names are resolved on demand and scoped to that `Theme` subtree.
+`CSSNamedColor` is a TypeScript-only union, not a runtime catalogue. JavaScript
+and untrusted strings are not fully validated: runtime parsing does not verify
+that an alphabetic name is a real CSS colour, so invalid names may generate
+invalid CSS. Validate untrusted names against your own allowlist. Built-in
+names such as `dark`, `emerald`, and `midnight` continue to use their
+precompiled theme classes.
+
+### Custom theme scopes
+
+Create a Vanilla Extract class using Silva UI's semantic contract in a
+`*.css.ts` file:
+
+```ts
+import { createTheme } from '@vanilla-extract/css';
+import { lightColors, themeColors } from 'silva-ui';
+
+export const brandTheme = createTheme(themeColors, {
+  ...lightColors,
+  primary: '#7c3aed',
+  primaryHover: '#6d28d9',
+  primaryActive: '#5b21b6',
+  primaryContrast: '#ffffff',
+  ring: '#7c3aed',
+});
+```
+
+Bind it to a literal key in a locally typed component:
+
+```tsx
+import { Box, Text, createThemeScope } from 'silva-ui';
+import { brandTheme } from './brand-theme.css';
+
+const AppTheme = createThemeScope({
+  brand: { className: brandTheme, mode: 'light' },
+});
+
+<AppTheme name="brand">
+  <Box bg="card" color="primary"><Text>Brand theme</Text></Box>
+</AppTheme>;
+```
+
+`AppTheme` accepts built-in and CSS-colour `ThemeName` values plus its own map's
+literal keys; `Theme` and other scopes do not gain `brand`. Runtime theme
+creation cannot mutate global TypeScript types. Scoped keys must not collide
+with built-in names, CSS named colours or shades. `mode: 'light'` sets the
+named-shade base to white; `mode: 'dark'` sets it to black. Omitting mode
+inherits the surrounding base. You can instead apply the class explicitly to a
+wrapper inside a suitable built-in `Theme`. The class itself supplies semantic
+values, not the named-shade base.
+
+`accentColor` sets the scope's `--silva-theme-color` and
+`--silva-theme-contrast` inputs; it does not replace fixed semantic values in
+the class. For example, the fixed `primary`, `primaryHover`, `primaryActive`,
+`primaryContrast`, and `ring` above stay fixed even if `AppTheme` receives an
+`accentColor`. To make a value respond, define it using the relevant accent or
+contrast variable, or retain the corresponding variable-based `lightColors`
+value instead of overriding it. `mode` controls the base and contrast
+calculation, not whether fixed values respond.
+
+`createThemes` generates plain value records, while the separate mutable theme
+registry stores records. Neither creates or applies a CSS class or registers a
+name/type. Pass a complete semantic record to Vanilla Extract's `createTheme`
+and then apply the resulting class explicitly or bind it with `createThemeScope`.

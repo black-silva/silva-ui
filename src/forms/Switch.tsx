@@ -26,7 +26,7 @@ export function Switch({
   children,
   ...rest
 }: SwitchProps) {
-  const { sprinklesProps, rest: htmlProps } = splitSprinklesProps(rest);
+  const { sprinklesProps, rest: htmlProps, dynamicColorStyle } = splitSprinklesProps(rest);
 
   const resolvedSize = (size === 'xs' ? 'sm' : size === 'xl' ? 'lg' : size) as 'sm' | 'md' | 'lg';
   const sizeClass = styles.sizeVariant[resolvedSize] || styles.sizeVariant.md;
@@ -34,6 +34,7 @@ export function Switch({
 
   return (
     <label
+      style={dynamicColorStyle}
       class={cls(styles.root, toSprinklesClass(sprinklesProps), extraClass)}
       data-disabled={disabled ? 'true' : undefined}
     >

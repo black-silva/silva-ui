@@ -47,9 +47,9 @@ Use layout primitives and a `Switch` to create a compact, readable preference ro
 
 ```tsx
 <XStack gap="medium" flexWrap="wrap">
-  {["light", "dark", "emerald", "midnight"].map((name) => (
+  {(["light", "dark", "emerald", "midnight"] as const).map((name) => (
     <Theme name={name}>
-      <Card p="medium" minWidth="48" bg="card">
+      <Card p="medium" minWidth={48} bg="card">
         <Text color="primary" fontWeight="semibold">{name}</Text>
         <Text color="muted" fontSize="sm">Theme-aware token preview</Text>
       </Card>

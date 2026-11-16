@@ -2,6 +2,12 @@
   "$schema": "https://mintlify.com/docs.json",
   "name": "silva-ui",
   "theme": "mint",
+  "markdown": {
+    "instructions": [
+      "Choose one sizing approach consistently across the application wherever supported. Avoid mixing named fixed sizes (such as fontSize=\"sm\"), numeric fixed size tokens (such as w={10}), and projected $n tokens (such as w=\"$4\") within a layout: mixing scales can cause layout breakages across browsers and screen sizes.",
+      "For applications designed to scale with screen width, prefer $n on supported sizing props. These values scale linearly with viewport width, not container width; test readability and layouts across target screens. Component size variants such as size=\"sm\" are separate fixed recipes and do not accept $n."
+    ]
+  },
   "colors": {
     "primary": "#0f766e",
     "light": "#0f766e",
