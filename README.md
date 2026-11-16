@@ -20,6 +20,8 @@ A Hono JSX UI component library with framework-neutral styling and Tamagui-inspi
 
 Read the [Silva UI documentation](https://blacksilva.com/silva-ui) for installation, theming, foundations, components, and API guidance.
 
+Try the [palette playground](https://black-silva.github.io/silva-ui-palette-playground/) to explore named colours, shades, themes, and gradients. It is a deployed snapshot of this palette branch; see the [playground README](./examples/palette-playground/README.md) to run it locally.
+
 AI tools can use the [full Silva UI reference](https://blacksilva.com/silva-ui/llms-full.txt) for the complete published documentation in one file.
 
 Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for

@@ -17,6 +17,7 @@ function App() {
   const [draft, setDraft] = useState('deepskyblue');
   const [error, setError] = useState(false);
   const [scope, setScope] = useState<Scope>('light');
+  const [selectedShade, setSelectedShade] = useState<ColorShade>(6);
 
   function selectColor(name: CSSNamedColor) {
     setColor(name);
@@ -70,14 +71,20 @@ function App() {
 
           <YStack gap="medium">
             <Heading level={2}>Named shades 1–10</Heading>
-            <Paragraph color="secondary">The same hue stays fixed when the scope changes; shade 10 is the full named colour. Labels are outside the swatches to keep them readable.</Paragraph>
+            <Paragraph color="secondary">The same hue stays fixed when the scope changes; shade 10 is the full named colour. Select a shade to try it as text on theme surfaces.</Paragraph>
             <XStack gap="medium" flexWrap="wrap" data-testid="swatches">
               {shades.map(shade => <YStack key={shade} gap="small" alignItems="center">
                 <Box bg={token(shade)} width={16} height={16} borderRadius="medium" borderWidth={1} borderStyle="solid" borderColor="border" data-testid={`shade-${shade}`} aria-label={token(shade)} />
-                <Text fontSize="sm">{shade}</Text>
+                <Button variant={selectedShade === shade ? 'solid' : 'outline'} aria-label={`Try ${token(shade)} as text`} aria-pressed={selectedShade === shade ? 'true' : 'false'} onClick={() => setSelectedShade(shade)}>{shade}</Button>
               </YStack>)}
             </XStack>
             <Text fontSize="sm" color="secondary">Tokens: {color}1 … {color}10</Text>
+            <Text fontWeight="semibold">Text preview: {token(selectedShade)}</Text>
+            <XStack gap="medium" flexWrap="wrap">
+              <Box bg="background" color={token(selectedShade)} p="medium" borderRadius="medium" borderWidth={1} borderStyle="solid" borderColor="border" data-testid="text-on-background">Sample text on background</Box>
+              <Box bg="card" color={token(selectedShade)} p="medium" borderRadius="medium" borderWidth={1} borderStyle="solid" borderColor="border" data-testid="text-on-card">Sample text on card</Box>
+            </XStack>
+            <Text fontSize="sm" color="secondary">This is a visual comparison, not a contrast accessibility check.</Text>
           </YStack>
 
           <YStack gap="medium" bg="card" p="large" borderRadius="large" borderWidth={1} borderStyle="solid" borderColor="border">

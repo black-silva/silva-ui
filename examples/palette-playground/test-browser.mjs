@@ -41,7 +41,22 @@ try {
   };
 
   await assertShade('deepskyblue');
+  const textOnBackground = page.getByTestId('text-on-background');
+  const textOnCard = page.getByTestId('text-on-card');
+  const textColor = locator => locator.evaluate(el => getComputedStyle(el).color);
+  const assertTextPreview = async (name, shadeNumber, base) => {
+    assert.equal(await page.getByText(`Text preview: ${name}${shadeNumber}`).count(), 1);
+    const expected = await expectedColor(`color-mix(in srgb-linear, ${name} ${shadeNumber * 10}%, ${base})`);
+    assert.equal(await textColor(textOnBackground), expected);
+    assert.equal(await textColor(textOnCard), expected);
+    assert.equal(await page.getByRole('button', { name: `Try ${name}${shadeNumber} as text` }).getAttribute('aria-pressed'), 'true');
+  };
+  await assertTextPreview('deepskyblue', 6, 'white');
+  await page.getByRole('button', { name: 'Try deepskyblue3 as text' }).click();
+  assert.equal(await page.getByRole('button', { name: 'Try deepskyblue6 as text' }).getAttribute('aria-pressed'), 'false');
+  await assertTextPreview('deepskyblue', 3, 'white');
   await select('  PaPaYaWhIp  ');
+  await assertTextPreview('papayawhip', 3, 'white');
   assert.equal(await input.inputValue(), 'papayawhip');
   await assertShade('papayawhip');
   assert.match(await page.getByText('Tokens:', { exact: false }).textContent(), /papayawhip1.*papayawhip10/);
@@ -65,6 +80,12 @@ try {
   assert.equal(await getColor(primary), await expectedColor('color-mix(in srgb-linear, cornflowerblue 90%, white)'));
 
   await page.getByRole('button', { name: 'Dynamic dark' }).click();
+  await assertTextPreview('cornflowerblue', 3, 'black');
+  const shade8Button = page.getByRole('button', { name: 'Try cornflowerblue8 as text' });
+  await shade8Button.focus();
+  await page.keyboard.press('Enter');
+  await assertTextPreview('cornflowerblue', 8, 'black');
+  assert.equal(await page.getByRole('button', { name: 'Try cornflowerblue3 as text' }).getAttribute('aria-pressed'), 'false');
   assert.match(await page.getByText('Active scope:', { exact: false }).textContent(), /dark-cornflowerblue/);
   assert.equal(await getColor(primary), await expectedColor('color-mix(in srgb-linear, cornflowerblue 90%, black)'));
   assert.equal(await getColor(page.getByTestId('shade-6')), await expectedColor('color-mix(in srgb-linear, cornflowerblue 60%, black)'));
@@ -85,8 +106,20 @@ try {
   await select('goldenrod');
   await assertShade('goldenrod');
   assert.equal(await getColor(primary), builtinPrimary, 'built-in accent should not follow selected colour');
+  await assertTextPreview('goldenrod', 8, 'white');
+  const hoverProbe = page.getByTestId('hover-probe');
+  await page.mouse.move(0, 0);
+  await input.focus();
+  assert.equal(await getColor(hoverProbe), await expectedColor('color-mix(in srgb-linear, goldenrod 30%, white)'));
+  await hoverProbe.hover();
+  assert.equal(await getColor(hoverProbe), await expectedColor('color-mix(in srgb-linear, goldenrod 60%, white)'));
+  await page.mouse.move(0, 0);
+  await page.getByRole('button', { name: 'Try goldenrod10 as text' }).focus();
+  await page.keyboard.press('Tab');
+  assert.equal(await hoverProbe.evaluate(el => el === document.activeElement && el.matches(':focus-visible')), true);
+  assert.equal(await getColor(hoverProbe), await expectedColor('color-mix(in srgb-linear, goldenrod 60%, white)'));
   assert.deepEqual(errors, []);
-  console.log('PASS: typed names and normalization, invalid inputs, presets, Enter, dynamic light/dark colours, built-in accent, swatches and gradients');
+  console.log('PASS: typed names and normalization, invalid inputs, presets, Enter, dynamic light/dark colours, built-in accent, selectable text previews, swatches, hover/focus and gradients');
 } finally {
   await browser.close();
 }

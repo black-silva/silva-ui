@@ -1,5 +1,7 @@
 # Palette playground
 
+[Try the hosted playground](https://black-silva.github.io/silva-ui-palette-playground/). The hosted site is a manually deployed snapshot in the separate [palette playground repository](https://github.com/black-silva/silva-ui-palette-playground), not an automatic deployment of this branch.
+
 Test the palette migration from this branch with Hono JSX DOM and Silva UI components. From a fresh clone, check out this PR branch, then run:
 
 ```sh
