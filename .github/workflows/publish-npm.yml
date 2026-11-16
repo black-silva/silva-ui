@@ -6,6 +6,12 @@ on:
       - main
     paths:
       - package.json
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version in package.json to publish from main'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -24,35 +30,64 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v6
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Check whether the package version changed
         id: version
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+          PREVIOUS_SHA: ${{ github.event.before }}
         run: |
           current_version=$(node -p "require('./package.json').version")
-          previous_version=$(git show HEAD^:package.json | node -e "let source = ''; process.stdin.on('data', chunk => source += chunk); process.stdin.on('end', () => console.log(JSON.parse(source).version))")
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ "$GITHUB_REF" != "refs/heads/main" ] || [ "$REQUESTED_VERSION" != "$current_version" ]; then
+              echo "Manual releases must target main and match package.json ($current_version)." >&2
+              exit 1
+            fi
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Manual release requested for $current_version."
+            exit 0
+          fi
 
+          if [[ ! "$PREVIOUS_SHA" =~ ^[0-9a-f]{40}$ ]] || [ "$PREVIOUS_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "Missing or invalid previous push commit; refusing automatic publication." >&2
+            exit 1
+          fi
+          git cat-file -e "$PREVIOUS_SHA^{commit}" || git fetch origin "$PREVIOUS_SHA"
+          previous_version=$(git show "$PREVIOUS_SHA:package.json" | node -e "let source = ''; process.stdin.on('data', chunk => source += chunk); process.stdin.on('end', () => console.log(JSON.parse(source).version))")
           if [ "$current_version" = "$previous_version" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Package version is unchanged ($current_version); skipping publication."
           else
             node - "$previous_version" "$current_version" <<'NODE'
-            const [previous, current] = process.argv.slice(2);
-            const parse = value => {
-              const match = value.match(/^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/);
-              if (!match) throw new Error(`Not a semantic version: ${value}`);
-              return { core: match.slice(1, 4).map(Number), prerelease: match[4] };
-            };
-            const oldVersion = parse(previous);
-            const newVersion = parse(current);
-            for (let index = 0; index < 3; index += 1) {
-              if (newVersion.core[index] !== oldVersion.core[index]) process.exit(newVersion.core[index] > oldVersion.core[index] ? 0 : 1);
+          const [previous, current] = process.argv.slice(2);
+          const parse = value => {
+            const match = value.match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/);
+            if (!match) throw new Error(`Not a semantic version: ${value}`);
+            const prerelease = match[4]?.split('.');
+            if (prerelease?.some(part => !part || (/^\d+$/.test(part) && part.length > 1 && part[0] === '0'))) throw new Error(`Not a semantic version: ${value}`);
+            return { core: match.slice(1, 4).map(BigInt), prerelease };
+          };
+          const oldVersion = parse(previous);
+          const newVersion = parse(current);
+          let comparison = 0;
+          for (let i = 0; i < 3 && !comparison; i++) comparison = newVersion.core[i] > oldVersion.core[i] ? 1 : newVersion.core[i] < oldVersion.core[i] ? -1 : 0;
+          if (!comparison) {
+            if (!newVersion.prerelease && oldVersion.prerelease) comparison = 1;
+            else if (newVersion.prerelease && !oldVersion.prerelease) comparison = -1;
+            else if (newVersion.prerelease && oldVersion.prerelease) {
+              for (let i = 0; i < Math.max(newVersion.prerelease.length, oldVersion.prerelease.length) && !comparison; i++) {
+                const a = newVersion.prerelease[i], b = oldVersion.prerelease[i];
+                if (a === undefined || b === undefined) comparison = a === undefined ? -1 : 1;
+                else if (a !== b) {
+                  const an = /^\d+$/.test(a), bn = /^\d+$/.test(b);
+                  comparison = an && bn ? (BigInt(a) > BigInt(b) ? 1 : -1) : an !== bn ? (an ? -1 : 1) : (a > b ? 1 : -1);
+                }
+              }
             }
-            if (oldVersion.prerelease && !newVersion.prerelease) process.exit(0);
-            if (!oldVersion.prerelease && newVersion.prerelease) process.exit(1);
-            process.exit(newVersion.prerelease > oldVersion.prerelease ? 0 : 1);
-            NODE
-
+          }
+          if (comparison <= 0) throw new Error(`Version must increase: ${previous} -> ${current}`);
+          NODE
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Package version changed: $previous_version -> $current_version"
           fi
@@ -74,7 +109,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
           package-manager-cache: false
           registry-url: https://registry.npmjs.org
 
@@ -98,12 +132,17 @@ jobs:
 
       - name: Check whether version is already published
         id: published
+        env:
+          PACKAGE_NAME: ${{ steps.package.outputs.name }}
+          PACKAGE_VERSION: ${{ steps.package.outputs.version }}
         run: |
-          if npm view "${{ steps.package.outputs.name }}@${{ steps.package.outputs.version }}" version >/dev/null 2>&1; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
+          npm view "$PACKAGE_NAME" versions --json > "$RUNNER_TEMP/npm-versions.json"
+          node -e '
+            const fs = require("node:fs");
+            const versions = JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP + "/npm-versions.json", "utf8"));
+            if (!Array.isArray(versions) || !versions.every(version => typeof version === "string")) throw new Error("Unexpected npm versions response");
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `exists=${versions.includes(process.env.PACKAGE_VERSION)}\n`);
+          '
 
       - name: Publish to npm
         if: steps.published.outputs.exists != 'true'
